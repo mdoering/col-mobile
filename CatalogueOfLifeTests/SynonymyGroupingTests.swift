@@ -28,7 +28,7 @@ struct SynonymyGroupingTests {
                 [synonymEntry("B1", name: "B one"), synonymEntry("B2", name: "B two")]
             ]
         )
-        let groups = SynonymyGroup.group(synonymsDTO: dto)
+        let groups = SynonymyGroup.group(synonymsDTO: dto, parentId: "T1")
         let homo = groups.filter { $0.kind == .homotypic }
         let hetero = groups.filter { $0.kind == .heterotypic }
         #expect(homo.count == 1)
@@ -48,7 +48,7 @@ struct SynonymyGroupingTests {
                 [synonymEntry("X2", name: "X two")]
             ]
         )
-        let groups = SynonymyGroup.group(synonymsDTO: dto)
+        let groups = SynonymyGroup.group(synonymsDTO: dto, parentId: "T1")
         #expect(groups.allSatisfy { $0.kind == .heterotypic })
         #expect(groups.count == 2)
     }
@@ -60,6 +60,6 @@ struct SynonymyGroupingTests {
             heterotypic: [],
             heterotypicGroups: []
         )
-        #expect(SynonymyGroup.group(synonymsDTO: dto).isEmpty)
+        #expect(SynonymyGroup.group(synonymsDTO: dto, parentId: "T1").isEmpty)
     }
 }

@@ -23,13 +23,13 @@ extension SynonymyGroup {
     ///
     /// We emit one `.homotypic` group (if non-empty) followed by one `.heterotypic`
     /// group per basionym bucket (if non-empty).
-    static func group(synonymsDTO: TaxonInfoDTO.SynonymsDTO) -> [SynonymyGroup] {
+    static func group(synonymsDTO: TaxonInfoDTO.SynonymsDTO, parentId: String) -> [SynonymyGroup] {
         var groups: [SynonymyGroup] = []
 
         // Homotypic: all share a single group
         let homoEntries = (synonymsDTO.homotypic ?? []).map { entry(from: $0) }
         if !homoEntries.isEmpty {
-            groups.append(SynonymyGroup(id: "homotypic", kind: .homotypic, entries: homoEntries))
+            groups.append(SynonymyGroup(id: "\(parentId)/homotypic", kind: .homotypic, entries: homoEntries))
         }
 
         // Heterotypic: one group per basionym bucket
@@ -37,8 +37,8 @@ extension SynonymyGroup {
         for (idx, bucket) in heteroGroups.enumerated() {
             let entries = bucket.map { entry(from: $0) }
             if !entries.isEmpty {
-                let groupId = entries.first.map { "heterotypic-\($0.id)" } ?? "heterotypic-\(idx)"
-                groups.append(SynonymyGroup(id: groupId, kind: .heterotypic, entries: entries))
+                let firstEntryId = entries.first.map { $0.id } ?? "\(idx)"
+                groups.append(SynonymyGroup(id: "\(parentId)/heterotypic/\(firstEntryId)", kind: .heterotypic, entries: entries))
             }
         }
 
@@ -46,7 +46,7 @@ extension SynonymyGroup {
         // use the flat list as a single heterotypic group.
         if heteroGroups.isEmpty, let flatHetero = synonymsDTO.heterotypic, !flatHetero.isEmpty {
             let entries = flatHetero.map { entry(from: $0) }
-            groups.append(SynonymyGroup(id: "heterotypic", kind: .heterotypic, entries: entries))
+            groups.append(SynonymyGroup(id: "\(parentId)/heterotypic-flat", kind: .heterotypic, entries: entries))
         }
 
         return groups

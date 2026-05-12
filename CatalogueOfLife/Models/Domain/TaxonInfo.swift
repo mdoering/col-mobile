@@ -25,14 +25,14 @@ extension TaxonInfo {
         let classification = (dto.classification ?? []).map {
             ClassificationItem(id: $0.id, name: $0.name, rank: Rank(apiValue: $0.rank))
         }
-        let synonymyGroups = dto.synonyms.map { SynonymyGroup.group(synonymsDTO: $0) } ?? []
+        let synonymyGroups = dto.synonyms.map { SynonymyGroup.group(synonymsDTO: $0, parentId: u.id) } ?? []
         let vernaculars = (dto.vernacularNames ?? []).map { v in
             VernacularName(
                 id: String(v.id),
                 name: v.name,
                 language: v.language,
-                country: nil,
-                area: nil
+                country: v.country,
+                area: v.area
             )
         }
         self.init(

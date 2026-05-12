@@ -13,5 +13,7 @@ struct TaxonInfoDecodingTests {
         #expect(info.rank == .species)
         #expect(!info.classification.isEmpty)
         #expect(info.classification.contains { $0.rank == .kingdom })
+        #expect(info.vernacularNames.contains { $0.country != nil })
+        #expect(info.vernacularNames.contains { $0.area != nil })
     }
 }
