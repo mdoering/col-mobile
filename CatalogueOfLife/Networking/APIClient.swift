@@ -11,5 +11,7 @@ protocol APIClient: Sendable {
     func getClassification(datasetKey: Int, taxonId: String) async throws -> [ClassificationItem]
     func listSources(datasetKey: Int) async throws -> [Source]
     func getSource(datasetKey: Int, sourceKey: Int) async throws -> Source
+    func getDatasetBreakdown(datasetKey: Int) async throws -> BreakdownNode
+    func getImportMetrics(datasetKey: Int) async throws -> ImportMetrics?
 }
 

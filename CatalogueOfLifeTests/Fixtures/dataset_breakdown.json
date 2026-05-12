@@ -1,0 +1,198 @@
+{
+    "datasetKey": 314965,
+    "breakdown": [
+        {
+            "group": "viruses",
+            "count": 21172,
+            "breakdown": [
+                {
+                    "count": 21172
+                }
+            ]
+        },
+        {
+            "group": "prokaryotes",
+            "count": 29158,
+            "breakdown": [
+                {
+                    "group": "bacteria",
+                    "count": 28083
+                },
+                {
+                    "group": "archaea",
+                    "count": 1050
+                },
+                {
+                    "count": 25
+                }
+            ]
+        },
+        {
+            "group": "eukaryotes",
+            "count": 4548049,
+            "breakdown": [
+                {
+                    "group": "protists",
+                    "count": 103053
+                },
+                {
+                    "group": "plants",
+                    "count": 684023,
+                    "breakdown": [
+                        {
+                            "group": "algae",
+                            "count": 53389
+                        },
+                        {
+                            "group": "bryophytes",
+                            "count": 36703
+                        },
+                        {
+                            "group": "pteridophytes",
+                            "count": 17259
+                        },
+                        {
+                            "group": "angiosperms",
+                            "count": 570069
+                        },
+                        {
+                            "group": "gymnosperms",
+                            "count": 3429
+                        },
+                        {
+                            "count": 3174
+                        }
+                    ]
+                },
+                {
+                    "group": "fungi",
+                    "count": 627152,
+                    "breakdown": [
+                        {
+                            "group": "ascomycetes",
+                            "count": 328641
+                        },
+                        {
+                            "group": "basidiomycetes",
+                            "count": 220988
+                        },
+                        {
+                            "group": "pseudofungi",
+                            "count": 6457
+                        },
+                        {
+                            "group": "otherfungi",
+                            "count": 36821
+                        },
+                        {
+                            "count": 34245
+                        }
+                    ]
+                },
+                {
+                    "group": "animals",
+                    "count": 3125301,
+                    "breakdown": [
+                        {
+                            "group": "arthropods",
+                            "count": 2416916,
+                            "breakdown": [
+                                {
+                                    "group": "insects",
+                                    "count": 2040008,
+                                    "breakdown": [
+                                        {
+                                            "group": "coleoptera",
+                                            "count": 521417
+                                        },
+                                        {
+                                            "group": "diptera",
+                                            "count": 444182
+                                        },
+                                        {
+                                            "group": "lepidoptera",
+                                            "count": 393723
+                                        },
+                                        {
+                                            "group": "hymenoptera",
+                                            "count": 338377
+                                        },
+                                        {
+                                            "group": "hemiptera",
+                                            "count": 170101
+                                        },
+                                        {
+                                            "group": "orthoptera",
+                                            "count": 46774
+                                        },
+                                        {
+                                            "group": "trichoptera",
+                                            "count": 22272
+                                        },
+                                        {
+                                            "group": "otherinsects",
+                                            "count": 101830
+                                        },
+                                        {
+                                            "count": 1332
+                                        }
+                                    ]
+                                },
+                                {
+                                    "group": "arachnids",
+                                    "count": 175458
+                                },
+                                {
+                                    "group": "crustacean",
+                                    "count": 131571
+                                },
+                                {
+                                    "group": "otherarthropods",
+                                    "count": 60641
+                                },
+                                {
+                                    "count": 9238
+                                }
+                            ]
+                        },
+                        {
+                            "group": "molluscs",
+                            "count": 221692,
+                            "breakdown": [
+                                {
+                                    "group": "gastropods",
+                                    "count": 159651
+                                },
+                                {
+                                    "group": "bivalves",
+                                    "count": 38137
+                                },
+                                {
+                                    "group": "othermolluscs",
+                                    "count": 22989
+                                },
+                                {
+                                    "count": 915
+                                }
+                            ]
+                        },
+                        {
+                            "group": "chordates",
+                            "count": 202177
+                        },
+                        {
+                            "group": "otheranimals",
+                            "count": 255497
+                        },
+                        {
+                            "count": 29019
+                        }
+                    ]
+                },
+                {
+                    "count": 8520
+                }
+            ]
+        }
+    ]
+}

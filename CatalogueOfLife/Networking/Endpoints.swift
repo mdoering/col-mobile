@@ -84,4 +84,12 @@ enum Endpoints {
             .appending(path: "source")
             .appending(path: "\(sourceKey)")
     }
+
+    static func datasetBreakdown(datasetKey: Int) -> URL {
+        baseURL.appending(path: "dataset/\(datasetKey)/breakdown")
+    }
+
+    static func importMetrics(datasetKey: Int) -> URL {
+        baseURL.appending(path: "dataset/\(datasetKey)/import")
+    }
 }

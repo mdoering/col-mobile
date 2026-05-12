@@ -84,4 +84,21 @@ actor APIClientLive: APIClient {
         let dto = try await getJSON(url, as: SourceDTO.self)
         return Source(dto: dto)
     }
+
+    func getDatasetBreakdown(datasetKey: Int) async throws -> BreakdownNode {
+        let url = Endpoints.datasetBreakdown(datasetKey: datasetKey)
+        let dto = try await getJSON(url, as: BreakdownDTO.self)
+        return BreakdownNode(
+            id: "root",
+            group: nil,
+            count: dto.breakdown.reduce(0) { $0 + $1.count },
+            children: dto.breakdown.map { BreakdownNode(dto: $0) }
+        )
+    }
+
+    func getImportMetrics(datasetKey: Int) async throws -> ImportMetrics? {
+        let url = Endpoints.importMetrics(datasetKey: datasetKey)
+        let dtos = try await getJSON(url, as: [ImportMetricsDTO].self)
+        return dtos.first.map(ImportMetrics.init(dto:))
+    }
 }

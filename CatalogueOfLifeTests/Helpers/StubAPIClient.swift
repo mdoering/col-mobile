@@ -56,4 +56,18 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
         guard let src = sourceDetail[sourceKey] else { throw APIError.notFound }
         return src
     }
+
+    var datasetBreakdown: [Int: BreakdownNode] = [:]
+    var importMetrics: [Int: ImportMetrics] = [:]
+
+    func getDatasetBreakdown(datasetKey: Int) async throws -> BreakdownNode {
+        if let error { throw error }
+        guard let bd = datasetBreakdown[datasetKey] else { throw APIError.notFound }
+        return bd
+    }
+
+    func getImportMetrics(datasetKey: Int) async throws -> ImportMetrics? {
+        if let error { throw error }
+        return importMetrics[datasetKey]
+    }
 }
