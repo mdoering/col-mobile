@@ -728,23 +728,44 @@ git commit -m "Add APIClient protocol + getDataset endpoint with decoding test"
 
 ## Task 6: List releases endpoint
 
+> **Revised after Task 5 inspected the live API.** Original draft assumed `DatasetDTO.alias == "3LXR"/"3LR"` and a single-`origin` filter. Reality: `alias` is a drifting human label (`"COL26.4 XR"`); `3LXR`/`3LR` are URL aliases that resolve to numeric keys via `/dataset/3LXR` and `/dataset/3LR`. The API distinguishes `origin: "release"` (base) from `origin: "xrelease"` (extended), and accepts repeated `origin` query params so a single call returns both. Sorting depends on the resolved keys, so it lives in Task 7 (AppState) — Task 6 only fetches.
+
 **Files:**
 - Create: `CatalogueOfLifeTests/Fixtures/dataset_list.json`
+- Modify: `CatalogueOfLife/Networking/Endpoints.swift` — broaden `datasetList` to accept multiple origins
 - Modify: `CatalogueOfLife/Networking/APIClientLive.swift` (implement `listReleases`)
 - Create: `CatalogueOfLifeTests/Helpers/StubAPIClient.swift`
-
-`listReleases` calls `/dataset?origin=released&limit=100` and returns a `DatasetRef` array sorted with 3LXR first, 3LR second, then annual releases by `issued` desc.
+- Modify: `CatalogueOfLifeTests/DatasetDecodingTests.swift` (add a decoding test for the list)
 
 - [ ] **Step 6.1: Capture the release list fixture**
 
 ```bash
-curl -s 'https://api.checklistbank.org/dataset?origin=released&limit=100' | python3 -m json.tool > CatalogueOfLifeTests/Fixtures/dataset_list.json
-head -30 CatalogueOfLifeTests/Fixtures/dataset_list.json
+curl -s 'https://api.checklistbank.org/dataset?limit=200&origin=release&origin=xrelease' | python3 -m json.tool > CatalogueOfLifeTests/Fixtures/dataset_list.json
+python3 -c "import json; d=json.load(open('CatalogueOfLifeTests/Fixtures/dataset_list.json')); print('total:', d['total'], 'origins:', sorted({r['origin'] for r in d['result']}))"
 ```
 
-Expected: a paged response with `"result": [ ... ]`, `total`, `offset`, `limit`. Look for `"alias": "3LXR"` and `"alias": "3LR"` somewhere in `result`. If the response omits one of them, append a stub entry manually (with `alias`, `key`, `title`) to make the test deterministic — and add a `// fixture supplemented` comment at the top of the file.
+Expected: ~40+ entries with origins `{'release','xrelease'}`. The fixture is a snapshot; tests must not depend on the exact count or on specific aliases.
 
-- [ ] **Step 6.2: Write `StubAPIClient.swift`** (used by ViewModel tests in Task 8 and later)
+- [ ] **Step 6.2: Broaden `Endpoints.datasetList` to accept multiple origins**
+
+Replace the existing function in `Endpoints.swift`:
+
+```swift
+static func datasetList(limit: Int = 200, offset: Int = 0, origins: [String] = ["release", "xrelease"]) -> URL {
+    var c = URLComponents(url: baseURL.appending(path: "dataset"), resolvingAgainstBaseURL: false)!
+    var items: [URLQueryItem] = [
+        URLQueryItem(name: "limit", value: String(limit)),
+        URLQueryItem(name: "offset", value: String(offset)),
+    ]
+    items.append(contentsOf: origins.map { URLQueryItem(name: "origin", value: $0) })
+    c.queryItems = items
+    return c.url!
+}
+```
+
+The API accepts repeated `origin` query params (verified: `?origin=release&origin=xrelease` returns 200 with both kinds in `result`).
+
+- [ ] **Step 6.3: Write `StubAPIClient.swift`** (used by ViewModel tests starting in Task 10)
 
 ```swift
 import Foundation
@@ -781,45 +802,22 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
 }
 ```
 
-- [ ] **Step 6.3: Write decoding + sort test**
-
-`CatalogueOfLifeTests/DatasetDecodingTests.swift` — add a new test to the existing suite:
+- [ ] **Step 6.4: Add a decoding test to `DatasetDecodingTests.swift`**
 
 ```swift
-@Test("Decodes /dataset list and sorts 3LXR / 3LR first")
-func decodesAndSortsReleases() throws {
+@Test("Decodes /dataset list and surfaces both origins")
+func decodesReleaseList() throws {
     let data = try FixtureLoader.data("dataset_list")
     let paged = try JSONDecoder().decode(PagedDTO<DatasetDTO>.self, from: data)
     let refs = paged.result.map(DatasetRef.init(dto:))
-    let sorted = DatasetRef.sortedForPicker(refs)
-    #expect(sorted.first?.alias == "3LXR")
-    #expect(sorted.dropFirst().first?.alias == "3LR")
+    #expect(!refs.isEmpty)
+    let origins = Set(refs.compactMap(\.origin))
+    #expect(origins.contains("release"))
+    #expect(origins.contains("xrelease"))
 }
 ```
 
-- [ ] **Step 6.4: Implement `sortedForPicker` on `DatasetRef`**
-
-Add to `DatasetRef.swift`:
-
-```swift
-extension DatasetRef {
-    static func sortedForPicker(_ refs: [DatasetRef]) -> [DatasetRef] {
-        refs.sorted { a, b in
-            func rank(_ r: DatasetRef) -> Int {
-                switch r.alias {
-                case "3LXR": 0
-                case "3LR": 1
-                default: 2
-                }
-            }
-            let ra = rank(a), rb = rank(b)
-            if ra != rb { return ra < rb }
-            // Both are annuals (or both non-alias): newer issued first.
-            return (a.issued ?? "") > (b.issued ?? "")
-        }
-    }
-}
-```
+(The test asserts on shape, not on specific keys or aliases — the fixture is a moving target.)
 
 - [ ] **Step 6.5: Implement `listReleases` in `APIClientLive`**
 
@@ -827,39 +825,89 @@ Replace the stub:
 
 ```swift
 func listReleases() async throws -> [DatasetRef] {
-    let paged = try await getJSON(Endpoints.datasetList(limit: 100), as: PagedDTO<DatasetDTO>.self)
-    return DatasetRef.sortedForPicker(paged.result.map(DatasetRef.init(dto:)))
+    let paged = try await getJSON(Endpoints.datasetList(), as: PagedDTO<DatasetDTO>.self)
+    return paged.result.map(DatasetRef.init(dto:))
 }
 ```
 
-- [ ] **Step 6.6: Run tests**
+No sorting here — Task 7's `AppState` sorts using the resolved 3LXR/3LR numeric keys.
+
+- [ ] **Step 6.6: Add `DatasetRef.sortedForPicker(_:latestExtendedKey:latestBaseKey:)`**
+
+Append to `DatasetRef.swift`:
+
+```swift
+extension DatasetRef {
+    /// Sort: latest extended (matches `latestExtendedKey`) first, latest base (matches `latestBaseKey`) second,
+    /// remaining releases by `issued` descending. Pass `nil` for unknown resolved keys (they then rank as "other").
+    static func sortedForPicker(_ refs: [DatasetRef],
+                                 latestExtendedKey: Int?,
+                                 latestBaseKey: Int?) -> [DatasetRef] {
+        refs.sorted { a, b in
+            func rank(_ r: DatasetRef) -> Int {
+                if let k = latestExtendedKey, r.key == k { return 0 }
+                if let k = latestBaseKey, r.key == k { return 1 }
+                return 2
+            }
+            let ra = rank(a), rb = rank(b)
+            if ra != rb { return ra < rb }
+            return (a.issued ?? "") > (b.issued ?? "")
+        }
+    }
+}
+```
+
+- [ ] **Step 6.7: Add a sort test**
+
+Add to `DatasetDecodingTests.swift`:
+
+```swift
+@Test("sortedForPicker puts latest extended first, latest base second, others by issued desc")
+func sortPlacesLatestReleasesFirst() {
+    let refs = [
+        DatasetRef(key: 11, alias: "COL24",    title: "C", version: nil, issued: "2024-01-01", origin: "release",  citation: nil),
+        DatasetRef(key: 12, alias: "COL26.4 XR", title: "C", version: nil, issued: "2026-04-01", origin: "xrelease", citation: nil),
+        DatasetRef(key: 13, alias: "COL26.4",  title: "C", version: nil, issued: "2026-04-15", origin: "release",  citation: nil),
+        DatasetRef(key: 14, alias: "COL25",    title: "C", version: nil, issued: "2025-01-01", origin: "release",  citation: nil),
+    ]
+    let sorted = DatasetRef.sortedForPicker(refs, latestExtendedKey: 12, latestBaseKey: 13)
+    #expect(sorted.map(\.key) == [12, 13, 14, 11])
+}
+```
+
+- [ ] **Step 6.8: Run tests**
 
 ```bash
 xcodegen generate
-xcodebuild -scheme CatalogueOfLife -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' test -only-testing:CatalogueOfLifeTests/DatasetDecodingTests -quiet
+xcodebuild -scheme CatalogueOfLife -destination 'platform=iOS Simulator,name=iPhone 16e,OS=latest' test -only-testing:CatalogueOfLifeTests/DatasetDecodingTests -quiet
 ```
 
-Expected: both dataset tests pass.
+Expected: 3 tests pass (the original `decodes3LXR`, plus `decodesReleaseList` and `sortPlacesLatestReleasesFirst`).
 
-- [ ] **Step 6.7: Commit**
+- [ ] **Step 6.9: Commit**
 
 ```bash
 git add CatalogueOfLife CatalogueOfLifeTests
-git commit -m "Add listReleases endpoint with 3LXR/3LR-first sort"
+git commit -m "Add listReleases endpoint with sortedForPicker(latestExtendedKey:latestBaseKey:)"
 ```
 
 ---
 
-## Task 7: AppState and dataset-key resolution
+## Task 7: AppState — releases + 3LXR/3LR resolution + GBIF rule
+
+> **Revised after Task 5 inspected the live API.** GBIF availability cannot be derived from `DatasetRef` alone — `3LXR` and `3LR` are URL aliases, not field values. Resolve them at launch by calling `/dataset/3LXR` and `/dataset/3LR`; cache the numeric keys; compare `selectedDatasetKey` against those.
 
 **Files:**
 - Create: `CatalogueOfLife/App/AppState.swift`
 - Create: `CatalogueOfLifeTests/AppStateTests.swift`
 
 `AppState` holds:
-- `availableReleases: [DatasetRef]` — loaded on launch
-- `selectedDataset: DatasetRef?` — derived from `selectedDatasetKey` UserDefault
-- `preferredVernacularLang: String?` — UserDefault, ISO 639-3 code
+- `availableReleases: [DatasetRef]` — sorted with latest extended/base at the top
+- `latestExtendedKey: Int?` and `latestBaseKey: Int?` — resolved from `/dataset/3LXR` and `/dataset/3LR`
+- `selectedDatasetKey: Int` — persisted to UserDefaults
+- `preferredVernacularLang: String?` — persisted to UserDefaults (ISO 639-3)
+- derived `gbifAvailable: Bool`
+- derived `selectedDataset: DatasetRef?`
 
 - [ ] **Step 7.1: Write `AppState.swift`**
 
@@ -874,10 +922,11 @@ final class AppState {
     private let defaults: UserDefaults
 
     var availableReleases: [DatasetRef] = []
+    private(set) var latestExtendedKey: Int?
+    private(set) var latestBaseKey: Int?
     private(set) var loadReleasesError: APIError?
 
     /// Numeric key of the user's selected dataset. Persists across launches.
-    /// Stored, not computed, so `@Observable` tracks it for SwiftUI re-renders.
     var selectedDatasetKey: Int {
         didSet { defaults.set(selectedDatasetKey, forKey: Keys.selectedDatasetKey) }
     }
@@ -897,8 +946,12 @@ final class AppState {
         availableReleases.first { $0.key == selectedDatasetKey }
     }
 
+    /// True only when the user has selected the latest extended (3LXR) or base (3LR) release.
+    /// GBIF's COL checklist tracks identifiers from those two specific releases.
     var gbifAvailable: Bool {
-        selectedDataset?.supportsGBIF == true
+        let k = selectedDatasetKey
+        return (latestExtendedKey.map { $0 == k } ?? false)
+            || (latestBaseKey.map { $0 == k } ?? false)
     }
 
     init(client: APIClient, defaults: UserDefaults = .standard) {
@@ -908,15 +961,39 @@ final class AppState {
         self.preferredVernacularLang = defaults.string(forKey: Keys.preferredVernacularLang)
     }
 
+    /// Load the release list and resolve the current 3LXR / 3LR numeric keys in parallel.
+    /// Sorts the list and applies a default selection if none persists.
     func loadReleases() async {
+        async let extendedTask: DatasetRef? = try? await client.getDataset("3LXR")
+        async let baseTask: DatasetRef? = try? await client.getDataset("3LR")
         do {
-            let releases = try await client.listReleases()
-            self.availableReleases = releases
-            if !releases.contains(where: { $0.key == selectedDatasetKey }) {
-                // Default to 3LXR (or the first available release if 3LXR is missing).
-                if let extended = releases.first(where: { $0.alias == "3LXR" }) {
-                    self.selectedDatasetKey = extended.key
-                } else if let first = releases.first {
+            let raw = try await client.listReleases()
+            let extended = await extendedTask
+            let base = await baseTask
+
+            self.latestExtendedKey = extended?.key
+            self.latestBaseKey = base?.key
+
+            // Merge the two resolved refs into the list so they appear even if not in /dataset
+            // (they almost always will be, but if not, we want them present so the picker shows them).
+            var merged = raw
+            for ref in [extended, base].compactMap({ $0 }) where !merged.contains(where: { $0.key == ref.key }) {
+                merged.append(ref)
+            }
+
+            self.availableReleases = DatasetRef.sortedForPicker(
+                merged,
+                latestExtendedKey: extended?.key,
+                latestBaseKey: base?.key
+            )
+
+            // On first launch (or if stored selection has disappeared), default to the latest extended release.
+            if !availableReleases.contains(where: { $0.key == selectedDatasetKey }) {
+                if let extendedKey = extended?.key {
+                    self.selectedDatasetKey = extendedKey
+                } else if let baseKey = base?.key {
+                    self.selectedDatasetKey = baseKey
+                } else if let first = availableReleases.first {
                     self.selectedDatasetKey = first.key
                 }
             }
@@ -935,7 +1012,11 @@ final class AppState {
 }
 ```
 
-- [ ] **Step 7.2: Write tests**
+- [ ] **Step 7.2: Extend `StubAPIClient`** to support the parallel `getDataset("3LXR"/"3LR")` calls
+
+Already supported via `datasetByKey` (introduced in Task 6 Step 6.3). Tests set entries for both `"3LXR"` and `"3LR"` keys.
+
+- [ ] **Step 7.3: Write tests**
 
 ```swift
 import Testing
@@ -945,7 +1026,6 @@ import Foundation
 @Suite("AppState")
 @MainActor
 struct AppStateTests {
-    /// Build a fresh isolated `UserDefaults` for this test (no leakage between tests).
     private func freshDefaults() -> UserDefaults {
         let suite = "AppStateTests-\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: suite)!
@@ -953,34 +1033,72 @@ struct AppStateTests {
         return defaults
     }
 
-    @Test("Defaults to 3LXR when no prior selection")
-    func defaultsTo3LXR() async {
-        let defaults = freshDefaults()
+    private func sampleStub() -> StubAPIClient {
         let stub = StubAPIClient()
+        let extended = DatasetRef(key: 100, alias: "COL26.4 XR", title: "Catalogue of Life",
+                                   version: "2026-04-15", issued: "2026-04-15", origin: "xrelease", citation: nil)
+        let base = DatasetRef(key: 200, alias: "COL26.4", title: "Catalogue of Life",
+                               version: "2026-04-15", issued: "2026-04-15", origin: "release", citation: nil)
+        let annual = DatasetRef(key: 300, alias: "COL24", title: "Catalogue of Life",
+                                 version: "2024-01-01", issued: "2024-01-01", origin: "release", citation: nil)
+        stub.datasetByKey["3LXR"] = extended
+        stub.datasetByKey["3LR"] = base
+        stub.releases = [annual, base, extended]
+        return stub
+    }
+
+    @Test("Defaults to latest extended release when no prior selection")
+    func defaultsToLatestExtended() async {
+        let defaults = freshDefaults()
+        let stub = sampleStub()
         let state = AppState(client: stub, defaults: defaults)
-        stub.releases = [
-            DatasetRef(key: 1, alias: "3LR", title: "Base", version: nil, issued: nil, citation: nil),
-            DatasetRef(key: 2, alias: "3LXR", title: "Extended", version: nil, issued: nil, citation: nil),
-            DatasetRef(key: 3, alias: nil, title: "2024 Annual", version: nil, issued: "2024-12-01", citation: nil)
-        ]
         await state.loadReleases()
-        #expect(state.selectedDataset?.alias == "3LXR")
+        #expect(state.selectedDatasetKey == 100)
         #expect(state.gbifAvailable == true)
+        #expect(state.availableReleases.map(\.key) == [100, 200, 300])
+    }
+
+    @Test("Selecting the latest base release also enables gbifAvailable")
+    func baseReleaseEnablesGBIF() async {
+        let defaults = freshDefaults()
+        let stub = sampleStub()
+        let state = AppState(client: stub, defaults: defaults)
+        await state.loadReleases()
+        state.selectedDatasetKey = 200
+        #expect(state.gbifAvailable == true)
+    }
+
+    @Test("Selecting an annual release disables gbifAvailable")
+    func annualDisablesGBIF() async {
+        let defaults = freshDefaults()
+        let stub = sampleStub()
+        let state = AppState(client: stub, defaults: defaults)
+        await state.loadReleases()
+        state.selectedDatasetKey = 300
+        #expect(state.gbifAvailable == false)
     }
 
     @Test("Honors stored selection if still available")
     func honorsStoredSelection() async {
         let defaults = freshDefaults()
-        defaults.set(3, forKey: "selectedDatasetKey")    // seed BEFORE constructing AppState
-        let stub = StubAPIClient()
+        defaults.set(300, forKey: "selectedDatasetKey")
+        let stub = sampleStub()
         let state = AppState(client: stub, defaults: defaults)
-        stub.releases = [
-            DatasetRef(key: 2, alias: "3LXR", title: "Extended", version: nil, issued: nil, citation: nil),
-            DatasetRef(key: 3, alias: nil, title: "2024 Annual", version: nil, issued: "2024-12-01", citation: nil)
-        ]
         await state.loadReleases()
-        #expect(state.selectedDataset?.key == 3)
+        #expect(state.selectedDatasetKey == 300)
         #expect(state.gbifAvailable == false)
+    }
+
+    @Test("Resolves alias keys even when /dataset list omits them")
+    func mergesResolvedAliases() async {
+        let defaults = freshDefaults()
+        let stub = sampleStub()
+        // Simulate the unusual case where /dataset doesn't return the extended release in the page.
+        stub.releases = stub.releases.filter { $0.key != 100 }
+        let state = AppState(client: stub, defaults: defaults)
+        await state.loadReleases()
+        #expect(state.availableReleases.contains(where: { $0.key == 100 }))
+        #expect(state.selectedDatasetKey == 100)
     }
 
     @Test("Vernacular preference round-trips through UserDefaults")
@@ -995,20 +1113,20 @@ struct AppStateTests {
 }
 ```
 
-- [ ] **Step 7.3: Run AppState tests**
+- [ ] **Step 7.4: Run AppState tests**
 
 ```bash
 xcodegen generate
-xcodebuild -scheme CatalogueOfLife -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' test -only-testing:CatalogueOfLifeTests/AppStateTests -quiet
+xcodebuild -scheme CatalogueOfLife -destination 'platform=iOS Simulator,name=iPhone 16e,OS=latest' test -only-testing:CatalogueOfLifeTests/AppStateTests -quiet
 ```
 
-Expected: 3 tests pass.
+Expected: 6 tests pass.
 
-- [ ] **Step 7.4: Commit**
+- [ ] **Step 7.5: Commit**
 
 ```bash
 git add CatalogueOfLife/App/AppState.swift CatalogueOfLifeTests/AppStateTests.swift
-git commit -m "Add AppState with release loading, default-to-3LXR, and vernacular preference"
+git commit -m "Add AppState with /dataset/3LXR + 3LR resolution and key-based gbifAvailable"
 ```
 
 ---
