@@ -24,7 +24,7 @@ struct RootTabView: View {
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }
             SourcesView()
                 .tabItem { Label("Sources", systemImage: "books.vertical") }
-            TabPlaceholderView(title: "Metrics", symbol: "chart.pie")
+            MetricsView()
                 .tabItem { Label("Metrics", systemImage: "chart.pie") }
             TabPlaceholderView(title: "About", symbol: "info.circle")
                 .tabItem { Label("About", systemImage: "info.circle") }
