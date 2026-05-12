@@ -1,0 +1,1704 @@
+{
+    "offset": 0,
+    "limit": 10,
+    "total": 483,
+    "result": [
+        {
+            "id": "4JQ8",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:31:04.056766",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:31:04.056766",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "4JQ8",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319070424,
+                "name": {
+                    "created": "2026-04-18T21:07:31.103194",
+                    "createdBy": 102,
+                    "modified": "2026-04-18T21:07:31.103194",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "bxfXl_BUb3tcBKI0rJvky0",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319070424,
+                    "namesIndexId": 8679477,
+                    "namesIndexType": "variant",
+                    "identifier": [
+                        "zoobank:013cdb4b-1b27-43da-94d1-2bf614fe6c29",
+                        "zoobank:01724bd2-ca9f-49b0-b6a9-a6f37734af19",
+                        "zoobank:03e385ac-1f78-4741-9082-81b2ec94a700",
+                        "zoobank:0554eb11-2b73-4d46-99eb-9003754d7c7d",
+                        "zoobank:07355832-9a1f-419b-a507-e69a54b3a840",
+                        "zoobank:076c9cfa-6af1-42d1-987e-f60e9528905d",
+                        "zoobank:07c28d99-24c0-46a9-af33-b31d38ae40f6",
+                        "zoobank:08c65b56-0c48-47f3-b79c-4db705253472",
+                        "zoobank:0a9aa986-4551-49d1-8cf9-373daf6ba021",
+                        "zoobank:0c11a8a1-4546-4dd0-86de-de3950dda21d",
+                        "zoobank:d4b89a36-160b-4a48-b9a5-9767eac23f79",
+                        "zoobank:~3ML",
+                        "zoobank:~3MN",
+                        "zoobank:~3MQ",
+                        "zoobank:~3MS",
+                        "zoobank:~3MV",
+                        "zoobank:~3MX",
+                        "zoobank:~3MZ",
+                        "zoobank:0eed3191-9268-40ec-8444-9ca28530fa83",
+                        "zoobank:0fe6de60-28e9-4f3a-b8fb-d8ca99c27144",
+                        "zoobank:1114541a-a0f9-41a9-a59d-a93768df981c",
+                        "zoobank:11a04af8-c273-4e0b-9a92-d2a64924ae5d",
+                        "zoobank:14bad653-a935-43d7-a44a-412be13f615f",
+                        "zoobank:19b57c1b-046e-436d-b05a-c543156ad1b1",
+                        "zoobank:1ddee1c3-2bd1-4086-be2b-70923737a8bb",
+                        "zoobank:1f9417d8-c92d-42e7-a01c-eab4e17e9ffe",
+                        "zoobank:2295b8d4-9613-4e8d-bd9a-835adfc07714",
+                        "zoobank:271e78c3-5cd9-4cd7-8a6f-3351ac9ad061",
+                        "zoobank:28f83cab-e268-47dd-939b-b8fb9deab96a",
+                        "zoobank:2ae45a8a-4aea-4f6d-962b-2ad82961fd6c",
+                        "zoobank:2c5f0c8b-48d5-42dc-a642-226d87c0576f",
+                        "zoobank:2e885e19-1453-4138-91b8-0646e464b471",
+                        "zoobank:30848502-f238-462d-8d0b-3b6324f9343b",
+                        "zoobank:317cd2df-fb3e-4dec-a9ba-c0327a2ac2a0",
+                        "zoobank:33988c5e-3b72-4753-9d92-8d06d7ce9179",
+                        "zoobank:33b6d253-dfe2-46a7-9314-9b0be4c161f3",
+                        "zoobank:34ddd246-89ab-4d50-aeed-2b3345e76323",
+                        "zoobank:368218e8-ba0a-4587-8228-024dc4c7f4e9",
+                        "zoobank:3701adc8-4a24-47b2-97b6-e3f2dd621fc5",
+                        "zoobank:37815177-e4d2-413d-9dcc-20001832c69b",
+                        "zoobank:3ab8fff6-88c5-4b5a-b2f6-b0ae6e44a497",
+                        "zoobank:3bf9ea30-c53b-4d7f-aa14-315ee738238a",
+                        "zoobank:3fa7cced-46c0-4a04-97f2-23253e8e366f",
+                        "zoobank:40530db0-3d23-4159-9692-bf727977ed10",
+                        "zoobank:43d09991-bba4-4fd6-9f12-d7813f89a337",
+                        "zoobank:43eeba0b-d491-434e-8be5-56eafd33b2be",
+                        "zoobank:45f429f0-bf42-4784-b425-1d74c38d45cc",
+                        "zoobank:4d6294fd-9a16-4772-b7e6-12d4d1e27757",
+                        "zoobank:4dafbadc-d3dd-4030-9a5f-626c776f3902",
+                        "zoobank:4e141717-b3a0-4e75-a483-618d6f6c84f2",
+                        "zoobank:4fbd035d-e080-4363-a37a-714ca4ef35d7",
+                        "zoobank:505e5a11-e922-45e9-8f35-df0256a9aec5",
+                        "zoobank:50a50b6f-3607-499f-b2c9-a0ebdfb31fa5",
+                        "zoobank:582a5715-59e2-4664-af52-0979f1965e94",
+                        "zoobank:58dc3813-3a4f-4f26-b88e-d909b9cc72a3",
+                        "zoobank:5ed43419-115e-4070-a778-d0549fd866a9",
+                        "zoobank:646c1b6d-5b46-441e-af0a-093bf9ea726d",
+                        "zoobank:6afc3d2f-4fa6-4aab-8d7c-b68b95fbe6ec",
+                        "zoobank:6be541ca-4d57-4cdf-9156-1062fb3638d8",
+                        "zoobank:6c451f7b-d3d4-4305-b35f-111954461378",
+                        "zoobank:6d30f5f4-7ea1-4965-91ca-7822ba04ed1f",
+                        "zoobank:723e5952-0f5b-43d7-b485-c2864a20155c",
+                        "zoobank:72a20c2d-7f91-40f6-8402-91babb0e7de5",
+                        "zoobank:72d5982b-ddab-4bc3-97eb-e6a6a8e69142",
+                        "zoobank:756b205c-4ec1-43a8-9fc6-a81e6c46ead0",
+                        "zoobank:8140c09e-20d8-4916-be13-18b6dc3d253d",
+                        "zoobank:8745618c-e971-4562-bb29-2843542082d7",
+                        "zoobank:88b5a092-e169-413f-8e0a-381761b8628c",
+                        "zoobank:8a70269c-b329-4758-a952-1ce981b42b69",
+                        "zoobank:8b1832ce-7ed9-47af-8934-717bb0d7b382",
+                        "zoobank:8f0472ce-8346-40c8-9b1d-f1804c7804b5",
+                        "zoobank:8f3665b2-1ffc-4b15-a854-1195576f38c9",
+                        "zoobank:8fa86e5f-f973-494f-b4de-b0dcbb3c9bd9",
+                        "zoobank:91c6b91c-c8e3-4e42-a107-7dc3c9dc6271",
+                        "zoobank:935a50bc-3001-48f9-b319-75beb028ca4f",
+                        "zoobank:93990370-7e3f-4d39-9903-158cc512a127",
+                        "zoobank:97acbc2f-8b90-4a35-9460-2ffaaa519232",
+                        "zoobank:9846d5f5-e5d0-4b6f-9c25-3aba65c4e0fc",
+                        "zoobank:9b7f163f-0759-4eda-9221-786d65209279",
+                        "zoobank:9d4df375-b305-4051-b7c0-6ee6fb44a871",
+                        "zoobank:a070da1f-6f49-495e-bd05-10b1a08f831c",
+                        "zoobank:ac6cd772-02e4-4a88-8c9d-30f96a8ade0b",
+                        "zoobank:ad67af44-347b-4ba2-affc-559c6ead13b8",
+                        "zoobank:ae4e9759-943a-4bd0-94b8-b24dbc9ba49c",
+                        "zoobank:b01d336f-2951-46da-9759-8d2dd8a14762",
+                        "zoobank:b163382b-251c-4f5a-8630-fdcd88974fb8",
+                        "zoobank:b2aebe27-8e90-4140-8915-d324ef0081fd",
+                        "zoobank:b45414cd-c34c-4d83-9d25-ceb700ec7b41",
+                        "zoobank:b66ff9f7-a9b1-42d2-8779-8c81d90d2f11",
+                        "zoobank:b73b2859-d6f5-48f2-a5a0-8fb1fc6d44dc",
+                        "zoobank:b7f649fe-a01b-4b40-9f61-2a542712160e",
+                        "zoobank:bdfa6640-2da4-4dcb-a229-bb63b32ba510",
+                        "zoobank:be78a5b6-709a-4121-8343-96aa9148bad5",
+                        "zoobank:c15de5bd-bdb7-41be-bd47-4e7d96aa3ae2",
+                        "zoobank:c4607a07-6127-4678-8016-29e5c2ad347c",
+                        "zoobank:c49e057f-6abd-40b5-899f-de80d0f56f3c",
+                        "zoobank:c94b7f82-6e3b-403a-8c23-e5e14b7fc93d",
+                        "zoobank:caef2456-bdcb-4f0f-a459-8e99e8045c59",
+                        "zoobank:cafdab3c-fc66-426a-8367-3219facdbfcf",
+                        "zoobank:d1c1738f-239e-45ab-8efb-0d815736c6d2",
+                        "zoobank:d2dfa69c-7c38-49df-b1cf-3c84da7c0fcd",
+                        "zoobank:d4684769-df7c-423d-ab7f-db41f7be290e",
+                        "zoobank:d4e3c53f-f9aa-4e7d-9b6e-2ae7e51bd04c",
+                        "zoobank:d8f017aa-997b-405f-ab52-e9f07e0bb755",
+                        "zoobank:dc98b0f1-983a-4a18-9f98-1604ba9eb3cd",
+                        "zoobank:dea67db7-7514-4425-9bd7-a520633330b9",
+                        "zoobank:e0493cc6-4bc9-4c61-94d0-d11e655974d3",
+                        "zoobank:e16ef1e8-be39-4ffa-a3c4-6bbc98c2c2ef",
+                        "zoobank:e3edcc95-d4e2-4982-abd3-14226ba9dcaa",
+                        "zoobank:e5dae875-55ee-4d1d-8bde-56f1577b7436",
+                        "zoobank:eafd81dd-1762-4df3-8ced-b8c7bdf891cb",
+                        "zoobank:ed70bef3-e1d7-46d9-96b1-5531ddf2d497",
+                        "zoobank:f045f382-1c3e-4eb7-9969-db110e3f13c5",
+                        "zoobank:f50f278f-9356-4206-a8f2-533b8fef7e4d",
+                        "zoobank:f58bc596-aefb-4835-b315-7403254409bb",
+                        "zoobank:f7c0450c-3177-47f7-be82-6b4dca4eae20",
+                        "zoobank:f7d5d371-6997-4268-99de-3cbd37e37f95",
+                        "zoobank:f9d5bacf-86ce-4d61-bb4d-b4b3f55eb12a",
+                        "zoobank:fd6d775b-7c0f-4610-ae42-bef438e995d0"
+                    ],
+                    "scientificName": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "uninomial": "Felis",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Linnaeus"
+                        ],
+                        "year": "1758"
+                    },
+                    "code": "zoological",
+                    "nomStatus": "acceptable",
+                    "publishedInId": "e2b8098e-f5f9-4111-bec5-9126a6608011",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=180586",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000224",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Linnaeus"
+                        ],
+                        "year": "1758"
+                    }
+                },
+                "status": "accepted",
+                "origin": "source",
+                "parentId": "JKL",
+                "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=180586",
+                "referenceIds": [
+                    "bec111f2-aa0b-47fa-a794-81ced5c32f01",
+                    "76d41c80-6a74-425c-9109-d4a40358870b",
+                    "65c09a7e-2028-4be5-b47a-d883cb051d32",
+                    "7b738f3d-6470-4a88-838b-7f6b8514ffdb",
+                    "51e16877-865a-47bf-931b-4513075df625"
+                ],
+                "scrutinizer": "W. Christopher Wozencraft,Alfred L. Gardner",
+                "scrutinizerDate": "2024-06-25",
+                "extinct": false,
+                "label": "Felis Linnaeus, 1758",
+                "labelHtml": "<i>Felis</i> Linnaeus, 1758",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "secondarySourceGroups": [
+                "published in"
+            ],
+            "secondarySourceKeys": [
+                2011
+            ],
+            "group": "chordates",
+            "vernacularNames": [
+                {
+                    "name": "small cats",
+                    "language": "eng"
+                },
+                {
+                    "name": "Cat",
+                    "language": "eng"
+                }
+            ]
+        },
+        {
+            "id": "CJPDR",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "M2L",
+                    "name": "Mollusca",
+                    "rank": "phylum",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mollusca"
+                },
+                {
+                    "id": "7NF3Y",
+                    "name": "Gastropoda",
+                    "authorship": "Cuvier, 1795",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Gastropoda Cuvier, 1795"
+                },
+                {
+                    "id": "9WLSP",
+                    "name": "Caenogastropoda",
+                    "authorship": "L. R. Cox, 1960",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Caenogastropoda L. R. Cox, 1960"
+                },
+                {
+                    "id": "7NFCR",
+                    "name": "Neogastropoda",
+                    "authorship": "Wenz, 1938",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Neogastropoda Wenz, 1938"
+                },
+                {
+                    "id": "7NGHY",
+                    "name": "Buccinoidea",
+                    "authorship": "Rafinesque, 1815",
+                    "rank": "superfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Buccinoidea Rafinesque, 1815"
+                },
+                {
+                    "id": "7NG6S",
+                    "name": "Buccinidae",
+                    "authorship": "Rafinesque, 1815",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Buccinidae Rafinesque, 1815"
+                },
+                {
+                    "id": "87FPT",
+                    "name": "Buccininae",
+                    "authorship": "Rafinesque, 1815",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Buccininae Rafinesque, 1815"
+                },
+                {
+                    "id": "7NR99",
+                    "name": "Buccinum",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Buccinum</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "NL9K",
+                    "name": "Buccinum felis",
+                    "authorship": "(Okutani, 1964)",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Buccinum felis</i> (Okutani, 1964)"
+                },
+                {
+                    "id": "CJPDR",
+                    "name": "Buccinum felis felis",
+                    "authorship": "(Okutani, 1964)",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Buccinum felis felis</i> (Okutani, 1964)"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-07T14:14:46.690452",
+                "createdBy": 304,
+                "modified": "2026-04-07T14:14:46.690452",
+                "modifiedBy": 304,
+                "datasetKey": 314965,
+                "id": "CJPDR",
+                "sectorKey": 1302,
+                "verbatimSourceKey": 317670303,
+                "name": {
+                    "created": "2026-04-07T14:14:46.690452",
+                    "createdBy": 304,
+                    "modified": "2026-04-07T14:14:46.690452",
+                    "modifiedBy": 304,
+                    "datasetKey": 314965,
+                    "id": "lQ-PPtFsLROV6WIS4YcL70",
+                    "sectorKey": 1302,
+                    "verbatimSourceKey": 317670303,
+                    "namesIndexId": 4105158,
+                    "namesIndexType": "exact",
+                    "scientificName": "Buccinum felis felis",
+                    "authorship": "(Okutani, 1964)",
+                    "rank": "subspecies",
+                    "genus": "Buccinum",
+                    "specificEpithet": "felis",
+                    "infraspecificEpithet": "felis",
+                    "basionymAuthorship": {
+                        "authors": [
+                            "Okutani"
+                        ],
+                        "year": "1964"
+                    },
+                    "code": "zoological",
+                    "nomStatus": "established",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.molluscabase.org/aphia.php?p=taxdetails&id=1767099",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Okutani"
+                        ],
+                        "year": "1964"
+                    }
+                },
+                "status": "accepted",
+                "origin": "source",
+                "parentId": "NL9K",
+                "link": "https://www.molluscabase.org/aphia.php?p=taxdetails&id=1767099",
+                "scrutinizer": "Herbert, David",
+                "scrutinizerDate": "2024-08-24",
+                "environments": [
+                    "marine"
+                ],
+                "label": "Buccinum felis felis (Okutani, 1964)",
+                "labelHtml": "<i>Buccinum felis felis</i> (Okutani, 1964)",
+                "merged": false
+            },
+            "sectorDatasetKey": 1130,
+            "group": "gastropods"
+        },
+        {
+            "id": "7HPZV",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "7NF2H",
+                    "name": "Platyhelminthes",
+                    "authorship": "Minot, 1876",
+                    "rank": "phylum",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Platyhelminthes Minot, 1876"
+                },
+                {
+                    "id": "7NF2W",
+                    "name": "Rhabditophora",
+                    "authorship": "Ehlers, 1985",
+                    "rank": "subphylum",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Rhabditophora Ehlers, 1985"
+                },
+                {
+                    "id": "7NFL2",
+                    "name": "Rhabdocoela",
+                    "authorship": "Ehrenberg, 1831",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Rhabdocoela Ehrenberg, 1831"
+                },
+                {
+                    "id": "7NFHN",
+                    "name": "Kalyptorhynchia",
+                    "authorship": "Graff, 1905",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Kalyptorhynchia Graff, 1905"
+                },
+                {
+                    "id": "7NFKN",
+                    "name": "Eukalyptorhynchia",
+                    "authorship": "Meixner, 1928",
+                    "rank": "infraorder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eukalyptorhynchia Meixner, 1928"
+                },
+                {
+                    "id": "7NKL3",
+                    "name": "Polycystididae",
+                    "authorship": "Graff, 1905",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Polycystididae Graff, 1905"
+                },
+                {
+                    "id": "7NM64",
+                    "name": "Polycystidinae",
+                    "authorship": "Schockaert & Karling, 1970",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Polycystidinae Schockaert & Karling, 1970"
+                },
+                {
+                    "id": "7PQJK",
+                    "name": "Paulodora",
+                    "authorship": "Marcus, 1948",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Paulodora</i> Marcus, 1948"
+                },
+                {
+                    "id": "767B9",
+                    "name": "Paulodora felis",
+                    "authorship": "(Marcus, 1954) Artois & Schockaert, 1998",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Paulodora felis</i> (Marcus, 1954) Artois & Schockaert, 1998"
+                },
+                {
+                    "id": "7HPZV",
+                    "name": "Paulodora felis felis",
+                    "authorship": "(Marcus, 1954)",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Paulodora felis felis</i> (Marcus, 1954)"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-07T15:12:13.387018",
+                "createdBy": 304,
+                "modified": "2026-04-07T15:12:13.387018",
+                "modifiedBy": 304,
+                "datasetKey": 314965,
+                "id": "7HPZV",
+                "sectorKey": 1275,
+                "verbatimSourceKey": 318092026,
+                "name": {
+                    "created": "2026-04-07T15:12:13.387018",
+                    "createdBy": 304,
+                    "modified": "2026-04-07T15:12:13.387018",
+                    "modifiedBy": 304,
+                    "datasetKey": 314965,
+                    "id": "WieO1ITOJvct-xlrNtsJG0",
+                    "sectorKey": 1275,
+                    "verbatimSourceKey": 318092026,
+                    "namesIndexId": 16418640,
+                    "namesIndexType": "exact",
+                    "scientificName": "Paulodora felis felis",
+                    "authorship": "(Marcus, 1954)",
+                    "rank": "subspecies",
+                    "genus": "Paulodora",
+                    "specificEpithet": "felis",
+                    "infraspecificEpithet": "felis",
+                    "basionymAuthorship": {
+                        "authors": [
+                            "Marcus"
+                        ],
+                        "year": "1954"
+                    },
+                    "code": "zoological",
+                    "nomStatus": "established",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.marinespecies.org/turbellarians/aphia.php?p=taxdetails&id=485061",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Marcus"
+                        ],
+                        "year": "1954"
+                    }
+                },
+                "status": "accepted",
+                "origin": "source",
+                "parentId": "767B9",
+                "identifier": [
+                    "tsn:1047917"
+                ],
+                "link": "https://www.marinespecies.org/turbellarians/aphia.php?p=taxdetails&id=485061",
+                "scrutinizer": "Artois, Tom",
+                "scrutinizerDate": "2011-10-14",
+                "label": "Paulodora felis felis (Marcus, 1954)",
+                "labelHtml": "<i>Paulodora felis felis</i> (Marcus, 1954)",
+                "merged": false
+            },
+            "sectorDatasetKey": 1193,
+            "group": "otheranimals"
+        },
+        {
+            "id": "KZYHR",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "RT",
+                    "name": "Arthropoda",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Arthropoda"
+                },
+                {
+                    "id": "L2655",
+                    "name": "Hexapoda",
+                    "rank": "subphylum",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Hexapoda"
+                },
+                {
+                    "id": "H6",
+                    "name": "Insecta",
+                    "rank": "class",
+                    "status": "accepted",
+                    "labelHtml": "Insecta"
+                },
+                {
+                    "id": "43J",
+                    "name": "Siphonaptera",
+                    "rank": "order",
+                    "status": "accepted",
+                    "labelHtml": "Siphonaptera"
+                },
+                {
+                    "id": "B8ZBH",
+                    "name": "Pulicomorpha",
+                    "rank": "infraorder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Pulicomorpha"
+                },
+                {
+                    "id": "5LC",
+                    "name": "Pulicoidea",
+                    "rank": "superfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Pulicoidea"
+                },
+                {
+                    "id": "62783",
+                    "name": "Pulicidae",
+                    "authorship": "Billberg, 1820",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Pulicidae Billberg, 1820"
+                },
+                {
+                    "id": "BDHW6",
+                    "name": "Archaeopsyllinae",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Archaeopsyllinae"
+                },
+                {
+                    "id": "BDKGH",
+                    "name": "Archaeopsyllini",
+                    "rank": "tribe",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Archaeopsyllini"
+                },
+                {
+                    "id": "B8XQL",
+                    "name": "Ctenocephalides",
+                    "authorship": "Stiles & Collins, 1930",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Ctenocephalides</i> Stiles & Collins, 1930"
+                },
+                {
+                    "id": "6BMXB",
+                    "name": "Ctenocephalides felis",
+                    "authorship": "(Bouch\u00e9, 1835)",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Ctenocephalides felis</i> (Bouch\u00e9, 1835)"
+                },
+                {
+                    "id": "KZYHR",
+                    "name": "Ctenocephalides felis felis",
+                    "authorship": "(Bouch\u00e9, 1835)",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Ctenocephalides felis felis</i> (Bouch\u00e9, 1835)"
+                }
+            ],
+            "usage": {
+                "created": "2025-09-23T13:54:29.781914",
+                "createdBy": 102,
+                "modified": "2025-09-23T13:54:29.781914",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "KZYHR",
+                "sectorKey": 1842,
+                "verbatimSourceKey": 287676052,
+                "name": {
+                    "created": "2025-09-23T13:54:29.781914",
+                    "createdBy": 102,
+                    "modified": "2025-09-23T13:54:29.781914",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "_a0k7pqb5hPr54yfowzV92",
+                    "sectorKey": 1842,
+                    "verbatimSourceKey": 287676052,
+                    "namesIndexId": 6601097,
+                    "namesIndexType": "variant",
+                    "scientificName": "Ctenocephalides felis felis",
+                    "authorship": "(Bouch\u00e9, 1835)",
+                    "rank": "subspecies",
+                    "genus": "Ctenocephalides",
+                    "specificEpithet": "felis",
+                    "infraspecificEpithet": "felis",
+                    "basionymAuthorship": {
+                        "authors": [
+                            "Bouch\u00e9"
+                        ],
+                        "year": "1835"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Bouch\u00e9"
+                        ],
+                        "year": "1835"
+                    }
+                },
+                "status": "accepted",
+                "origin": "source",
+                "parentId": "6BMXB",
+                "identifier": [
+                    "inat:https://www.inaturalist.org/taxa/313771"
+                ],
+                "scrutinizer": "Michael Hastriter & Robert Bossard",
+                "scrutinizerDate": "2023-06-22",
+                "extinct": false,
+                "label": "Ctenocephalides felis felis (Bouch\u00e9, 1835)",
+                "labelHtml": "<i>Ctenocephalides felis felis</i> (Bouch\u00e9, 1835)",
+                "merged": false
+            },
+            "sectorDatasetKey": 54170,
+            "group": "otherinsects",
+            "vernacularNames": [
+                {
+                    "name": "\u8c93\u86a4",
+                    "language": "zho"
+                },
+                {
+                    "name": "katteloppe",
+                    "language": "nob"
+                },
+                {
+                    "name": "Pulga del gato",
+                    "language": "spa"
+                }
+            ]
+        },
+        {
+            "id": "NTC9L",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "NTC9L",
+                    "name": "Felis",
+                    "authorship": "(Catolynx) Severtzov, 1858",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "provisionally accepted",
+                    "labelHtml": "<i>Felis</i> (Catolynx) Severtzov, 1858"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-19T01:20:23.028547",
+                "createdBy": 643,
+                "modified": "2026-04-19T01:20:23.028547",
+                "modifiedBy": 643,
+                "datasetKey": 314965,
+                "id": "NTC9L",
+                "sectorKey": 2278,
+                "verbatimSourceKey": 322574238,
+                "name": {
+                    "created": "2026-04-19T01:20:23.028547",
+                    "createdBy": 643,
+                    "modified": "2026-04-19T01:20:23.028547",
+                    "modifiedBy": 643,
+                    "datasetKey": 314965,
+                    "id": "~2qVP",
+                    "sectorKey": 2278,
+                    "verbatimSourceKey": 322574238,
+                    "namesIndexId": 8679467,
+                    "namesIndexType": "exact",
+                    "identifier": [
+                        "zoobank:~93Z",
+                        "zoobank:~943"
+                    ],
+                    "scientificName": "Felis",
+                    "authorship": "(Catolynx) Severtzov, 1858",
+                    "rank": "genus",
+                    "uninomial": "Felis",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Severtzov"
+                        ],
+                        "year": "1858"
+                    },
+                    "basionymAuthorship": {
+                        "authors": [
+                            "Catolynx"
+                        ]
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Catolynx"
+                        ]
+                    }
+                },
+                "status": "provisionally accepted",
+                "origin": "source",
+                "parentId": "N",
+                "label": "Felis (Catolynx) Severtzov, 1858",
+                "labelHtml": "<i>Felis</i> (Catolynx) Severtzov, 1858",
+                "merged": true
+            },
+            "sectorDatasetKey": 2037,
+            "sectorPublisherKey": "f2f462db-541d-4a24-9921-892d57e1da9f",
+            "group": "animals"
+        },
+        {
+            "id": "V645Y",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "V645Y",
+                    "name": "Felis",
+                    "authorship": "(Lynx) Kerr, 1792",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "provisionally accepted",
+                    "labelHtml": "<i>Felis</i> (Lynx) Kerr, 1792"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-19T01:20:22.577325",
+                "createdBy": 643,
+                "modified": "2026-04-19T01:20:22.577325",
+                "modifiedBy": 643,
+                "datasetKey": 314965,
+                "id": "V645Y",
+                "sectorKey": 2278,
+                "verbatimSourceKey": 322574180,
+                "name": {
+                    "created": "2026-04-19T01:20:22.577325",
+                    "createdBy": 643,
+                    "modified": "2026-04-19T01:20:22.577325",
+                    "modifiedBy": 643,
+                    "datasetKey": 314965,
+                    "id": "~2qUV",
+                    "sectorKey": 2278,
+                    "verbatimSourceKey": 322574180,
+                    "namesIndexId": 26448833,
+                    "namesIndexType": "exact",
+                    "identifier": [
+                        "zoobank:~8KT"
+                    ],
+                    "scientificName": "Felis",
+                    "authorship": "(Lynx) Kerr, 1792",
+                    "rank": "genus",
+                    "uninomial": "Felis",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Kerr"
+                        ],
+                        "year": "1792"
+                    },
+                    "basionymAuthorship": {
+                        "authors": [
+                            "Lynx"
+                        ]
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Lynx"
+                        ]
+                    }
+                },
+                "status": "provisionally accepted",
+                "origin": "source",
+                "parentId": "N",
+                "label": "Felis (Lynx) Kerr, 1792",
+                "labelHtml": "<i>Felis</i> (Lynx) Kerr, 1792",
+                "merged": true
+            },
+            "sectorDatasetKey": 2037,
+            "sectorPublisherKey": "f2f462db-541d-4a24-9921-892d57e1da9f",
+            "group": "animals"
+        },
+        {
+            "id": "CSNCS",
+            "classification": [
+                {
+                    "id": "CRRY6",
+                    "name": "Bacteria",
+                    "authorship": "Woese et al., 2024",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Bacteria Woese et al., 2024"
+                },
+                {
+                    "id": "CTJFC",
+                    "name": "Bacillati",
+                    "authorship": "(Gibbons & Murray, 1978) Oren & G\u00f6ker 2024",
+                    "rank": "kingdom",
+                    "code": "bacterial",
+                    "status": "accepted",
+                    "labelHtml": "Bacillati (Gibbons & Murray, 1978) Oren & G\u00f6ker 2024"
+                },
+                {
+                    "id": "CSNB6",
+                    "name": "Mycoplasmatota",
+                    "authorship": "Murray, 2021",
+                    "rank": "phylum",
+                    "code": "bacterial",
+                    "status": "accepted",
+                    "labelHtml": "Mycoplasmatota Murray, 2021"
+                },
+                {
+                    "id": "CSPRB",
+                    "name": "Mollicutes",
+                    "authorship": "Edward & Freundt, 1967 (Approved Lists 1980)",
+                    "rank": "class",
+                    "code": "bacterial",
+                    "status": "accepted",
+                    "labelHtml": "Mollicutes Edward & Freundt, 1967 (Approved Lists 1980)"
+                },
+                {
+                    "id": "CSNB8",
+                    "name": "Mycoplasmoidales",
+                    "authorship": "Gupta et al., 2018",
+                    "rank": "order",
+                    "code": "bacterial",
+                    "status": "accepted",
+                    "labelHtml": "Mycoplasmoidales Gupta et al., 2018"
+                },
+                {
+                    "id": "CSLQ4",
+                    "name": "Metamycoplasmataceae",
+                    "authorship": "Gupta et al., 2018",
+                    "rank": "family",
+                    "code": "bacterial",
+                    "status": "accepted",
+                    "labelHtml": "Metamycoplasmataceae Gupta et al., 2018"
+                },
+                {
+                    "id": "CSNBJ",
+                    "name": "Mycoplasmopsis",
+                    "authorship": "Gupta et al., 2018",
+                    "rank": "genus",
+                    "code": "bacterial",
+                    "status": "accepted",
+                    "labelHtml": "<i>Mycoplasmopsis</i> Gupta et al., 2018"
+                },
+                {
+                    "id": "CSNCS",
+                    "name": "Mycoplasmopsis felis",
+                    "authorship": "(Cole et al., 1967) Gupta et al. 2019",
+                    "rank": "species",
+                    "code": "bacterial",
+                    "status": "accepted",
+                    "labelHtml": "<i>Mycoplasmopsis felis</i> (Cole et al., 1967) Gupta et al. 2019"
+                }
+            ],
+            "usage": {
+                "created": "2026-02-09T15:29:58.081066",
+                "createdBy": 102,
+                "modified": "2026-02-09T15:29:58.081066",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "CSNCS",
+                "sectorKey": 59057,
+                "verbatimSourceKey": 312081797,
+                "name": {
+                    "created": "2026-02-09T15:29:58.081066",
+                    "createdBy": 102,
+                    "modified": "2026-02-09T15:29:58.081066",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "AoVuE5kpJmNa5CmKElRYz",
+                    "sectorKey": 59057,
+                    "verbatimSourceKey": 312081797,
+                    "namesIndexId": 14908841,
+                    "namesIndexType": "exact",
+                    "scientificName": "Mycoplasmopsis felis",
+                    "authorship": "(Cole et al., 1967) Gupta et al. 2019",
+                    "rank": "species",
+                    "genus": "Mycoplasmopsis",
+                    "specificEpithet": "felis",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Gupta",
+                            "al."
+                        ],
+                        "year": "2019"
+                    },
+                    "basionymAuthorship": {
+                        "authors": [
+                            "Cole",
+                            "al."
+                        ],
+                        "year": "1967"
+                    },
+                    "code": "bacterial",
+                    "nomStatus": "established",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://lpsn.dsmz.de/species/mycoplasmopsis-felis",
+                    "remarks": "available",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Cole",
+                            "al."
+                        ],
+                        "year": "1967"
+                    }
+                },
+                "status": "accepted",
+                "origin": "source",
+                "parentId": "CSNBJ",
+                "link": "https://lpsn.dsmz.de/species/mycoplasmopsis-felis",
+                "remarks": "validly published under the ICNP. Gupta RS, Sawnani S, Adeolu M, Alnajar S, Oren A. Correction to: Phylogenetic framework for the phylum Tenericutes based on genome sequence data: proposal for the creation of a new order Mycoplasmoidales ord. nov., containing two new families Mycoplasmoidaceae fam. nov. and Metamycoplasmataceae fam. nov. harbouring Eperythrozoon, Ureaplasma and five novel genera. Antonie Van Leeuwenhoek 2018; 111:2485-2486.",
+                "label": "Mycoplasmopsis felis (Cole et al., 1967) Gupta et al. 2019",
+                "labelHtml": "<i>Mycoplasmopsis felis</i> (Cole et al., 1967) Gupta et al. 2019",
+                "merged": false
+            },
+            "sectorDatasetKey": 2015,
+            "group": "bacteria"
+        },
+        {
+            "id": "82JKM",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "C",
+                    "name": "Chromista",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Chromista"
+                },
+                {
+                    "id": "D3MRQ",
+                    "name": "Harosa",
+                    "rank": "subkingdom",
+                    "code": "botanical",
+                    "status": "accepted",
+                    "labelHtml": "Harosa"
+                },
+                {
+                    "id": "D3N3C",
+                    "name": "Rhizaria",
+                    "rank": "infrakingdom",
+                    "code": "botanical",
+                    "status": "accepted",
+                    "labelHtml": "Rhizaria"
+                },
+                {
+                    "id": "B8VD3",
+                    "name": "Foraminifera",
+                    "authorship": "d'Orbigny, 1826",
+                    "rank": "phylum",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Foraminifera d'Orbigny, 1826"
+                },
+                {
+                    "id": "7ZSTL",
+                    "name": "Nodosariata",
+                    "authorship": "Mikhalevich, 1993",
+                    "phrase": "emend. Rigaud et al., 2015",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Nodosariata Mikhalevich, 1993 emend. Rigaud et al., 2015"
+                },
+                {
+                    "id": "7ZSTQ",
+                    "name": "Nodosariana",
+                    "authorship": "Mikhalevich, 1993",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Nodosariana Mikhalevich, 1993"
+                },
+                {
+                    "id": "7ZSTY",
+                    "name": "Nodosariida",
+                    "authorship": "Calkins, 1926",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Nodosariida Calkins, 1926"
+                },
+                {
+                    "id": "BVB57",
+                    "name": "Nodosariina",
+                    "authorship": "Calkins, 1926",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Nodosariina Calkins, 1926"
+                },
+                {
+                    "id": "7NGS4",
+                    "name": "Nodosarioidea",
+                    "authorship": "Ehrenberg, 1838",
+                    "rank": "superfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Nodosarioidea Ehrenberg, 1838"
+                },
+                {
+                    "id": "7NK2J",
+                    "name": "Nodosariidae",
+                    "authorship": "Ehrenberg, 1838",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Nodosariidae Ehrenberg, 1838"
+                },
+                {
+                    "id": "7ZT58",
+                    "name": "Frondiculariinae",
+                    "authorship": "Reuss, 1860",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Frondiculariinae Reuss, 1860"
+                },
+                {
+                    "id": "7P2TT",
+                    "name": "Frondicularia",
+                    "authorship": "Defrance in d'Orbigny, 1826",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Frondicularia</i> Defrance in d'Orbigny, 1826"
+                },
+                {
+                    "id": "82JKM",
+                    "name": "Frondicularia felis",
+                    "authorship": "Karrer, 1870",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Frondicularia felis</i> Karrer, 1870"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-07T14:59:51.046023",
+                "createdBy": 304,
+                "modified": "2026-04-07T14:59:51.046023",
+                "modifiedBy": 304,
+                "datasetKey": 314965,
+                "id": "82JKM",
+                "sectorKey": 504,
+                "verbatimSourceKey": 318009126,
+                "name": {
+                    "created": "2026-04-07T14:59:51.046023",
+                    "createdBy": 304,
+                    "modified": "2026-04-07T14:59:51.046023",
+                    "modifiedBy": 304,
+                    "datasetKey": 314965,
+                    "id": "K95qRdkvVzfmAS1m9aDUS1",
+                    "sectorKey": 504,
+                    "verbatimSourceKey": 318009126,
+                    "namesIndexId": 10270212,
+                    "namesIndexType": "exact",
+                    "scientificName": "Frondicularia felis",
+                    "authorship": "Karrer, 1870",
+                    "rank": "species",
+                    "genus": "Frondicularia",
+                    "specificEpithet": "felis",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Karrer"
+                        ],
+                        "year": "1870"
+                    },
+                    "code": "zoological",
+                    "nomStatus": "established",
+                    "publishedInId": "b7408103-590e-4bc8-9b37-1f4a20265cf3",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.marinespecies.org/foraminifera/aphia.php?p=taxdetails&id=903099",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Karrer"
+                        ],
+                        "year": "1870"
+                    }
+                },
+                "status": "accepted",
+                "origin": "source",
+                "parentId": "7P2TT",
+                "link": "https://www.marinespecies.org/foraminifera/aphia.php?p=taxdetails&id=903099",
+                "referenceIds": [
+                    "b7408103-590e-4bc8-9b37-1f4a20265cf3"
+                ],
+                "scrutinizer": "Hayward, Bruce W.",
+                "scrutinizerDate": "2016-12-23",
+                "extinct": true,
+                "environments": [
+                    "marine"
+                ],
+                "label": "\u2020Frondicularia felis Karrer, 1870",
+                "labelHtml": "\u2020<i>Frondicularia felis</i> Karrer, 1870",
+                "merged": false
+            },
+            "sectorDatasetKey": 1157,
+            "group": "protists"
+        },
+        {
+            "id": "8Q86L",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "M2L",
+                    "name": "Mollusca",
+                    "rank": "phylum",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mollusca"
+                },
+                {
+                    "id": "7NF3Y",
+                    "name": "Gastropoda",
+                    "authorship": "Cuvier, 1795",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Gastropoda Cuvier, 1795"
+                },
+                {
+                    "id": "7NVXJ",
+                    "name": "Heterobranchia",
+                    "authorship": "Burmeister, 1837",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Heterobranchia Burmeister, 1837"
+                },
+                {
+                    "id": "CFV7Q",
+                    "name": "Euthyneura",
+                    "authorship": "Spengel, 1881",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Euthyneura Spengel, 1881"
+                },
+                {
+                    "id": "7VBDS",
+                    "name": "Tectipleura",
+                    "rank": "subterclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Tectipleura"
+                },
+                {
+                    "id": "7NVXY",
+                    "name": "Eupulmonata",
+                    "authorship": "Haszprunar & Huber, 1990",
+                    "rank": "superorder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eupulmonata Haszprunar & Huber, 1990"
+                },
+                {
+                    "id": "7NH46",
+                    "name": "Urocoptoidea",
+                    "authorship": "Pilsbry, 1898 (1868)",
+                    "rank": "superfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Urocoptoidea Pilsbry, 1898 (1868)"
+                },
+                {
+                    "id": "7NHWJ",
+                    "name": "Cerionidae",
+                    "authorship": "Pilsbry, 1901",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Cerionidae Pilsbry, 1901"
+                },
+                {
+                    "id": "7NSCC",
+                    "name": "Cerion",
+                    "authorship": "R\u00f6ding, 1798",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Cerion</i> R\u00f6ding, 1798"
+                },
+                {
+                    "id": "8Q86L",
+                    "name": "Cerion felis",
+                    "authorship": "Pilsbry & Vanatta, 1895",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Cerion felis</i> Pilsbry & Vanatta, 1895"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-07T14:30:35.071907",
+                "createdBy": 304,
+                "modified": "2026-04-07T14:30:35.071907",
+                "modifiedBy": 304,
+                "datasetKey": 314965,
+                "id": "8Q86L",
+                "sectorKey": 1302,
+                "verbatimSourceKey": 317816638,
+                "name": {
+                    "created": "2026-04-07T14:30:35.071907",
+                    "createdBy": 304,
+                    "modified": "2026-04-07T14:30:35.071907",
+                    "modifiedBy": 304,
+                    "datasetKey": 314965,
+                    "id": "22UJb3ZYrEuVD87IneBR52",
+                    "sectorKey": 1302,
+                    "verbatimSourceKey": 317816638,
+                    "namesIndexId": 4340195,
+                    "namesIndexType": "exact",
+                    "scientificName": "Cerion felis",
+                    "authorship": "Pilsbry & Vanatta, 1895",
+                    "rank": "species",
+                    "genus": "Cerion",
+                    "specificEpithet": "felis",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Pilsbry",
+                            "Vanatta"
+                        ],
+                        "year": "1895"
+                    },
+                    "code": "zoological",
+                    "nomStatus": "established",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.molluscabase.org/aphia.php?p=taxdetails&id=1523448",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Pilsbry",
+                            "Vanatta"
+                        ],
+                        "year": "1895"
+                    }
+                },
+                "status": "accepted",
+                "origin": "source",
+                "parentId": "7NSCC",
+                "link": "https://www.molluscabase.org/aphia.php?p=taxdetails&id=1523448",
+                "scrutinizer": "Rosenberg, Gary",
+                "scrutinizerDate": "2021-09-30",
+                "environments": [
+                    "terrestrial"
+                ],
+                "label": "Cerion felis Pilsbry & Vanatta, 1895",
+                "labelHtml": "<i>Cerion felis</i> Pilsbry & Vanatta, 1895",
+                "merged": false
+            },
+            "sectorDatasetKey": 1130,
+            "group": "gastropods"
+        },
+        {
+            "id": "6WDLD",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "7NF2H",
+                    "name": "Platyhelminthes",
+                    "authorship": "Minot, 1876",
+                    "rank": "phylum",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Platyhelminthes Minot, 1876"
+                },
+                {
+                    "id": "7NF2W",
+                    "name": "Rhabditophora",
+                    "authorship": "Ehlers, 1985",
+                    "rank": "subphylum",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Rhabditophora Ehlers, 1985"
+                },
+                {
+                    "id": "8ZXHX",
+                    "name": "Polycladida",
+                    "authorship": "Lang, 1884 [viz. Faubel, 1983/1984]",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Polycladida Lang, 1884 [viz. Faubel, 1983/1984]"
+                },
+                {
+                    "id": "7NFH9",
+                    "name": "Cotylea",
+                    "authorship": "Lang, 1884",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Cotylea Lang, 1884"
+                },
+                {
+                    "id": "5KP",
+                    "name": "Pseudocerotoidea",
+                    "authorship": "Faubel, 1984",
+                    "rank": "superfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Pseudocerotoidea Faubel, 1984"
+                },
+                {
+                    "id": "7NKPV",
+                    "name": "Pseudocerotidae",
+                    "authorship": "Lang, 1884",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Pseudocerotidae Lang, 1884"
+                },
+                {
+                    "id": "7PW9J",
+                    "name": "Pseudoceros",
+                    "authorship": "Lang, 1884",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Pseudoceros</i> Lang, 1884"
+                },
+                {
+                    "id": "6WDLD",
+                    "name": "Pseudoceros felis",
+                    "authorship": "Newman & Cannon, 1994",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Pseudoceros felis</i> Newman & Cannon, 1994"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-07T15:11:26.40091",
+                "createdBy": 304,
+                "modified": "2026-04-07T15:11:26.40091",
+                "modifiedBy": 304,
+                "datasetKey": 314965,
+                "id": "6WDLD",
+                "sectorKey": 1275,
+                "verbatimSourceKey": 318082767,
+                "name": {
+                    "created": "2026-04-07T15:11:26.40091",
+                    "createdBy": 304,
+                    "modified": "2026-04-07T15:11:26.40091",
+                    "modifiedBy": 304,
+                    "datasetKey": 314965,
+                    "id": "qp7-wyKfhYsZ3dsAAK-7x",
+                    "sectorKey": 1275,
+                    "verbatimSourceKey": 318082767,
+                    "namesIndexId": 18881393,
+                    "namesIndexType": "variant",
+                    "scientificName": "Pseudoceros felis",
+                    "authorship": "Newman & Cannon, 1994",
+                    "rank": "species",
+                    "genus": "Pseudoceros",
+                    "specificEpithet": "felis",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Newman",
+                            "Cannon"
+                        ],
+                        "year": "1994"
+                    },
+                    "code": "zoological",
+                    "nomStatus": "established",
+                    "publishedInId": "ce973c7f-0360-4e9f-8963-6e6f21d08e8d",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.marinespecies.org/turbellarians/aphia.php?p=taxdetails&id=878917",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Newman",
+                            "Cannon"
+                        ],
+                        "year": "1994"
+                    }
+                },
+                "status": "accepted",
+                "origin": "source",
+                "parentId": "7PW9J",
+                "identifier": [
+                    "tsn:1042766",
+                    "inat:https://www.inaturalist.org/taxa/905080"
+                ],
+                "link": "https://www.marinespecies.org/turbellarians/aphia.php?p=taxdetails&id=878917",
+                "referenceIds": [
+                    "ce973c7f-0360-4e9f-8963-6e6f21d08e8d"
+                ],
+                "scrutinizer": "Tyler, Seth",
+                "scrutinizerDate": "2016-06-09",
+                "environments": [
+                    "marine"
+                ],
+                "label": "Pseudoceros felis Newman & Cannon, 1994",
+                "labelHtml": "<i>Pseudoceros felis</i> Newman & Cannon, 1994",
+                "merged": false
+            },
+            "sectorDatasetKey": 1193,
+            "group": "otheranimals"
+        }
+    ],
+    "empty": false,
+    "last": false
+}
