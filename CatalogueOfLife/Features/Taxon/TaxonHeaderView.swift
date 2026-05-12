@@ -15,19 +15,13 @@ struct TaxonHeaderView: View {
                         Text(auth).font(.subheadline).foregroundStyle(.secondary)
                     }
                 }
-                HStack(spacing: 6) {
-                    Text(info.rank.rawValue.capitalized)
-                        .font(.caption)
-                        .padding(.horizontal, 8).padding(.vertical, 2)
-                        .background(.thinMaterial, in: Capsule())
-                    if info.status != .accepted {
-                        Text(info.status.rawValue)
-                            .font(.caption)
-                            .foregroundStyle(.orange)
-                    }
-                }
                 if let v = preferredVernacular {
                     Text(v.name).font(.body).foregroundStyle(.secondary)
+                }
+                if info.status != .accepted {
+                    Text(info.status.rawValue)
+                        .font(.caption)
+                        .foregroundStyle(.orange)
                 }
             }
         }

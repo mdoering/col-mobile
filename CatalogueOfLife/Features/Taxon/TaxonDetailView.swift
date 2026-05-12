@@ -28,6 +28,7 @@ struct TaxonDetailView: View {
                         navigateTo = item.id
                     }
                     if !childNodes.isEmpty {
+                        Divider()
                         VStack(alignment: .leading, spacing: 6) {
                             Text("Breakdown of \(info.scientificName)").font(.headline)
                             SunburstView(
@@ -40,12 +41,19 @@ struct TaxonDetailView: View {
                             .frame(height: 260)
                         }
                     }
-                    SynonymyView(groups: info.synonymyGroups)
-                    VernacularNamesView(
-                        names: info.vernacularNames,
-                        preferredLanguage: appState.effectiveVernacularLanguage
-                    )
+                    if !info.synonymyGroups.isEmpty {
+                        Divider()
+                        SynonymyView(groups: info.synonymyGroups)
+                    }
+                    if !info.vernacularNames.isEmpty {
+                        Divider()
+                        VernacularNamesView(
+                            names: info.vernacularNames,
+                            preferredLanguage: appState.effectiveVernacularLanguage
+                        )
+                    }
                     if appState.gbifAvailable {
+                        Divider()
                         GBIFSectionView(taxonId: info.taxonId)
                     }
                 case .failed(let err):
@@ -59,9 +67,21 @@ struct TaxonDetailView: View {
         .navigationTitle("Taxon")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                if case let .loaded(info) = vm?.state {
+                    Text(info.rank.rawValue.capitalized)
+                        .font(.caption)
+                        .padding(.horizontal, 8).padding(.vertical, 2)
+                        .background(.thinMaterial, in: Capsule())
+                }
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 if case let .loaded(info) = vm?.state {
                     HStack(spacing: 8) {
+                        Text("COL:\(info.taxonId)")
+                            .font(.system(.caption2, design: .monospaced))
+                            .foregroundStyle(.secondary)
+                            .textSelection(.enabled)
                         Button {
                             toggleFavorite(info)
                         } label: {
@@ -69,10 +89,6 @@ struct TaxonDetailView: View {
                                 .foregroundStyle(isFavorite ? .yellow : .secondary)
                         }
                         .accessibilityLabel(isFavorite ? "Remove from favorites" : "Add to favorites")
-                        Text("COL:\(info.taxonId)")
-                            .font(.system(.caption2, design: .monospaced))
-                            .foregroundStyle(.secondary)
-                            .textSelection(.enabled)
                     }
                 }
             }
