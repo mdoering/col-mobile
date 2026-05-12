@@ -9,6 +9,10 @@ struct SearchHit: Equatable, Identifiable, Sendable {
     let acceptedId: String?
     let group: String?
 
-    /// The taxon id to navigate to on row tap. Synonyms route to their accepted target.
-    var navigationTaxonId: String { acceptedId ?? id }
+    /// Taxon id to navigate to on row tap. Returns nil for a synonym hit whose
+    /// accepted target wasn't included in the response — callers should disable the row.
+    var navigationTaxonId: String? {
+        if let accepted = acceptedId { return accepted }
+        return status.isSynonym ? nil : id
+    }
 }
