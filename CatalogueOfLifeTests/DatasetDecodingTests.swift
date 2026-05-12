@@ -9,10 +9,9 @@ struct DatasetDecodingTests {
         let data = try FixtureLoader.data("dataset_3LXR")
         let dto = try JSONDecoder().decode(DatasetDTO.self, from: data)
         let ref = DatasetRef(dto: dto)
-        // Actual alias returned by the API for the 3LXR route is "COL26.4 XR"
-        #expect(ref.alias == "COL26.4 XR")
         #expect(ref.title.localizedCaseInsensitiveContains("Catalogue of Life"))
-        // "3LXR" alias is a route alias, not what the API stores in the alias field
-        #expect(ref.supportsGBIF == false)
+        #expect(ref.origin == "xrelease")          // /dataset/3LXR resolves to an xrelease
+        #expect(ref.key > 0)
+        // We intentionally do NOT assert on ref.alias — the human label drifts (COL26.4 XR, COL27.0 XR, ...).
     }
 }

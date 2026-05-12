@@ -2,17 +2,14 @@ import Foundation
 
 struct DatasetRef: Equatable, Hashable, Identifiable, Sendable {
     let key: Int
-    let alias: String?           // "3LXR", "3LR", or nil
+    let alias: String?       // human label, e.g. "COL26.4 XR" — NOT the URL alias "3LXR"
     let title: String
     let version: String?
     let issued: String?
+    let origin: String?      // "release" | "xrelease" | "project" | "external"
     let citation: String?
 
     var id: Int { key }
-
-    var supportsGBIF: Bool {
-        alias == "3LXR" || alias == "3LR"
-    }
 }
 
 extension DatasetRef {
@@ -23,6 +20,7 @@ extension DatasetRef {
             title: dto.title,
             version: dto.version,
             issued: dto.issued,
+            origin: dto.origin,
             citation: dto.citation
         )
     }
