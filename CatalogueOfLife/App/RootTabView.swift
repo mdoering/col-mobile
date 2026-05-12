@@ -22,7 +22,7 @@ struct RootTabView: View {
 
             SearchView()
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }
-            TabPlaceholderView(title: "Sources", symbol: "books.vertical")
+            SourcesView()
                 .tabItem { Label("Sources", systemImage: "books.vertical") }
             TabPlaceholderView(title: "Metrics", symbol: "chart.pie")
                 .tabItem { Label("Metrics", systemImage: "chart.pie") }
