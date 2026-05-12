@@ -17,11 +17,14 @@ struct AppStateTests {
     private func sampleStub() -> StubAPIClient {
         let stub = StubAPIClient()
         let extended = DatasetRef(key: 100, alias: "COL26.4 XR", title: "Catalogue of Life",
-                                   version: "2026-04-15", issued: "2026-04-15", origin: "xrelease", citation: nil)
+                                   version: "2026-04-15", issued: "2026-04-15", origin: "xrelease", citation: nil,
+                                   doi: nil, license: nil, publisher: nil)
         let base = DatasetRef(key: 200, alias: "COL26.4", title: "Catalogue of Life",
-                               version: "2026-04-15", issued: "2026-04-15", origin: "release", citation: nil)
+                               version: "2026-04-15", issued: "2026-04-15", origin: "release", citation: nil,
+                               doi: nil, license: nil, publisher: nil)
         let annual = DatasetRef(key: 300, alias: "COL24", title: "Catalogue of Life",
-                                 version: "2024-01-01", issued: "2024-01-01", origin: "release", citation: nil)
+                                 version: "2024-01-01", issued: "2024-01-01", origin: "release", citation: nil,
+                                 doi: nil, license: nil, publisher: nil)
         stub.datasetByKey["3LXR"]    = extended
         stub.datasetByKey["3LR"]     = base
         stub.datasetByKey["COL2024"] = annual

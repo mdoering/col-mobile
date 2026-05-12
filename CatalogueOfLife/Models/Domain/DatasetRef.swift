@@ -8,6 +8,9 @@ struct DatasetRef: Equatable, Hashable, Identifiable, Sendable {
     let issued: String?
     let origin: String?      // "release" | "xrelease" | "project" | "external"
     let citation: String?
+    let doi: String?
+    let license: String?
+    let publisher: String?   // synthesized display string like "Catalogue of Life Foundation, Amsterdam, NL"
 
     var id: Int { key }
 }
@@ -21,8 +24,17 @@ extension DatasetRef {
             version: dto.version,
             issued: dto.issued,
             origin: dto.origin,
-            citation: dto.citation
+            citation: dto.citation,
+            doi: dto.doi,
+            license: dto.license,
+            publisher: Self.formatPublisher(dto.publisher)
         )
+    }
+
+    private static func formatPublisher(_ p: DatasetDTO.PublisherDTO?) -> String? {
+        guard let p else { return nil }
+        let parts = [p.organisation ?? p.name, p.city, p.country].compactMap { $0?.isEmpty == false ? $0 : nil }
+        return parts.isEmpty ? nil : parts.joined(separator: ", ")
     }
 }
 

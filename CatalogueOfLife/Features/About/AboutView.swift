@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct AboutView: View {
     @Environment(AppState.self) private var appState
@@ -14,6 +15,8 @@ struct AboutView: View {
                     preferencesSection
                     Divider()
                     releaseMetadataSection
+                    Divider()
+                    contactsSection
                 }
                 .padding()
             }
@@ -70,7 +73,7 @@ struct AboutView: View {
 
     @ViewBuilder
     private var releaseMetadataSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 10) {
             Text("Selected release").font(.headline)
             if let dataset = appState.selectedDataset {
                 meta("Title", dataset.title)
@@ -78,13 +81,59 @@ struct AboutView: View {
                 meta("Version", dataset.version)
                 meta("Issued", dataset.issued)
                 meta("Origin", dataset.origin)
-                meta("Key", "\(dataset.key)")
-                if let citation = dataset.citation {
-                    Text("Citation").font(.subheadline).bold()
-                    Text(citation).font(.caption).foregroundStyle(.secondary)
-                }
+                meta("Publisher", dataset.publisher)
+                licenseRow(dataset.license)
+                doiRow(dataset.doi)
+                citationRow(dataset.citation)
             } else {
                 Text("Loading release information…").font(.callout).foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func licenseRow(_ license: String?) -> some View {
+        if let license, !license.isEmpty {
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Text("License").font(.caption).foregroundStyle(.secondary).frame(width: 90, alignment: .leading)
+                if license.lowercased().contains("cc by") {
+                    Image("CCBYIcon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 18)
+                        .accessibilityLabel(license.uppercased())
+                }
+                Text(license.uppercased()).font(.callout)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func doiRow(_ doi: String?) -> some View {
+        if let doi, !doi.isEmpty {
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Text("DOI").font(.caption).foregroundStyle(.secondary).frame(width: 90, alignment: .leading)
+                Link(doi, destination: URL(string: "https://doi.org/\(doi)")!).font(.callout)
+                Spacer(minLength: 8)
+                Button {
+                    UIPasteboard.general.string = doi
+                } label: {
+                    Image(systemName: "doc.on.doc")
+                }
+                .accessibilityLabel("Copy DOI")
+                .buttonStyle(.borderless)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func citationRow(_ citation: String?) -> some View {
+        if let citation, !citation.isEmpty {
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Citation").font(.caption).foregroundStyle(.secondary)
+                HTMLText(html: citation)
+                    .font(.caption)
+                    .textSelection(.enabled)
             }
         }
     }
@@ -95,6 +144,20 @@ struct AboutView: View {
             HStack(alignment: .firstTextBaseline) {
                 Text(label).font(.caption).foregroundStyle(.secondary).frame(width: 90, alignment: .leading)
                 Text(value).font(.callout)
+            }
+        }
+    }
+
+    private var contactsSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Contact & Follow").font(.headline)
+            Link(destination: URL(string: "mailto:support@catalogueoflife.org")!) {
+                Label("support@catalogueoflife.org", systemImage: "envelope")
+                    .font(.callout)
+            }
+            Link(destination: URL(string: "https://www.linkedin.com/company/catalogue-of-life/")!) {
+                Label("LinkedIn", systemImage: "link")
+                    .font(.callout)
             }
         }
     }
