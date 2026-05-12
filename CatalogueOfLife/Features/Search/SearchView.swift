@@ -112,11 +112,3 @@ private struct SearchRow: View {
         }
     }
 }
-
-// Temporary stub — replaced by Task 14. Lets SearchView compile in isolation.
-struct TaxonDetailView: View {
-    let taxonId: String
-    var body: some View {
-        Text("Taxon: \(taxonId)").navigationTitle("Taxon")
-    }
-}
