@@ -1,0 +1,101 @@
+[
+    {
+        "id": "CS5HF",
+        "name": "Eukaryota",
+        "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+        "rank": "domain",
+        "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+    },
+    {
+        "id": "N",
+        "name": "Animalia",
+        "rank": "kingdom",
+        "labelHtml": "Animalia"
+    },
+    {
+        "id": "CH2",
+        "name": "Chordata",
+        "rank": "phylum",
+        "labelHtml": "Chordata"
+    },
+    {
+        "id": "8V4V3",
+        "name": "Vertebrata",
+        "rank": "subphylum",
+        "labelHtml": "Vertebrata"
+    },
+    {
+        "id": "8V4V5",
+        "name": "Gnathostomata",
+        "rank": "infraphylum",
+        "labelHtml": "Gnathostomata"
+    },
+    {
+        "id": "8VVWB",
+        "name": "Osteichthyes",
+        "rank": "parvphylum",
+        "labelHtml": "Osteichthyes"
+    },
+    {
+        "id": "9CK8W",
+        "name": "Tetrapoda",
+        "rank": "megaclass",
+        "labelHtml": "Tetrapoda"
+    },
+    {
+        "id": "6224G",
+        "name": "Mammalia",
+        "authorship": "Linnaeus, 1758",
+        "rank": "class",
+        "labelHtml": "Mammalia Linnaeus, 1758"
+    },
+    {
+        "id": "6226C",
+        "name": "Theria",
+        "authorship": "Parker & Haswell, 1897",
+        "rank": "subclass",
+        "labelHtml": "Theria Parker & Haswell, 1897"
+    },
+    {
+        "id": "LG",
+        "name": "Eutheria",
+        "authorship": "Gill, 1872",
+        "rank": "infraclass",
+        "labelHtml": "Eutheria Gill, 1872"
+    },
+    {
+        "id": "VS",
+        "name": "Carnivora",
+        "authorship": "Bowdich, 1821",
+        "rank": "order",
+        "labelHtml": "Carnivora Bowdich, 1821"
+    },
+    {
+        "id": "4DL",
+        "name": "Feliformia",
+        "authorship": "Kretzoi, 1945",
+        "rank": "suborder",
+        "labelHtml": "Feliformia Kretzoi, 1945"
+    },
+    {
+        "id": "623RM",
+        "name": "Felidae",
+        "authorship": "Fischer de Waldheim, 1817",
+        "rank": "family",
+        "labelHtml": "Felidae Fischer de Waldheim, 1817"
+    },
+    {
+        "id": "JKL",
+        "name": "Felinae",
+        "authorship": "Fischer de Waldheim, 1817",
+        "rank": "subfamily",
+        "labelHtml": "Felinae Fischer de Waldheim, 1817"
+    },
+    {
+        "id": "4JQ8",
+        "name": "Felis",
+        "authorship": "Linnaeus, 1758",
+        "rank": "genus",
+        "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+    }
+]

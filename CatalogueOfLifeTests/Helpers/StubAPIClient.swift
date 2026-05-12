@@ -6,6 +6,9 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
     var datasetByKey: [String: DatasetRef] = [:]
     var searchResults: [String: [SearchHit]] = [:]
     var taxonInfo: [String: TaxonInfo] = [:]
+    var treeChildren: [String: [TreeNode]] = [:]              // key: parentId ?? "root"
+    var suggestions: [String: [TaxonSuggestion]] = [:]
+    var classifications: [String: [ClassificationItem]] = [:]
     var error: APIError?
 
     func getDataset(_ keyOrAlias: String) async throws -> DatasetRef {
@@ -25,5 +28,18 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
         if let error { throw error }
         guard let info = taxonInfo[taxonId] else { throw APIError.notFound }
         return info
+    }
+
+    func getTreeChildren(datasetKey: Int, parentId: String?) async throws -> [TreeNode] {
+        if let error { throw error }
+        return treeChildren[parentId ?? "root"] ?? []
+    }
+    func suggest(datasetKey: Int, q: String) async throws -> [TaxonSuggestion] {
+        if let error { throw error }
+        return suggestions[q] ?? []
+    }
+    func getClassification(datasetKey: Int, taxonId: String) async throws -> [ClassificationItem] {
+        if let error { throw error }
+        return classifications[taxonId] ?? []
     }
 }

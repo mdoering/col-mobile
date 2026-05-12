@@ -54,4 +54,22 @@ actor APIClientLive: APIClient {
         let dto = try await getJSON(url, as: TaxonInfoDTO.self)
         return TaxonInfo(dto: dto)
     }
+
+    func getTreeChildren(datasetKey: Int, parentId: String?) async throws -> [TreeNode] {
+        let url = Endpoints.treeChildren(datasetKey: datasetKey, parentId: parentId)
+        let paged = try await getJSON(url, as: PagedDTO<TreeNodeDTO>.self)
+        return paged.result.map(TreeNode.init(dto:))
+    }
+
+    func suggest(datasetKey: Int, q: String) async throws -> [TaxonSuggestion] {
+        let url = Endpoints.suggest(datasetKey: datasetKey, q: q)
+        let dtos = try await getJSON(url, as: [SuggestEntryDTO].self)
+        return dtos.map(TaxonSuggestion.init(dto:))
+    }
+
+    func getClassification(datasetKey: Int, taxonId: String) async throws -> [ClassificationItem] {
+        let url = Endpoints.classification(datasetKey: datasetKey, taxonId: taxonId)
+        let dtos = try await getJSON(url, as: [ClassificationEntryDTO].self)
+        return dtos.map { ClassificationItem(id: $0.id, name: $0.name, rank: Rank(apiValue: $0.rank)) }
+    }
 }

@@ -1,0 +1,57 @@
+{
+    "offset": 0,
+    "limit": 10,
+    "total": 4,
+    "result": [
+        {
+            "datasetKey": 314965,
+            "id": "CTD9D",
+            "parentId": "CRLT8",
+            "rank": "kingdom",
+            "status": "accepted",
+            "count": 678,
+            "childCount": 1,
+            "name": "Methanobacteriati",
+            "authorship": "(Garrity & Holt, 2023) Oren & G\u00f6ker 2024",
+            "labelHtml": "Methanobacteriati (Garrity & Holt, 2023) Oren & G\u00f6ker 2024"
+        },
+        {
+            "datasetKey": 314965,
+            "id": "CTD97",
+            "parentId": "CRLT8",
+            "rank": "kingdom",
+            "status": "accepted",
+            "count": 2,
+            "childCount": 2,
+            "name": "Nanobdellati",
+            "authorship": "Rinke et al., 2024",
+            "labelHtml": "Nanobdellati Rinke et al., 2024"
+        },
+        {
+            "datasetKey": 314965,
+            "id": "CTD9L",
+            "parentId": "CRLT8",
+            "rank": "kingdom",
+            "status": "accepted",
+            "count": 1,
+            "childCount": 1,
+            "name": "Promethearchaeati",
+            "authorship": "Imachi et al., 2024",
+            "labelHtml": "Promethearchaeati Imachi et al., 2024"
+        },
+        {
+            "datasetKey": 314965,
+            "id": "CTD87",
+            "parentId": "CRLT8",
+            "rank": "kingdom",
+            "status": "accepted",
+            "count": 83,
+            "childCount": 1,
+            "name": "Thermoproteati",
+            "authorship": "Guy & Ettema, 2024",
+            "labelHtml": "Thermoproteati Guy & Ettema, 2024"
+        }
+    ],
+    "empty": false,
+    "last": true
+}

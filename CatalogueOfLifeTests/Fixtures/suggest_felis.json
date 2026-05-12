@@ -1,0 +1,108 @@
+[
+    {
+        "match": "Felisacodes",
+        "context": "Miridae",
+        "usageId": "4JQ9",
+        "nameId": "gbTN34JXayNl2OuqQa0Q50",
+        "rank": "genus",
+        "status": "accepted",
+        "group": "hemiptera",
+        "suggestion": "Felisacodes (genus in Miridae)"
+    },
+    {
+        "match": "Felisbertia",
+        "context": "Drepanopezizaceae",
+        "usageId": "4JQC",
+        "nameId": "KV2WAil8JOt34OH5XmQHP",
+        "rank": "genus",
+        "status": "accepted",
+        "nomCode": "botanical",
+        "group": "ascomycetes",
+        "suggestion": "Felisbertia (genus in Drepanopezizaceae)"
+    },
+    {
+        "match": "Felis Linnaeus, 1758",
+        "context": "Felidae",
+        "usageId": "4JQ8",
+        "nameId": "bxfXl_BUb3tcBKI0rJvky0",
+        "rank": "genus",
+        "status": "accepted",
+        "nomCode": "zoological",
+        "group": "chordates",
+        "suggestion": "Felis Linnaeus, 1758 (genus in Felidae)"
+    },
+    {
+        "match": "\u2020Felisporadoceras",
+        "context": "Sporadoceratidae",
+        "usageId": "4JQD",
+        "nameId": "DUz6Zn7gwuA41xj9O1yNt2",
+        "rank": "genus",
+        "status": "accepted",
+        "group": "othermolluscs",
+        "suggestion": "\u2020Felisporadoceras (genus in Sporadoceratidae)"
+    },
+    {
+        "match": "Felisacus Distant, 1904",
+        "context": "Miridae",
+        "usageId": "4JQB",
+        "nameId": "5xFPU0yV1mcR60oxSUdXx1",
+        "rank": "genus",
+        "status": "accepted",
+        "group": "hemiptera",
+        "suggestion": "Felisacus Distant, 1904 (genus in Miridae)"
+    },
+    {
+        "match": "Felispumavirus",
+        "context": "Retroviridae",
+        "usageId": "634NM",
+        "nameId": "bMRWtS587_tW3xYuE_vsM",
+        "rank": "genus",
+        "status": "accepted",
+        "nomCode": "virus",
+        "group": "viruses",
+        "suggestion": "Felispumavirus (genus in Retroviridae)"
+    },
+    {
+        "match": "Felisacoris",
+        "context": "Miridae",
+        "usageId": "62SNM",
+        "nameId": "nLu9BPM4CZehBGukTVR9Q1",
+        "rank": "genus",
+        "status": "accepted",
+        "group": "hemiptera",
+        "suggestion": "Felisacoris (genus in Miridae)"
+    },
+    {
+        "match": "Felismacovirus",
+        "context": "Smacoviridae",
+        "usageId": "8TRVL",
+        "nameId": "4vzKJrONFIs64KjPEHr9k",
+        "rank": "genus",
+        "status": "accepted",
+        "nomCode": "virus",
+        "group": "viruses",
+        "suggestion": "Felismacovirus (genus in Smacoviridae)"
+    },
+    {
+        "match": "Melanagromyza felis Spencer, 1973",
+        "context": "Agromyzidae",
+        "usageId": "3Z5JM",
+        "nameId": "jMfrYg4fQftt4dcwBCFYu2",
+        "rank": "species",
+        "status": "accepted",
+        "nomCode": "zoological",
+        "group": "diptera",
+        "suggestion": "Melanagromyza felis Spencer, 1973 (Agromyzidae)"
+    },
+    {
+        "match": "Felisacodes dibuora Odhiambo, 1967",
+        "context": "Miridae",
+        "usageId": "3DXW7",
+        "nameId": "-mfXgrZSmPfpCO1nCYY2o",
+        "rank": "species",
+        "status": "accepted",
+        "nomCode": "zoological",
+        "group": "hemiptera",
+        "suggestion": "Felisacodes dibuora Odhiambo, 1967 (Miridae)"
+    }
+]

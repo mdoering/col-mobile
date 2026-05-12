@@ -38,4 +38,33 @@ enum Endpoints {
             .appending(path: taxonId)
             .appending(path: "info")
     }
+
+    static func treeChildren(datasetKey: Int, parentId: String?, limit: Int = 100) -> URL {
+        var path = "dataset/\(datasetKey)/tree"
+        if let parentId { path += "/\(parentId)/children" }
+        var c = URLComponents(url: baseURL.appending(path: path), resolvingAgainstBaseURL: false)!
+        c.queryItems = [URLQueryItem(name: "limit", value: String(limit))]
+        return c.url!
+    }
+
+    static func suggest(datasetKey: Int, q: String, limit: Int = 15) -> URL {
+        var c = URLComponents(
+            url: baseURL.appending(path: "dataset/\(datasetKey)/nameusage/suggest"),
+            resolvingAgainstBaseURL: false
+        )!
+        c.queryItems = [
+            URLQueryItem(name: "q", value: q),
+            URLQueryItem(name: "limit", value: String(limit))
+        ]
+        return c.url!
+    }
+
+    static func classification(datasetKey: Int, taxonId: String) -> URL {
+        baseURL
+            .appending(path: "dataset")
+            .appending(path: "\(datasetKey)")
+            .appending(path: "taxon")
+            .appending(path: taxonId)
+            .appending(path: "classification")
+    }
 }

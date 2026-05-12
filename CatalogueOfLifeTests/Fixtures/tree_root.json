@@ -1,0 +1,62 @@
+{
+    "offset": 0,
+    "limit": 10,
+    "total": 5,
+    "result": [
+        {
+            "datasetKey": 314965,
+            "id": "CRLT8",
+            "rank": "domain",
+            "status": "accepted",
+            "count": 764,
+            "childCount": 4,
+            "name": "Archaea",
+            "authorship": "Woese et al., 2024",
+            "labelHtml": "Archaea Woese et al., 2024"
+        },
+        {
+            "datasetKey": 314965,
+            "id": "CRRY6",
+            "rank": "domain",
+            "status": "accepted",
+            "count": 26027,
+            "childCount": 8,
+            "name": "Bacteria",
+            "authorship": "Woese et al., 2024",
+            "labelHtml": "Bacteria Woese et al., 2024"
+        },
+        {
+            "datasetKey": 314965,
+            "id": "CS5HF",
+            "rank": "domain",
+            "status": "accepted",
+            "count": 2441646,
+            "childCount": 10,
+            "name": "Eukaryota",
+            "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+            "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+        },
+        {
+            "datasetKey": 314965,
+            "id": "L2TCC",
+            "rank": "unranked",
+            "status": "accepted",
+            "count": 16493,
+            "childCount": 35,
+            "name": "Viruses",
+            "labelHtml": "<i>Viruses</i>"
+        },
+        {
+            "datasetKey": 314965,
+            "id": "S",
+            "rank": "unranked",
+            "status": "provisionally accepted",
+            "count": 817,
+            "childCount": 14018,
+            "name": "incertae sedis",
+            "labelHtml": "incertae sedis"
+        }
+    ],
+    "empty": false,
+    "last": true
+}
