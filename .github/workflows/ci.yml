@@ -1,0 +1,59 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select latest Xcode
+        run: |
+          LATEST=$(ls -d /Applications/Xcode_*.app 2>/dev/null | sort -V | tail -n1)
+          if [ -n "$LATEST" ]; then sudo xcode-select -s "$LATEST/Contents/Developer"; fi
+          xcodebuild -version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen || brew upgrade xcodegen || true
+
+      - name: Generate project
+        run: xcodegen generate
+
+      - name: Cache DerivedData
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-deriveddata-${{ hashFiles('project.yml', 'CatalogueOfLife/**/*.swift', 'CatalogueOfLifeTests/**/*.swift') }}
+          restore-keys: |
+            ${{ runner.os }}-deriveddata-
+
+      - name: Build & test
+        run: |
+          set -o pipefail
+          # Pick any available iPhone simulator with iOS 18 or newer.
+          DEVICE=$(xcrun simctl list devices available --json | python3 -c "
+          import json,sys
+          data = json.load(sys.stdin)
+          for runtime, devs in data['devices'].items():
+              if 'iOS-18' not in runtime and 'iOS-19' not in runtime and 'iOS-20' not in runtime and 'iOS-26' not in runtime:
+                  continue
+              for d in devs:
+                  if d.get('isAvailable') and d.get('name', '').startswith('iPhone'):
+                      print(d['name']); sys.exit(0)
+          ")
+          echo "Using simulator: ${DEVICE}"
+          xcodebuild \
+            -scheme CatalogueOfLife \
+            -destination "platform=iOS Simulator,name=${DEVICE},OS=latest" \
+            -enableCodeCoverage YES \
+            test
+        env:
+          NSUnbufferedIO: YES
