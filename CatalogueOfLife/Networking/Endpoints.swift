@@ -12,7 +12,7 @@ enum Endpoints {
         c.queryItems = [
             URLQueryItem(name: "limit", value: String(limit)),
             URLQueryItem(name: "offset", value: String(offset)),
-            URLQueryItem(name: "origin", value: "released")
+            URLQueryItem(name: "origin", value: "release")
         ]
         return c.url!
     }
@@ -30,6 +30,11 @@ enum Endpoints {
     }
 
     static func taxonInfo(datasetKey: Int, taxonId: String) -> URL {
-        baseURL.appending(path: "dataset/\(datasetKey)/taxon/\(taxonId)/info")
+        baseURL
+            .appending(path: "dataset")
+            .appending(path: "\(datasetKey)")
+            .appending(path: "taxon")
+            .appending(path: taxonId)
+            .appending(path: "info")
     }
 }
