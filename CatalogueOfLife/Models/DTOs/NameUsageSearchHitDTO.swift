@@ -20,6 +20,12 @@ struct NameUsageSearchHitDTO: Decodable, Sendable {
 
     struct AcceptedDTO: Decodable, Sendable {
         let id: String
+        let name: AcceptedNameDTO?
+    }
+
+    struct AcceptedNameDTO: Decodable, Sendable {
+        let scientificName: String?
+        let authorship: String?
     }
 
     struct NameDTO: Decodable, Sendable {
@@ -38,6 +44,7 @@ extension SearchHit {
             rank: Rank(apiValue: dto.usage.name.rank),
             status: TaxonStatus(apiValue: dto.usage.status),
             acceptedId: dto.usage.accepted?.id,
+            acceptedName: dto.usage.accepted?.name?.scientificName,
             group: dto.group
         )
     }

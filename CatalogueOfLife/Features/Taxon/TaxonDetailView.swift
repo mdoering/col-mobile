@@ -13,7 +13,7 @@ struct TaxonDetailView: View {
                 case .loaded(let info):
                     TaxonHeaderView(
                         info: info,
-                        preferredVernacular: info.preferredVernacular(language: appState.preferredVernacularLang)
+                        preferredVernacular: info.preferredVernacular(language: appState.effectiveVernacularLanguage)
                     )
                     ClassificationChipsView(items: info.classification) { item in
                         navigateTo = item.id
@@ -21,7 +21,7 @@ struct TaxonDetailView: View {
                     SynonymyView(groups: info.synonymyGroups)
                     VernacularNamesView(
                         names: info.vernacularNames,
-                        preferredLanguage: appState.preferredVernacularLang
+                        preferredLanguage: appState.effectiveVernacularLanguage
                     )
                 case .failed(let err):
                     errorView(err)

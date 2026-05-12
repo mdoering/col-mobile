@@ -25,7 +25,7 @@ struct SearchViewModelTests {
     func loadsResults() async {
         let (vm, stub) = make()
         let hit = SearchHit(id: "1", scientificName: "Felis catus", authorship: "L., 1758",
-                            rank: .species, status: .accepted, acceptedId: nil, group: nil)
+                            rank: .species, status: .accepted, acceptedId: nil, acceptedName: nil, group: nil)
         stub.searchResults["felis"] = [hit]
         vm.query = "felis"
         try? await Task.sleep(nanoseconds: 100_000_000)
@@ -43,7 +43,7 @@ struct SearchViewModelTests {
         stub.searchResults["feli"] = []
         stub.searchResults["felis"] = [
             SearchHit(id: "1", scientificName: "Felis", authorship: nil, rank: .genus,
-                      status: .accepted, acceptedId: nil, group: nil)
+                      status: .accepted, acceptedId: nil, acceptedName: nil, group: nil)
         ]
         vm.query = "fel"
         vm.query = "feli"

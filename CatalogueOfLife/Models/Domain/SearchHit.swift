@@ -7,6 +7,7 @@ struct SearchHit: Equatable, Identifiable, Sendable {
     let rank: Rank
     let status: TaxonStatus
     let acceptedId: String?
+    let acceptedName: String?
     let group: String?
 
     /// Taxon id to navigate to on row tap. Returns nil for a synonym hit whose

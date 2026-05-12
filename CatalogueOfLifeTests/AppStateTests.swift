@@ -79,6 +79,25 @@ struct AppStateTests {
         #expect(state.selectedDatasetKey == 100)
     }
 
+    @Test("effectiveVernacularLanguage falls back to system locale when unset")
+    func effectiveVernacularSystemFallback() {
+        let defaults = freshDefaults()
+        let state = AppState(client: StubAPIClient(), defaults: defaults)
+        // No explicit preference set:
+        #expect(state.preferredVernacularLang == nil)
+        // System fallback. Locale on iOS simulator defaults to en_US, so we expect "eng" (or whatever the runner reports).
+        let systemAlpha3 = Locale.current.language.languageCode?.identifier(.alpha3)
+        #expect(state.effectiveVernacularLanguage == systemAlpha3)
+    }
+
+    @Test("effectiveVernacularLanguage uses explicit preference when set")
+    func effectiveVernacularExplicitPreference() {
+        let defaults = freshDefaults()
+        let state = AppState(client: StubAPIClient(), defaults: defaults)
+        state.preferredVernacularLang = "deu"
+        #expect(state.effectiveVernacularLanguage == "deu")
+    }
+
     @Test("Vernacular preference round-trips through UserDefaults")
     func vernacularPersists() {
         let defaults = freshDefaults()

@@ -1,0 +1,4843 @@
+{
+    "offset": 0,
+    "limit": 20,
+    "total": 1085,
+    "result": [
+        {
+            "id": "3DXW2",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXW2",
+                    "name": "Felis silvestris",
+                    "authorship": "Schreber, 1777",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis silvestris</i> Schreber, 1777"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:31:30.10997",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:31:30.10997",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "3DXW2",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319073432,
+                "name": {
+                    "created": "2026-04-18T22:09:54.08418",
+                    "createdBy": 102,
+                    "modified": "2026-04-18T22:09:54.08418",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "CUGALwpoLWfB0tIFykT5g2",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319073432,
+                    "namesIndexId": 8679596,
+                    "namesIndexType": "exact",
+                    "identifier": [
+                        "zoobank:bf198c2e-1af3-4f40-91c2-9767d652b4e7",
+                        "zoobank:cfb02a94-b3c4-49f9-80d3-b68195a77954"
+                    ],
+                    "scientificName": "Felis silvestris",
+                    "authorship": "Schreber, 1777",
+                    "rank": "species",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Schreber"
+                        ],
+                        "year": "1777"
+                    },
+                    "code": "zoological",
+                    "nomStatus": "acceptable",
+                    "publishedInId": "df6b1cfd-9dfd-41ea-a547-0db84d5c3312",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=180589",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000224",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Schreber"
+                        ],
+                        "year": "1777"
+                    }
+                },
+                "status": "accepted",
+                "origin": "source",
+                "parentId": "4JQ8",
+                "identifier": [
+                    "inat:https://www.inaturalist.org/taxa/922459"
+                ],
+                "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=180589",
+                "referenceIds": [
+                    "bec111f2-aa0b-47fa-a794-81ced5c32f01",
+                    "2a83c75f-1706-4e45-b3cc-9e1ba0858879",
+                    "76d41c80-6a74-425c-9109-d4a40358870b",
+                    "65c09a7e-2028-4be5-b47a-d883cb051d32",
+                    "7b738f3d-6470-4a88-838b-7f6b8514ffdb",
+                    "51e16877-865a-47bf-931b-4513075df625"
+                ],
+                "scrutinizer": "W. Christopher Wozencraft,Alfred L. Gardner",
+                "scrutinizerDate": "2024-06-25",
+                "extinct": false,
+                "label": "Felis silvestris Schreber, 1777",
+                "labelHtml": "<i>Felis silvestris</i> Schreber, 1777",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "secondarySourceGroups": [
+                "published in"
+            ],
+            "secondarySourceKeys": [
+                2019
+            ],
+            "group": "chordates",
+            "vernacularNames": [
+                {
+                    "name": "Europ\u00e4ische Wildkatze",
+                    "language": "deu"
+                },
+                {
+                    "name": "Gato montesino",
+                    "language": "arg"
+                },
+                {
+                    "name": "Gat salvatge",
+                    "language": "cat"
+                },
+                {
+                    "name": "Basakatu",
+                    "language": "eus"
+                },
+                {
+                    "name": "Gatto (Gatto selvatico europeo)",
+                    "language": "ita"
+                },
+                {
+                    "name": "Me\u017ea ka\u0137is",
+                    "language": "lav"
+                },
+                {
+                    "name": "M\u00e8o hoang d\u00e3",
+                    "language": "vie"
+                },
+                {
+                    "name": "Villik\u00f6ttur",
+                    "language": "isl"
+                },
+                {
+                    "name": "fiadh-chat",
+                    "language": "gla"
+                },
+                {
+                    "name": "Wil kaat",
+                    "language": "frr"
+                },
+                {
+                    "name": "\ub4e4\uace0\uc591\uc774",
+                    "language": "kor"
+                },
+                {
+                    "name": "W\u00fcdkotz",
+                    "language": "bar"
+                },
+                {
+                    "name": "mage",
+                    "language": "hau"
+                },
+                {
+                    "name": "\u6591\u8c93",
+                    "language": "zho"
+                },
+                {
+                    "name": "\u30e8\u30fc\u30ed\u30c3\u30d1\u30e4\u30de\u30cd\u30b3",
+                    "language": "jpn"
+                },
+                {
+                    "name": "\u0e41\u0e21\u0e27\u0e1b\u0e48\u0e32\u0e22\u0e38\u0e42\u0e23\u0e1b",
+                    "language": "tha"
+                },
+                {
+                    "name": "\u0642\u0637 \u0628\u0631\u064a",
+                    "language": "ara"
+                },
+                {
+                    "name": "\u017bbik",
+                    "language": "pol"
+                },
+                {
+                    "name": "Wilde kat",
+                    "language": "nld"
+                },
+                {
+                    "name": "\u0531\u0576\u057f\u0561\u057c\u0561\u0575\u056b\u0576 \u056f\u0561\u057f\u0578\u0582",
+                    "language": "hye"
+                },
+                {
+                    "name": "Al qit",
+                    "language": "ara"
+                },
+                {
+                    "name": "\u041b\u0435\u0441\u043d\u043e\u0439 \u043a\u043e\u0442",
+                    "language": "rus"
+                },
+                {
+                    "name": "\u0391\u03b3\u03c1\u03b9\u03cc\u03b3\u03b1\u03c4\u03b1",
+                    "language": "ell"
+                },
+                {
+                    "name": "\u0531\u0576\u057f\u0561\u057c\u0561\u056f\u0561\u057f\u0578\u0582",
+                    "language": "hye"
+                },
+                {
+                    "name": "\u0642\u0637 \u0628\u0631\u064a (\u0636\u064e\u064a\u0652\u0648\u0646 \u0628\u0631\u064a)",
+                    "language": "ara"
+                },
+                {
+                    "name": "Basakatua",
+                    "language": "eus"
+                },
+                {
+                    "name": "\u09ac\u09c1\u09a8\u09cb \u09ac\u09bf\u09a1\u09bc\u09be\u09b2",
+                    "language": "ben"
+                },
+                {
+                    "name": "\uc57c\uc0dd\uace0\uc591\uc774",
+                    "language": "kor"
+                },
+                {
+                    "name": "Vildkat",
+                    "language": "dan"
+                },
+                {
+                    "name": "Pisic\u0103 s\u0103lbatic\u0103 european\u0103",
+                    "language": "ron"
+                },
+                {
+                    "name": "N\u2019gato kissu\u00ea",
+                    "language": "kmb"
+                },
+                {
+                    "name": "Ma\u010dka div\u00e1",
+                    "language": "slk"
+                },
+                {
+                    "name": "Ko\u010dka divok\u00e1",
+                    "language": "ces"
+                },
+                {
+                    "name": "Gatto selvatico europeo",
+                    "language": "ita"
+                },
+                {
+                    "name": "Gato\u2011bravo",
+                    "language": "por"
+                },
+                {
+                    "name": "Gato mont\u00e9s Euroasi\u00e1tico",
+                    "language": "spa"
+                },
+                {
+                    "name": "Gato bravo",
+                    "language": "glg"
+                },
+                {
+                    "name": "Forest Cat",
+                    "language": "eng"
+                },
+                {
+                    "name": "Asiatic Steppe Wildcat",
+                    "language": "eng"
+                },
+                {
+                    "name": "Desert Cat",
+                    "language": "eng"
+                },
+                {
+                    "name": "Desert Cat (Asian races)",
+                    "language": "eng"
+                },
+                {
+                    "name": "Chat sauvage d\u2019Europe",
+                    "language": "fra"
+                },
+                {
+                    "name": "Divja ma\u010dka",
+                    "language": "slv"
+                },
+                {
+                    "name": "Chat sauvage",
+                    "language": "fra"
+                },
+                {
+                    "name": "Divlja ma\u010dka",
+                    "language": "bos"
+                },
+                {
+                    "name": "\u041b\u0435\u0441\u043d\u0430\u044f \u043a\u043e\u0448\u043a\u0430",
+                    "language": "rus"
+                },
+                {
+                    "name": "\u041a\u0456\u0442 \u043b\u0456\u0441\u043e\u0432\u0438\u0439",
+                    "language": "ukr"
+                },
+                {
+                    "name": "\u0414\u0438\u043a\u0438\u0439 \u043a\u043e\u0442",
+                    "language": "rus"
+                },
+                {
+                    "name": "\u0414\u0438\u043a\u0430\u044f \u043a\u043e\u0448\u043a\u0430",
+                    "language": "rus"
+                },
+                {
+                    "name": "Europ\u00e4ische Wildkatze/Waldkatze",
+                    "language": "deu"
+                },
+                {
+                    "name": "fiadh-chait",
+                    "language": "gla"
+                },
+                {
+                    "name": "cat-fiadhaich",
+                    "language": "gla"
+                },
+                {
+                    "name": "cait-fhiadhaich",
+                    "language": "gla"
+                },
+                {
+                    "name": "Gat fer",
+                    "language": "cat"
+                },
+                {
+                    "name": "Gato cabe\u00e7anas",
+                    "language": "por"
+                },
+                {
+                    "name": "Cathod Gwyllt",
+                    "language": "cym"
+                },
+                {
+                    "name": "Gato-bravo",
+                    "language": "por"
+                },
+                {
+                    "name": "Cath Wyllt",
+                    "language": "cym"
+                },
+                {
+                    "name": "Gatto selvatico",
+                    "language": "ita"
+                },
+                {
+                    "name": "Macja e eg\u00ebr",
+                    "language": "sqi"
+                },
+                {
+                    "name": "Ma\u010dka divlja",
+                    "language": "hrv"
+                },
+                {
+                    "name": "Pisic\u0103 s\u0103lbatic\u0103",
+                    "language": "ron"
+                },
+                {
+                    "name": "gato silvestre",
+                    "language": "spa"
+                },
+                {
+                    "name": "Vaalboskat",
+                    "language": "afr"
+                },
+                {
+                    "name": "V\u0259h\u015fi pi\u015fik",
+                    "language": "aze"
+                },
+                {
+                    "name": "Yaban kedisi",
+                    "language": "tur"
+                },
+                {
+                    "name": "chat sylvestre",
+                    "language": "fra"
+                },
+                {
+                    "name": "\u0386\u03b3\u03c1\u03b9\u03b1 \u03b3\u03ac\u03c4\u03b1 (Agriogata)",
+                    "language": "ell"
+                },
+                {
+                    "name": "\u0414\u0438\u0432\u0430 \u043c\u0430\u0447\u043a\u0430 (Diva machka)",
+                    "language": "mkd"
+                },
+                {
+                    "name": "\u0415\u0432\u0440\u043e\u043f\u0435\u0439\u0441\u043a\u0430 \u0434\u0438\u0432\u0430 \u043a\u043e\u0442\u043a\u0430 (Evrope\u012dska diva kotka)",
+                    "language": "bul"
+                },
+                {
+                    "name": "chat sauvage d'Europe",
+                    "language": "fra"
+                },
+                {
+                    "name": "Wildcat",
+                    "language": "eng"
+                },
+                {
+                    "name": "Gato mont\u00e9s",
+                    "language": "spa"
+                },
+                {
+                    "name": "Wildkatze",
+                    "language": "deu"
+                },
+                {
+                    "name": "European wildcat",
+                    "language": "eng"
+                },
+                {
+                    "name": "Chat forestier",
+                    "language": "fra"
+                },
+                {
+                    "name": "Caucasian wildcat",
+                    "language": "eng"
+                },
+                {
+                    "name": "\u0414\u0438\u0432\u0430 \u043a\u043e\u0442\u043a\u0430",
+                    "language": "bul"
+                },
+                {
+                    "name": "\u0395\u03c5\u03c1\u03c9\u03c0\u03b1\u03ca\u03ba\u03ae \u0391\u03b3\u03c1\u03b9\u03cc\u03b3\u03b1\u03c4\u03b1",
+                    "language": "ell"
+                },
+                {
+                    "name": "\u017bbik europejski",
+                    "language": "pol"
+                },
+                {
+                    "name": "villikissa",
+                    "language": "fin"
+                },
+                {
+                    "name": "vildkatt",
+                    "language": "swe"
+                },
+                {
+                    "name": "vadmacska",
+                    "language": "hun"
+                },
+                {
+                    "name": "Wylde kat",
+                    "language": "fry"
+                },
+                {
+                    "name": "Waldkatze",
+                    "language": "deu"
+                },
+                {
+                    "name": "Villkatt",
+                    "language": "nob"
+                },
+                {
+                    "name": "Asian races",
+                    "language": "eng"
+                }
+            ]
+        },
+        {
+            "id": "5HC37",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXW2",
+                    "name": "Felis silvestris",
+                    "authorship": "Schreber, 1777",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis silvestris</i> Schreber, 1777"
+                },
+                {
+                    "id": "5HC37",
+                    "name": "Felis silvestris silvestris",
+                    "authorship": "Schreber, 1777",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis silvestris silvestris</i> Schreber, 1777"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC37",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078957,
+                "name": {
+                    "created": "2026-04-18T22:09:54.094178",
+                    "createdBy": 102,
+                    "modified": "2026-04-18T22:09:54.094178",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "LipXczYAQZsP9_CD7kCro0",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078957,
+                    "namesIndexId": 8686654,
+                    "namesIndexType": "variant",
+                    "scientificName": "Felis silvestris silvestris",
+                    "authorship": "Schreber, 1777",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "silvestris",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Schreber"
+                        ],
+                        "year": "1777"
+                    },
+                    "code": "zoological",
+                    "nomStatus": "acceptable",
+                    "publishedInId": "df6b1cfd-9dfd-41ea-a547-0db84d5c3312",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726325",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000224",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Schreber"
+                        ],
+                        "year": "1777"
+                    }
+                },
+                "status": "accepted",
+                "origin": "source",
+                "parentId": "3DXW2",
+                "identifier": [
+                    "inat:https://www.inaturalist.org/taxa/342134"
+                ],
+                "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726325",
+                "referenceIds": [
+                    "65c09a7e-2028-4be5-b47a-d883cb051d32",
+                    "7b738f3d-6470-4a88-838b-7f6b8514ffdb",
+                    "51e16877-865a-47bf-931b-4513075df625"
+                ],
+                "scrutinizerDate": "2024-06-25",
+                "extinct": false,
+                "label": "Felis silvestris silvestris Schreber, 1777",
+                "labelHtml": "<i>Felis silvestris silvestris</i> Schreber, 1777",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "secondarySourceGroups": [
+                "published in"
+            ],
+            "secondarySourceKeys": [
+                2019
+            ],
+            "group": "chordates",
+            "vernacularNames": [
+                {
+                    "name": "\u0e41\u0e21\u0e27\u0e1b\u0e48\u0e32\u0e22\u0e38\u0e42\u0e23\u0e1b",
+                    "language": "tha"
+                },
+                {
+                    "name": "\uc720\ub7fd\uc57c\uc0dd\uace0\uc591\uc774",
+                    "language": "kor"
+                },
+                {
+                    "name": "\u30e8\u30fc\u30ed\u30c3\u30d1\u30e4\u30de\u30cd\u30b3",
+                    "language": "jpn"
+                },
+                {
+                    "name": "\u0421\u044f\u0440\u044d\u0434\u043d\u0435\u0435\u045e\u0440\u0430\u043f\u0435\u0439\u0441\u043a\u0456 \u043b\u044f\u0441\u043d\u044b \u043a\u043e\u0442",
+                    "language": "bel"
+                },
+                {
+                    "name": "\u0415\u0432\u0440\u043e\u043f\u0435\u0439\u0441\u043a\u0430 \u0434\u0438\u0432\u0430 \u043a\u043e\u0442\u043a\u0430",
+                    "language": "bul"
+                },
+                {
+                    "name": "Gato mont\u00e9s",
+                    "language": "spa"
+                },
+                {
+                    "name": "Chat sauvage d'Europe",
+                    "language": "fra"
+                },
+                {
+                    "name": "\u0415\u0432\u0440\u043e\u043f\u0435\u0439\u0441\u043a\u0438\u0439 \u043b\u0435\u0441\u043d\u043e\u0439 \u043a\u043e\u0442",
+                    "language": "rus"
+                },
+                {
+                    "name": "\u0642\u0637 \u0628\u0631\u064a \u0623\u0648\u0631\u0628\u064a",
+                    "language": "ara"
+                },
+                {
+                    "name": "\u0421\u0440\u0435\u0434\u043d\u0435\u0435\u0432\u0440\u043e\u043f\u0435\u0439\u0441\u043a\u0438\u0439 \u043b\u0435\u0441\u043d\u043e\u0439 \u043a\u043e\u0442",
+                    "language": "rus"
+                },
+                {
+                    "name": "\u0421\u0440\u0435\u0434\u043d\u0435\u0435\u0432\u0440\u043e\u043f\u0435\u0439\u0441\u043a\u0430\u044f \u043b\u0435\u0441\u043d\u0430\u044f \u043a\u043e\u0448\u043a\u0430",
+                    "language": "rus"
+                },
+                {
+                    "name": "\u041a\u0456\u0442 \u043b\u0456\u0441\u043e\u0432\u0438\u0439 \u0454\u0432\u0440\u043e\u043f\u0435\u0439\u0441\u044c\u043a\u0438\u0439",
+                    "language": "ukr"
+                },
+                {
+                    "name": "Cretan Wildcat",
+                    "language": "eng"
+                },
+                {
+                    "name": "European Wildcat",
+                    "language": "eng"
+                },
+                {
+                    "name": "Europeisk Villkatt",
+                    "language": "nob"
+                },
+                {
+                    "name": "Europese Wilde Kat",
+                    "language": "nld"
+                },
+                {
+                    "name": "Europ\u00e4ische Wildkatze",
+                    "language": "deu"
+                },
+                {
+                    "name": "Gat fer europeu",
+                    "language": "cat"
+                },
+                {
+                    "name": "Gato mont\u00e9s europeo",
+                    "language": "spa"
+                },
+                {
+                    "name": "Gatto selvatico europeo",
+                    "language": "ita"
+                },
+                {
+                    "name": "Scottish Wildcat",
+                    "language": "eng"
+                },
+                {
+                    "name": "Waldkatze",
+                    "language": "deu"
+                },
+                {
+                    "name": "W\u00ebll Kaz",
+                    "language": "ltz"
+                },
+                {
+                    "name": "eur\u00f3pai vadmacska",
+                    "language": "hun"
+                },
+                {
+                    "name": "ko\u010dka evropsk\u00e1",
+                    "language": "ces"
+                },
+                {
+                    "name": "\u017cbik europejski (podgatunek)",
+                    "language": "pol"
+                }
+            ]
+        },
+        {
+            "id": "5HC2M",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXW2",
+                    "name": "Felis silvestris",
+                    "authorship": "Schreber, 1777",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis silvestris</i> Schreber, 1777"
+                },
+                {
+                    "id": "5HC2M",
+                    "name": "Felis silvestris caucasica",
+                    "authorship": "Satunin, 1905",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis silvestris caucasica</i> Satunin, 1905"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC2M",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078956,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "4Oem_KggfzOm7K3NX27Uc",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078956,
+                    "namesIndexId": 8686020,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris caucasica",
+                    "authorship": "Satunin, 1905",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "caucasica",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Satunin"
+                        ],
+                        "year": "1905"
+                    },
+                    "code": "zoological",
+                    "nomStatus": "acceptable",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726327",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000224",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Satunin"
+                        ],
+                        "year": "1905"
+                    }
+                },
+                "status": "accepted",
+                "origin": "source",
+                "parentId": "3DXW2",
+                "identifier": [
+                    "inat:https://www.inaturalist.org/taxa/703829"
+                ],
+                "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726327",
+                "referenceIds": [
+                    "65c09a7e-2028-4be5-b47a-d883cb051d32",
+                    "7b738f3d-6470-4a88-838b-7f6b8514ffdb",
+                    "51e16877-865a-47bf-931b-4513075df625"
+                ],
+                "scrutinizerDate": "2024-06-25",
+                "extinct": false,
+                "label": "Felis silvestris caucasica Satunin, 1905",
+                "labelHtml": "<i>Felis silvestris caucasica</i> Satunin, 1905",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates",
+            "vernacularNames": [
+                {
+                    "name": "\u041a\u0430\u0432\u043a\u0430\u0437\u0441\u043a\u0430\u044f \u043b\u0435\u0441\u043d\u0430\u044f \u043a\u043e\u0448\u043a\u0430",
+                    "language": "rus"
+                },
+                {
+                    "name": "Caucasian Wildcat",
+                    "language": "eng"
+                },
+                {
+                    "name": "Chat sauvage du Caucase",
+                    "language": "fra"
+                },
+                {
+                    "name": "Gato mont\u00e9s cauc\u00e1sico",
+                    "language": "spa"
+                },
+                {
+                    "name": "Gatto selvatico del Caucaso",
+                    "language": "ita"
+                },
+                {
+                    "name": "Kaukasusvillkatt",
+                    "language": "nob"
+                },
+                {
+                    "name": "kauk\u00e1zusi vadmacska",
+                    "language": "hun"
+                },
+                {
+                    "name": "\u017cbik kaukaski",
+                    "language": "pol"
+                },
+                {
+                    "name": "\u041a\u0430\u0432\u043a\u0430\u0437\u0441\u043a\u0438\u0439 \u043b\u0435\u0441\u043d\u043e\u0439 \u043a\u043e\u0442",
+                    "language": "rus"
+                },
+                {
+                    "name": "\u041a\u0456\u0442 \u043b\u0456\u0441\u043e\u0432\u0438\u0439 \u043a\u0430\u0432\u043a\u0430\u0437\u044c\u043a\u0438\u0439",
+                    "language": "ukr"
+                },
+                {
+                    "name": "\u0642\u0637 \u0628\u0631\u064a \u0642\u0648\u0642\u0627\u0632\u064a",
+                    "language": "ara"
+                },
+                {
+                    "name": "\u0e41\u0e21\u0e27\u0e1b\u0e48\u0e32\u0e04\u0e2d\u0e40\u0e04\u0e0b\u0e31\u0e2a",
+                    "language": "tha"
+                },
+                {
+                    "name": "\u0531\u0576\u057f\u0561\u057c\u0561\u056f\u0561\u057f\u0578\u0582 \u056f\u0578\u057e\u056f\u0561\u057d\u0575\u0561\u0576",
+                    "language": "hye"
+                }
+            ]
+        },
+        {
+            "id": "5HC2Q",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXVF",
+                    "name": "Felis lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "5HC2Q",
+                    "name": "Felis silvestris cretensis",
+                    "authorship": "Haltenorth, 1953",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris cretensis</i> Haltenorth, 1953"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC2Q",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078930,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "lI2vR5QLY_7-8KaYpntTU2",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078930,
+                    "namesIndexId": 8686100,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris cretensis",
+                    "authorship": "Haltenorth, 1953",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "cretensis",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Haltenorth"
+                        ],
+                        "year": "1953"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726330",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Haltenorth"
+                        ],
+                        "year": "1953"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXVF",
+                "accepted": {
+                    "id": "3DXVF",
+                    "name": {
+                        "scientificName": "Felis lybica",
+                        "authorship": "Forster, 1780",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis lybica Forster, 1780",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                "label": "Felis silvestris cretensis Haltenorth, 1953",
+                "labelHtml": "<i>Felis silvestris cretensis</i> Haltenorth, 1953",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "5HC36",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXVF",
+                    "name": "Felis lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "5HC36",
+                    "name": "Felis silvestris rubida",
+                    "authorship": "Schwann, 1904",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris rubida</i> Schwann, 1904"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC36",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078941,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "1l4hDjO1D5Nq8p5IoZR2b",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078941,
+                    "namesIndexId": 8686617,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris rubida",
+                    "authorship": "Schwann, 1904",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "rubida",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Schwann"
+                        ],
+                        "year": "1904"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726344",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Schwann"
+                        ],
+                        "year": "1904"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXVF",
+                "accepted": {
+                    "id": "3DXVF",
+                    "name": {
+                        "scientificName": "Felis lybica",
+                        "authorship": "Forster, 1780",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis lybica Forster, 1780",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                "label": "Felis silvestris rubida Schwann, 1904",
+                "labelHtml": "<i>Felis silvestris rubida</i> Schwann, 1904",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "5HC2R",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXVF",
+                    "name": "Felis lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "5HC2R",
+                    "name": "Felis silvestris foxi",
+                    "authorship": "Pocock, 1944",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris foxi</i> Pocock, 1944"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC2R",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078931,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "vQL8Wx87XMssBCo_d9qO4",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078931,
+                    "namesIndexId": 8686138,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris foxi",
+                    "authorship": "Pocock, 1944",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "foxi",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Pocock"
+                        ],
+                        "year": "1944"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726331",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Pocock"
+                        ],
+                        "year": "1944"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXVF",
+                "accepted": {
+                    "id": "3DXVF",
+                    "name": {
+                        "scientificName": "Felis lybica",
+                        "authorship": "Forster, 1780",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis lybica Forster, 1780",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                "label": "Felis silvestris foxi Pocock, 1944",
+                "labelHtml": "<i>Felis silvestris foxi</i> Pocock, 1944",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "5HC35",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXVF",
+                    "name": "Felis lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "5HC35",
+                    "name": "Felis silvestris reyi",
+                    "authorship": "Lavauden, 1929",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris reyi</i> Lavauden, 1929"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC35",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078940,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "HACTUrz2BeAP6decH4AGl1",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078940,
+                    "namesIndexId": 8686591,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris reyi",
+                    "authorship": "Lavauden, 1929",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "reyi",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Lavauden"
+                        ],
+                        "year": "1929"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726343",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Lavauden"
+                        ],
+                        "year": "1929"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXVF",
+                "accepted": {
+                    "id": "3DXVF",
+                    "name": {
+                        "scientificName": "Felis lybica",
+                        "authorship": "Forster, 1780",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis lybica Forster, 1780",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                "label": "Felis silvestris reyi Lavauden, 1929",
+                "labelHtml": "<i>Felis silvestris reyi</i> Lavauden, 1929",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "CGLMC",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXW2",
+                    "name": "Felis silvestris",
+                    "authorship": "Schreber, 1777",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis silvestris</i> Schreber, 1777"
+                },
+                {
+                    "id": "CGLMC",
+                    "name": "Felis silvestris brockmani",
+                    "authorship": "Pocock, 1944",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris brockmani</i> Pocock, 1944"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "CGLMC",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078953,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "MEMB7AtEXNub0__JfHbN_0",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078953,
+                    "namesIndexId": 8685900,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris brockmani",
+                    "authorship": "Pocock, 1944",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "brockmani",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Pocock"
+                        ],
+                        "year": "1944"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1229838",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Pocock"
+                        ],
+                        "year": "1944"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXW2",
+                "accepted": {
+                    "id": "3DXW2",
+                    "name": {
+                        "scientificName": "Felis silvestris",
+                        "authorship": "Schreber, 1777",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis silvestris Schreber, 1777",
+                    "labelHtml": "<i>Felis silvestris</i> Schreber, 1777"
+                },
+                "label": "Felis silvestris brockmani Pocock, 1944",
+                "labelHtml": "<i>Felis silvestris brockmani</i> Pocock, 1944",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "5HC2N",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXVF",
+                    "name": "Felis lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "5HC2N",
+                    "name": "Felis silvestris caudata",
+                    "authorship": "Gray, 1874",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris caudata</i> Gray, 1874"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC2N",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078928,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "NgHxmrbh-bQD5hL9nKADp1",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078928,
+                    "namesIndexId": 8686048,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris caudata",
+                    "authorship": "Gray, 1874",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "caudata",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Gray"
+                        ],
+                        "year": "1874"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726328",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Gray"
+                        ],
+                        "year": "1874"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXVF",
+                "accepted": {
+                    "id": "3DXVF",
+                    "name": {
+                        "scientificName": "Felis lybica",
+                        "authorship": "Forster, 1780",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis lybica Forster, 1780",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                "label": "Felis silvestris caudata Gray, 1874",
+                "labelHtml": "<i>Felis silvestris caudata</i> Gray, 1874",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "5HC32",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXVF",
+                    "name": "Felis lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "5HC32",
+                    "name": "Felis silvestris nesterovi",
+                    "authorship": "Birula, 1916",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris nesterovi</i> Birula, 1916"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC32",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078938,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "xXR_XHH-mHsL1dW8bzOB30",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078938,
+                    "namesIndexId": 8686430,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris nesterovi",
+                    "authorship": "Birula, 1916",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "nesterovi",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Birula"
+                        ],
+                        "year": "1916"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726340",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Birula"
+                        ],
+                        "year": "1916"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXVF",
+                "accepted": {
+                    "id": "3DXVF",
+                    "name": {
+                        "scientificName": "Felis lybica",
+                        "authorship": "Forster, 1780",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis lybica Forster, 1780",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                "label": "Felis silvestris nesterovi Birula, 1916",
+                "labelHtml": "<i>Felis silvestris nesterovi</i> Birula, 1916",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "5HC33",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXVF",
+                    "name": "Felis lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "5HC33",
+                    "name": "Felis silvestris ocreata",
+                    "authorship": "Gmelin, 1791",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris ocreata</i> Gmelin, 1791"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC33",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078939,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "JSH9QKc8bPQW2lgTwzuZX2",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078939,
+                    "namesIndexId": 8686460,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris ocreata",
+                    "authorship": "Gmelin, 1791",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "ocreata",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Gmelin"
+                        ],
+                        "year": "1791"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726341",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Gmelin"
+                        ],
+                        "year": "1791"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXVF",
+                "accepted": {
+                    "id": "3DXVF",
+                    "name": {
+                        "scientificName": "Felis lybica",
+                        "authorship": "Forster, 1780",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis lybica Forster, 1780",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                "label": "Felis silvestris ocreata Gmelin, 1791",
+                "labelHtml": "<i>Felis silvestris ocreata</i> Gmelin, 1791",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "CGLQQ",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXVF",
+                    "name": "Felis lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "CGLQQ",
+                    "name": "Felis silvestris sarda",
+                    "authorship": "Lataste, 1885",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris sarda</i> Lataste, 1885"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "CGLQQ",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078942,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "L2ctOeY6fHQZ9Wx_WH7Np1",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078942,
+                    "namesIndexId": 8686630,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris sarda",
+                    "authorship": "Lataste, 1885",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "sarda",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Lataste"
+                        ],
+                        "year": "1885"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1229840",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Lataste"
+                        ],
+                        "year": "1885"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXVF",
+                "accepted": {
+                    "id": "3DXVF",
+                    "name": {
+                        "scientificName": "Felis lybica",
+                        "authorship": "Forster, 1780",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis lybica Forster, 1780",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                "label": "Felis silvestris sarda Lataste, 1885",
+                "labelHtml": "<i>Felis silvestris sarda</i> Lataste, 1885",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "CGLPG",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXW2",
+                    "name": "Felis silvestris",
+                    "authorship": "Schreber, 1777",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis silvestris</i> Schreber, 1777"
+                },
+                {
+                    "id": "CGLPG",
+                    "name": "Felis silvestris pyrrhus",
+                    "authorship": "Pocock, 1944",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris pyrrhus</i> Pocock, 1944"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "CGLPG",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078955,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "7VvHCBEZludp1phyfwT9R2",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078955,
+                    "namesIndexId": 8686543,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris pyrrhus",
+                    "authorship": "Pocock, 1944",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "pyrrhus",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Pocock"
+                        ],
+                        "year": "1944"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1229839",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Pocock"
+                        ],
+                        "year": "1944"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXW2",
+                "accepted": {
+                    "id": "3DXW2",
+                    "name": {
+                        "scientificName": "Felis silvestris",
+                        "authorship": "Schreber, 1777",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis silvestris Schreber, 1777",
+                    "labelHtml": "<i>Felis silvestris</i> Schreber, 1777"
+                },
+                "label": "Felis silvestris pyrrhus Pocock, 1944",
+                "labelHtml": "<i>Felis silvestris pyrrhus</i> Pocock, 1944",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "5HC2V",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXVF",
+                    "name": "Felis lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "5HC2V",
+                    "name": "Felis silvestris haussa",
+                    "authorship": "Thomas & Hinton, 1921",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris haussa</i> Thomas & Hinton, 1921"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC2V",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078934,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "1oIh0OHDKLAk1x6CVoyPB0",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078934,
+                    "namesIndexId": 8686254,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris haussa",
+                    "authorship": "Thomas & Hinton, 1921",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "haussa",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Thomas",
+                            "Hinton"
+                        ],
+                        "year": "1921"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726335",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Thomas",
+                            "Hinton"
+                        ],
+                        "year": "1921"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXVF",
+                "accepted": {
+                    "id": "3DXVF",
+                    "name": {
+                        "scientificName": "Felis lybica",
+                        "authorship": "Forster, 1780",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis lybica Forster, 1780",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                "label": "Felis silvestris haussa Thomas & Hinton, 1921",
+                "labelHtml": "<i>Felis silvestris haussa</i> Thomas & Hinton, 1921",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "7K5C8",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXV4",
+                    "name": "Felis chaus",
+                    "authorship": "Schreber, 1777",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis chaus</i> Schreber, 1777"
+                },
+                {
+                    "id": "7K5C8",
+                    "name": "Felis silvestris vellerosa",
+                    "authorship": "Pocock, 1943",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris vellerosa</i> Pocock, 1943"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "7K5C8",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078923,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "6epWx-YkCLeWD8_zw3-nu",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078923,
+                    "namesIndexId": 8686772,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris vellerosa",
+                    "authorship": "Pocock, 1943",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "vellerosa",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Pocock"
+                        ],
+                        "year": "1943"
+                    },
+                    "code": "zoological",
+                    "nomStatus": "doubtful",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726347",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000225",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Pocock"
+                        ],
+                        "year": "1943"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXV4",
+                "accepted": {
+                    "id": "3DXV4",
+                    "name": {
+                        "scientificName": "Felis chaus",
+                        "authorship": "Schreber, 1777",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis chaus Schreber, 1777",
+                    "labelHtml": "<i>Felis chaus</i> Schreber, 1777"
+                },
+                "label": "Felis silvestris vellerosa Pocock, 1943",
+                "labelHtml": "<i>Felis silvestris vellerosa</i> Pocock, 1943",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "5HC2P",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXVF",
+                    "name": "Felis lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "5HC2P",
+                    "name": "Felis silvestris chutuchta",
+                    "authorship": "Birula, 1916",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris chutuchta</i> Birula, 1916"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC2P",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078929,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "0xUKOKreX0tf3pSiQ-goo1",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078929,
+                    "namesIndexId": 8686071,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris chutuchta",
+                    "authorship": "Birula, 1916",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "chutuchta",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Birula"
+                        ],
+                        "year": "1916"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726329",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Birula"
+                        ],
+                        "year": "1916"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXVF",
+                "accepted": {
+                    "id": "3DXVF",
+                    "name": {
+                        "scientificName": "Felis lybica",
+                        "authorship": "Forster, 1780",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis lybica Forster, 1780",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                "label": "Felis silvestris chutuchta Birula, 1916",
+                "labelHtml": "<i>Felis silvestris chutuchta</i> Birula, 1916",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "5HC2T",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXW2",
+                    "name": "Felis silvestris",
+                    "authorship": "Schreber, 1777",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis silvestris</i> Schreber, 1777"
+                },
+                {
+                    "id": "5HC2T",
+                    "name": "Felis silvestris grampia",
+                    "authorship": "Miller, 1907",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris grampia</i> Miller, 1907"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC2T",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078954,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "tGYgbo78PGOO009iA3y0p1",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078954,
+                    "namesIndexId": 8686196,
+                    "namesIndexType": "exact",
+                    "scientificName": "Felis silvestris grampia",
+                    "authorship": "Miller, 1907",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "grampia",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Miller"
+                        ],
+                        "year": "1907"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726333",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Miller"
+                        ],
+                        "year": "1907"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXW2",
+                "accepted": {
+                    "id": "3DXW2",
+                    "name": {
+                        "scientificName": "Felis silvestris",
+                        "authorship": "Schreber, 1777",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis silvestris Schreber, 1777",
+                    "labelHtml": "<i>Felis silvestris</i> Schreber, 1777"
+                },
+                "label": "Felis silvestris grampia Miller, 1907",
+                "labelHtml": "<i>Felis silvestris grampia</i> Miller, 1907",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "5HC34",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXVF",
+                    "name": "Felis lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "CFSCX",
+                    "name": "Felis lybica ornata",
+                    "authorship": "Gray, 1832",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica ornata</i> Gray, 1832"
+                },
+                {
+                    "id": "5HC34",
+                    "name": "Felis silvestris ornata",
+                    "authorship": "Gray, 1832",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris ornata</i> Gray, 1832"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:33:12.911488",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:33:12.911488",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC34",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319085965,
+                "name": {
+                    "created": "2026-04-10T17:33:12.911488",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:33:12.911488",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "ftTtnabRsOsd0WfacNas32",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319085965,
+                    "namesIndexId": 8686488,
+                    "namesIndexType": "variant",
+                    "scientificName": "Felis silvestris ornata",
+                    "authorship": "Gray, 1832",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "ornata",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Gray"
+                        ],
+                        "year": "1832"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726342",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000131",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Gray"
+                        ],
+                        "year": "1832"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "CFSCX",
+                "accepted": {
+                    "id": "CFSCX",
+                    "name": {
+                        "scientificName": "Felis lybica ornata",
+                        "authorship": "Gray, 1832",
+                        "rank": "subspecies",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis lybica ornata Gray, 1832",
+                    "labelHtml": "<i>Felis lybica ornata</i> Gray, 1832"
+                },
+                "label": "Felis silvestris ornata Gray, 1832",
+                "labelHtml": "<i>Felis silvestris ornata</i> Gray, 1832",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "5HC2Y",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXVF",
+                    "name": "Felis lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "CFSCW",
+                    "name": "Felis lybica lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "5HC2Y",
+                    "name": "Felis silvestris lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris lybica</i> Forster, 1780"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:33:12.911488",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:33:12.911488",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC2Y",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319085964,
+                "name": {
+                    "created": "2026-04-10T17:33:12.911488",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:33:12.911488",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "TGYxGMNYUSvq9lwEHIzoG",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319085964,
+                    "namesIndexId": 8686351,
+                    "namesIndexType": "variant",
+                    "scientificName": "Felis silvestris lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "lybica",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Forster"
+                        ],
+                        "year": "1780"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726338",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000131",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Forster"
+                        ],
+                        "year": "1780"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "CFSCW",
+                "accepted": {
+                    "id": "CFSCW",
+                    "name": {
+                        "scientificName": "Felis lybica lybica",
+                        "authorship": "Forster, 1780",
+                        "rank": "subspecies",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis lybica lybica Forster, 1780",
+                    "labelHtml": "<i>Felis lybica lybica</i> Forster, 1780"
+                },
+                "label": "Felis silvestris lybica Forster, 1780",
+                "labelHtml": "<i>Felis silvestris lybica</i> Forster, 1780",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        },
+        {
+            "id": "5HC39",
+            "classification": [
+                {
+                    "id": "CS5HF",
+                    "name": "Eukaryota",
+                    "authorship": "(Chatton, 1925) Whittaker & Margulis, 1978",
+                    "rank": "domain",
+                    "status": "accepted",
+                    "labelHtml": "Eukaryota (Chatton, 1925) Whittaker & Margulis, 1978"
+                },
+                {
+                    "id": "N",
+                    "name": "Animalia",
+                    "rank": "kingdom",
+                    "status": "accepted",
+                    "labelHtml": "Animalia"
+                },
+                {
+                    "id": "CH2",
+                    "name": "Chordata",
+                    "rank": "phylum",
+                    "status": "accepted",
+                    "labelHtml": "Chordata"
+                },
+                {
+                    "id": "8V4V3",
+                    "name": "Vertebrata",
+                    "rank": "subphylum",
+                    "status": "accepted",
+                    "labelHtml": "Vertebrata"
+                },
+                {
+                    "id": "8V4V5",
+                    "name": "Gnathostomata",
+                    "rank": "infraphylum",
+                    "status": "accepted",
+                    "labelHtml": "Gnathostomata"
+                },
+                {
+                    "id": "8VVWB",
+                    "name": "Osteichthyes",
+                    "rank": "parvphylum",
+                    "status": "accepted",
+                    "labelHtml": "Osteichthyes"
+                },
+                {
+                    "id": "9CK8W",
+                    "name": "Tetrapoda",
+                    "rank": "megaclass",
+                    "status": "accepted",
+                    "labelHtml": "Tetrapoda"
+                },
+                {
+                    "id": "6224G",
+                    "name": "Mammalia",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "class",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Mammalia Linnaeus, 1758"
+                },
+                {
+                    "id": "6226C",
+                    "name": "Theria",
+                    "authorship": "Parker & Haswell, 1897",
+                    "rank": "subclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Theria Parker & Haswell, 1897"
+                },
+                {
+                    "id": "LG",
+                    "name": "Eutheria",
+                    "authorship": "Gill, 1872",
+                    "rank": "infraclass",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Eutheria Gill, 1872"
+                },
+                {
+                    "id": "VS",
+                    "name": "Carnivora",
+                    "authorship": "Bowdich, 1821",
+                    "rank": "order",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Carnivora Bowdich, 1821"
+                },
+                {
+                    "id": "4DL",
+                    "name": "Feliformia",
+                    "authorship": "Kretzoi, 1945",
+                    "rank": "suborder",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Feliformia Kretzoi, 1945"
+                },
+                {
+                    "id": "623RM",
+                    "name": "Felidae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "family",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felidae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "JKL",
+                    "name": "Felinae",
+                    "authorship": "Fischer de Waldheim, 1817",
+                    "rank": "subfamily",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "Felinae Fischer de Waldheim, 1817"
+                },
+                {
+                    "id": "4JQ8",
+                    "name": "Felis",
+                    "authorship": "Linnaeus, 1758",
+                    "rank": "genus",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis</i> Linnaeus, 1758"
+                },
+                {
+                    "id": "3DXVF",
+                    "name": "Felis lybica",
+                    "authorship": "Forster, 1780",
+                    "rank": "species",
+                    "code": "zoological",
+                    "status": "accepted",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                {
+                    "id": "5HC39",
+                    "name": "Felis silvestris ugandae",
+                    "authorship": "Schwann, 1904",
+                    "rank": "subspecies",
+                    "code": "zoological",
+                    "status": "synonym",
+                    "labelHtml": "<i>Felis silvestris ugandae</i> Schwann, 1904"
+                }
+            ],
+            "usage": {
+                "created": "2026-04-10T17:32:12.658129",
+                "createdBy": 102,
+                "modified": "2026-04-10T17:32:12.658129",
+                "modifiedBy": 102,
+                "datasetKey": 314965,
+                "id": "5HC39",
+                "sectorKey": 1508,
+                "verbatimSourceKey": 319078944,
+                "name": {
+                    "created": "2026-04-10T17:32:12.658129",
+                    "createdBy": 102,
+                    "modified": "2026-04-10T17:32:12.658129",
+                    "modifiedBy": 102,
+                    "datasetKey": 314965,
+                    "id": "3h8Px_oaHztMB_fSGCohm2",
+                    "sectorKey": 1508,
+                    "verbatimSourceKey": 319078944,
+                    "namesIndexId": 8686710,
+                    "namesIndexType": "variant",
+                    "scientificName": "Felis silvestris ugandae",
+                    "authorship": "Schwann, 1904",
+                    "rank": "subspecies",
+                    "genus": "Felis",
+                    "specificEpithet": "silvestris",
+                    "infraspecificEpithet": "ugandae",
+                    "combinationAuthorship": {
+                        "authors": [
+                            "Schwann"
+                        ],
+                        "year": "1904"
+                    },
+                    "code": "zoological",
+                    "origin": "source",
+                    "type": "scientific",
+                    "link": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=726346",
+                    "remarks": "http://purl.obolibrary.org/obo/NOMEN_0000276",
+                    "parsed": true,
+                    "basionymOrCombinationAuthorship": {
+                        "authors": [
+                            "Schwann"
+                        ],
+                        "year": "1904"
+                    }
+                },
+                "status": "synonym",
+                "origin": "source",
+                "parentId": "3DXVF",
+                "accepted": {
+                    "id": "3DXVF",
+                    "name": {
+                        "scientificName": "Felis lybica",
+                        "authorship": "Forster, 1780",
+                        "rank": "species",
+                        "code": "zoological",
+                        "type": "scientific",
+                        "parsed": false,
+                        "basionymOrCombinationAuthorship": {}
+                    },
+                    "status": "accepted",
+                    "label": "Felis lybica Forster, 1780",
+                    "labelHtml": "<i>Felis lybica</i> Forster, 1780"
+                },
+                "label": "Felis silvestris ugandae Schwann, 1904",
+                "labelHtml": "<i>Felis silvestris ugandae</i> Schwann, 1904",
+                "merged": false
+            },
+            "sectorDatasetKey": 2144,
+            "sectorPublisherKey": "bc092ff0-02e4-11dc-991f-b8a03c50a862",
+            "group": "chordates"
+        }
+    ],
+    "empty": false,
+    "last": false
+}

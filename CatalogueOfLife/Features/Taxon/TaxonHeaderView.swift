@@ -26,6 +26,10 @@ struct TaxonHeaderView: View {
             if let v = preferredVernacular {
                 Text(v.name).font(.body).foregroundStyle(.secondary)
             }
+            Text(info.taxonId)
+                .font(.system(.caption2, design: .monospaced))
+                .foregroundStyle(.tertiary)
+                .textSelection(.enabled)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

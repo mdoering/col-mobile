@@ -32,6 +32,14 @@ final class AppState {
         availableReleases.first { $0.key == selectedDatasetKey }
     }
 
+    /// The language code to use for common-name display, falling back to the system
+    /// language if the user hasn't set an explicit preference. Returns nil only if
+    /// the system language can't be mapped to ISO 639-3.
+    var effectiveVernacularLanguage: String? {
+        if let stored = preferredVernacularLang { return stored }
+        return Locale.current.language.languageCode?.identifier(.alpha3)
+    }
+
     /// True only when the user has selected the latest extended (3LXR) or base (3LR) release.
     /// GBIF's COL checklist tracks identifiers from those two specific releases.
     var gbifAvailable: Bool {

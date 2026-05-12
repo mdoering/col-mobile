@@ -107,7 +107,14 @@ private struct SearchRow: View {
                     .background(.thinMaterial, in: Capsule())
             }
             if hit.status.isSynonym {
-                Text("synonym").font(.caption2).foregroundStyle(.orange)
+                HStack(spacing: 4) {
+                    Text("synonym of").font(.caption2).foregroundStyle(.orange)
+                    if let accepted = hit.acceptedName {
+                        Text(accepted).italic().font(.caption2).foregroundStyle(.orange)
+                    } else {
+                        Text("—").font(.caption2).foregroundStyle(.secondary)
+                    }
+                }
             }
         }
     }

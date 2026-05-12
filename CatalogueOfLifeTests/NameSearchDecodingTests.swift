@@ -17,15 +17,15 @@ struct NameSearchDecodingTests {
     func synonymRoutesToAccepted() {
         let synonym = SearchHit(
             id: "S1", scientificName: "Felis x", authorship: nil,
-            rank: .species, status: .synonym, acceptedId: "ACC1", group: nil
+            rank: .species, status: .synonym, acceptedId: "ACC1", acceptedName: nil, group: nil
         )
         let accepted = SearchHit(
             id: "ACC2", scientificName: "Felis catus", authorship: nil,
-            rank: .species, status: .accepted, acceptedId: nil, group: nil
+            rank: .species, status: .accepted, acceptedId: nil, acceptedName: nil, group: nil
         )
         let orphanSynonym = SearchHit(
             id: "OS1", scientificName: "Felis ghost", authorship: nil,
-            rank: .species, status: .synonym, acceptedId: nil, group: nil
+            rank: .species, status: .synonym, acceptedId: nil, acceptedName: nil, group: nil
         )
         #expect(synonym.navigationTaxonId == "ACC1")
         #expect(accepted.navigationTaxonId == "ACC2")
@@ -40,7 +40,7 @@ struct NameSearchDecodingTests {
                 "id": "SYN1",
                 "status": "synonym",
                 "name": {"scientificName": "Felis domestica", "rank": "species"},
-                "accepted": {"id": "ACC1"}
+                "accepted": {"id": "ACC1", "name": {"scientificName": "Felis catus"}}
             },
             "group": "chordates"
         }]}
@@ -48,8 +48,19 @@ struct NameSearchDecodingTests {
         let paged = try JSONDecoder().decode(PagedDTO<NameUsageSearchHitDTO>.self, from: Data(json.utf8))
         let hit = SearchHit(dto: paged.result[0])
         #expect(hit.acceptedId == "ACC1")
+        #expect(hit.acceptedName == "Felis catus")
         #expect(hit.navigationTaxonId == "ACC1")
         #expect(hit.status == .synonym)
         #expect(hit.group == "chordates")
+    }
+
+    @Test("Synonym hits carry the accepted scientific name")
+    func synonymCarriesAcceptedName() throws {
+        let data = try FixtureLoader.data("name_search_synonyms")
+        let paged = try JSONDecoder().decode(PagedDTO<NameUsageSearchHitDTO>.self, from: data)
+        let hits = paged.result.map(SearchHit.init(dto:))
+        let synonymWithAccepted = hits.first { $0.status.isSynonym && $0.acceptedName != nil }
+        #expect(synonymWithAccepted != nil, "Fixture should contain at least one synonym with an accepted name")
+        #expect(synonymWithAccepted?.acceptedName?.isEmpty == false)
     }
 }
