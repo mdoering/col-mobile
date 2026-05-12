@@ -35,14 +35,16 @@ targets:
     platform: iOS
     sources:
       - path: CatalogueOfLifeTests
+    resources:
+      - path: CatalogueOfLifeTests/Fixtures
     dependencies:
       - target: CatalogueOfLife
     settings:
       base:
+        TARGETED_DEVICE_FAMILY: "1"
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/CatalogueOfLife.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CatalogueOfLife"
         BUNDLE_LOADER: "$(TEST_HOST)"
         GENERATE_INFOPLIST_FILE: YES
-        TARGETED_DEVICE_FAMILY: "1"
 schemes:
   CatalogueOfLife:
     build:
