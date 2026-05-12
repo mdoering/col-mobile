@@ -1,0 +1,30 @@
+name: Refresh TaxGroup assets
+on:
+  schedule:
+    - cron: "17 4 * * 1"   # Monday 04:17 UTC — off-peak
+  workflow_dispatch:        # allow manual trigger from the Actions UI
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run bundling script
+        run: |
+          python3 Tools/bundle_taxgroup_assets.py
+
+      - name: Commit and push if there are changes
+        run: |
+          if [ -n "$(git status --porcelain CatalogueOfLife/Resources/Bundle CatalogueOfLife/Resources/Assets.xcassets/Groups)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add CatalogueOfLife/Resources/Bundle CatalogueOfLife/Resources/Assets.xcassets/Groups
+            git commit -m "Refresh TaxGroup vocab + SVG assets (automated)"
+            git push
+          else
+            echo "No vocab/asset changes."
+          fi
