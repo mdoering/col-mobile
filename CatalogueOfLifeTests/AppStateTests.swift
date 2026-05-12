@@ -42,7 +42,7 @@ struct AppStateTests {
         #expect(state.gbifAvailable == true)
         // Resolved order: 3LXR (100), 3LR (200), COL2024 (300); others absent.
         #expect(state.availableReleases.map(\.dataset.key) == [100, 200, 300])
-        #expect(state.availableReleases.map(\.displayName) == ["Latest XR", "Latest Base", "COL 2024"])
+        #expect(state.availableReleases.map(\.displayName) == ["Latest", "Latest Base", "COL 2024"])
     }
 
     @Test("Selecting the latest base release also enables gbifAvailable")
