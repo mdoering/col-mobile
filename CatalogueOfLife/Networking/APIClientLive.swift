@@ -72,4 +72,16 @@ actor APIClientLive: APIClient {
         let dtos = try await getJSON(url, as: [ClassificationEntryDTO].self)
         return dtos.map { ClassificationItem(id: $0.id, name: $0.name, rank: Rank(apiValue: $0.rank)) }
     }
+
+    func listSources(datasetKey: Int) async throws -> [Source] {
+        let url = Endpoints.sources(datasetKey: datasetKey)
+        let dtos = try await getJSON(url, as: [SourceDTO].self)
+        return dtos.map(Source.init(dto:))
+    }
+
+    func getSource(datasetKey: Int, sourceKey: Int) async throws -> Source {
+        let url = Endpoints.source(datasetKey: datasetKey, sourceKey: sourceKey)
+        let dto = try await getJSON(url, as: SourceDTO.self)
+        return Source(dto: dto)
+    }
 }

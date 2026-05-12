@@ -9,5 +9,7 @@ protocol APIClient: Sendable {
     func getTreeChildren(datasetKey: Int, parentId: String?) async throws -> [TreeNode]
     func suggest(datasetKey: Int, q: String) async throws -> [TaxonSuggestion]
     func getClassification(datasetKey: Int, taxonId: String) async throws -> [ClassificationItem]
+    func listSources(datasetKey: Int) async throws -> [Source]
+    func getSource(datasetKey: Int, sourceKey: Int) async throws -> Source
 }
 

@@ -67,4 +67,21 @@ enum Endpoints {
             .appending(path: taxonId)
             .appending(path: "classification")
     }
+
+    static func sources(datasetKey: Int, limit: Int = 300) -> URL {
+        var c = URLComponents(
+            url: baseURL.appending(path: "dataset/\(datasetKey)/source"),
+            resolvingAgainstBaseURL: false
+        )!
+        c.queryItems = [URLQueryItem(name: "limit", value: String(limit))]
+        return c.url!
+    }
+
+    static func source(datasetKey: Int, sourceKey: Int) -> URL {
+        baseURL
+            .appending(path: "dataset")
+            .appending(path: "\(datasetKey)")
+            .appending(path: "source")
+            .appending(path: "\(sourceKey)")
+    }
 }

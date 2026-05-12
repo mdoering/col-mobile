@@ -42,4 +42,18 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
         if let error { throw error }
         return classifications[taxonId] ?? []
     }
+
+    var sources: [Int: [Source]] = [:]
+    var sourceDetail: [Int: Source] = [:]
+
+    func listSources(datasetKey: Int) async throws -> [Source] {
+        if let error { throw error }
+        return sources[datasetKey] ?? []
+    }
+
+    func getSource(datasetKey: Int, sourceKey: Int) async throws -> Source {
+        if let error { throw error }
+        guard let src = sourceDetail[sourceKey] else { throw APIError.notFound }
+        return src
+    }
 }
