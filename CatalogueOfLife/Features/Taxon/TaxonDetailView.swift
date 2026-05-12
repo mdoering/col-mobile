@@ -1,10 +1,18 @@
 import SwiftUI
+import SwiftData
 
 struct TaxonDetailView: View {
     @Environment(AppState.self) private var appState
+    @Environment(\.modelContext) private var modelContext
+    @Query private var favorites: [Favorite]
     let taxonId: String
     @State private var vm: TaxonDetailViewModel?
     @State private var navigateTo: String?
+
+    private var isFavorite: Bool {
+        guard let key = appState.selectedDataset?.key else { return false }
+        return favorites.contains { $0.compositeKey == Favorite.key(datasetKey: key, taxonId: taxonId) }
+    }
 
     var body: some View {
         ScrollView {
@@ -37,10 +45,19 @@ struct TaxonDetailView: View {
             ToolbarItem(placement: .principal) { ReleasePicker() }
             ToolbarItem(placement: .topBarTrailing) {
                 if case let .loaded(info) = vm?.state {
-                    Text("COL:\(info.taxonId)")
-                        .font(.system(.caption2, design: .monospaced))
-                        .foregroundStyle(.secondary)
-                        .textSelection(.enabled)
+                    HStack(spacing: 8) {
+                        Button {
+                            toggleFavorite(info)
+                        } label: {
+                            Image(systemName: isFavorite ? "star.fill" : "star")
+                                .foregroundStyle(isFavorite ? .yellow : .secondary)
+                        }
+                        .accessibilityLabel(isFavorite ? "Remove from favorites" : "Add to favorites")
+                        Text("COL:\(info.taxonId)")
+                            .font(.system(.caption2, design: .monospaced))
+                            .foregroundStyle(.secondary)
+                            .textSelection(.enabled)
+                    }
                 }
             }
         }
@@ -56,6 +73,14 @@ struct TaxonDetailView: View {
                 )
             }
             await vm?.load()
+            if case let .loaded(info) = vm?.state, let key = appState.selectedDataset?.key {
+                PersistenceStore.bumpRecent(modelContext,
+                                             datasetKey: key,
+                                             taxonId: info.taxonId,
+                                             name: info.scientificName,
+                                             rank: info.rank.rawValue,
+                                             group: info.group)
+            }
         }
     }
 
@@ -66,5 +91,22 @@ struct TaxonDetailView: View {
             Button("Retry") { Task { await vm?.load() } }
                 .buttonStyle(.bordered)
         }
+    }
+
+    private func toggleFavorite(_ info: TaxonInfo) {
+        guard let key = appState.selectedDataset?.key else { return }
+        let composite = Favorite.key(datasetKey: key, taxonId: info.taxonId)
+        if let existing = favorites.first(where: { $0.compositeKey == composite }) {
+            modelContext.delete(existing)
+        } else {
+            let fav = Favorite(datasetKey: key,
+                                taxonId: info.taxonId,
+                                name: info.scientificName,
+                                authorship: info.authorship,
+                                rank: info.rank.rawValue,
+                                group: info.group)
+            modelContext.insert(fav)
+        }
+        try? modelContext.save()
     }
 }
