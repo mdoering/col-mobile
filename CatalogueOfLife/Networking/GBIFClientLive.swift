@@ -38,8 +38,13 @@ actor GBIFClientLive: GBIFClient {
         return GBIFMetrics(dto: dto)
     }
 
-    // Real implementation lands in Task 3:
     func getOccurrenceImages(taxonId: String, limit: Int) async throws -> [GBIFMediaItem] {
-        fatalError("Task 3")
+        let url = GBIFEndpoints.occurrenceSearch(
+            taxonId: taxonId,
+            limit: limit,
+            mediaType: "StillImage"
+        )
+        let dto = try await getJSON(url, as: OccurrenceWithMediaDTO.self)
+        return GBIFMediaItem.from(dto: dto)
     }
 }
