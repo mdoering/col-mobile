@@ -4,8 +4,10 @@ struct SunburstView: View {
     let root: SunburstNode
     /// Max number of rings beyond the center. Default 2.
     var maxDepth: Int = 2
-    /// Tap handler: receives the tapped node (center disk taps are ignored).
+    /// Tap handler: receives the selected node (via the popover's Open button).
     var onSelect: (SunburstNode) -> Void = { _ in }
+
+    @State private var popoverNode: SunburstNode?
 
     var body: some View {
         GeometryReader { geo in
@@ -40,10 +42,17 @@ struct SunburstView: View {
                             root: root,
                             maxDepth: maxDepth
                         ) {
-                            onSelect(hit)
+                            popoverNode = hit
                         }
                     }
                 )
+                .popover(item: $popoverNode) { node in
+                    SunburstPopover(node: node) {
+                        popoverNode = nil
+                        onSelect(node)
+                    }
+                    .presentationCompactAdaptation(.popover)
+                }
                 Text(root.label)
                     .font(.caption)
                     .foregroundStyle(.primary)
@@ -53,6 +62,22 @@ struct SunburstView: View {
             .frame(width: geo.size.width, height: geo.size.height)
         }
         .aspectRatio(1, contentMode: .fit)
+    }
+}
+
+private struct SunburstPopover: View {
+    let node: SunburstNode
+    let onOpen: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(node.label).font(.headline)
+            Text("\(node.count) descendants").font(.caption).foregroundStyle(.secondary)
+            Button("Open") { onOpen() }
+                .buttonStyle(.borderedProminent)
+        }
+        .padding()
+        .frame(minWidth: 180)
     }
 }
 
@@ -113,6 +138,18 @@ enum SunburstMath {
                 color: arcColor(depth: depth, index: idx, total: parent.children.count),
                 context: &context
             )
+            let minLabelSweep: Double = .pi / 18   // 10 degrees
+            if childSweepValue >= minLabelSweep {
+                drawArcLabel(
+                    text: child.label,
+                    center: center,
+                    innerR: innerRadius + CGFloat(depth - 1) * ringThickness,
+                    outerR: innerRadius + CGFloat(depth) * ringThickness,
+                    startAngle: cursor,
+                    endAngle: cursor + childSweepValue,
+                    context: &context
+                )
+            }
             if !child.children.isEmpty {
                 let grandTotal = max(child.children.reduce(0) { $0 + $1.count }, 1)
                 drawChildren(
@@ -151,6 +188,48 @@ enum SunburstMath {
         path.closeSubpath()
         context.fill(path, with: .color(color))
         context.stroke(path, with: .color(.white.opacity(0.6)), lineWidth: 0.5)
+    }
+
+    private static func drawArcLabel(
+        text: String,
+        center: CGPoint,
+        innerR: CGFloat,
+        outerR: CGFloat,
+        startAngle: Double,
+        endAngle: Double,
+        context: inout GraphicsContext
+    ) {
+        let midAngle = (startAngle + endAngle) / 2
+        let midRadius = (innerR + outerR) / 2
+        let x = center.x + cos(midAngle) * midRadius
+        let y = center.y + sin(midAngle) * midRadius
+
+        var attr = AttributedString(text)
+        attr.font = .system(size: 10, weight: .medium)
+        attr.foregroundColor = .white
+
+        let resolvedText = context.resolve(Text(attr))
+        let ringWidth = outerR - innerR
+        let textSize = resolvedText.measure(in: CGSize(width: ringWidth, height: ringWidth))
+
+        // Skip if the text is wider than 95% of the arc chord at mid-radius.
+        let chord = 2 * midRadius * sin((endAngle - startAngle) / 2)
+        guard textSize.width <= chord * 0.95 else { return }
+
+        // Rotate so text runs tangentially (perpendicular to the radius).
+        // On the bottom half the naive rotation is upside-down, so flip by π.
+        var rotation = midAngle + .pi / 2
+        // Normalise to [0, 2π] for the flip check.
+        let normAngle = midAngle.truncatingRemainder(dividingBy: 2 * .pi) + (midAngle < 0 ? 2 * .pi : 0)
+        if normAngle > .pi / 2, normAngle < 3 * .pi / 2 {
+            rotation += .pi
+        }
+
+        context.drawLayer { layer in
+            layer.translateBy(x: x, y: y)
+            layer.rotate(by: Angle(radians: rotation))
+            layer.draw(resolvedText, at: .zero, anchor: .center)
+        }
     }
 
     private static func arcColor(depth: Int, index: Int, total: Int) -> Color {
