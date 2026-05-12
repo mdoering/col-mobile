@@ -45,6 +45,9 @@ struct TaxonDetailView: View {
                         names: info.vernacularNames,
                         preferredLanguage: appState.effectiveVernacularLanguage
                     )
+                    if appState.gbifAvailable {
+                        GBIFSectionView(taxonId: info.taxonId)
+                    }
                 case .failed(let err):
                     errorView(err)
                 case .loading, .none:
