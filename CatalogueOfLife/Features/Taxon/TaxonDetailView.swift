@@ -8,6 +8,7 @@ struct TaxonDetailView: View {
     let taxonId: String
     @State private var vm: TaxonDetailViewModel?
     @State private var navigateTo: String?
+    @State private var childNodes: [TreeNode] = []
 
     private var isFavorite: Bool {
         guard let key = appState.selectedDataset?.key else { return false }
@@ -25,6 +26,19 @@ struct TaxonDetailView: View {
                     )
                     ClassificationChipsView(items: info.classification) { item in
                         navigateTo = item.id
+                    }
+                    if !childNodes.isEmpty {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("Breakdown of \(info.scientificName)").font(.headline)
+                            SunburstView(
+                                root: sunburstRoot(for: info),
+                                maxDepth: 1
+                            ) { node in
+                                navigateTo = node.id
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 260)
+                        }
                     }
                     SynonymyView(groups: info.synonymyGroups)
                     VernacularNamesView(
@@ -81,6 +95,11 @@ struct TaxonDetailView: View {
                                              rank: info.rank.rawValue,
                                              group: info.group)
             }
+            if case let .loaded(info) = vm?.state, let key = appState.selectedDataset?.key {
+                if let children = try? await APIClientLive().getTreeChildren(datasetKey: key, parentId: info.taxonId) {
+                    childNodes = children
+                }
+            }
         }
     }
 
@@ -91,6 +110,17 @@ struct TaxonDetailView: View {
             Button("Retry") { Task { await vm?.load() } }
                 .buttonStyle(.bordered)
         }
+    }
+
+    private func sunburstRoot(for info: TaxonInfo) -> SunburstNode {
+        SunburstNode(
+            id: info.taxonId,
+            label: info.scientificName,
+            count: childNodes.reduce(0) { $0 + $1.count },
+            children: childNodes.map {
+                SunburstNode(id: $0.id, label: $0.name, count: max($0.count, 1), children: [])
+            }
+        )
     }
 
     private func toggleFavorite(_ info: TaxonInfo) {
