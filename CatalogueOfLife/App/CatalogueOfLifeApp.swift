@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 @main
 struct CatalogueOfLifeApp: App {
@@ -10,6 +11,7 @@ struct CatalogueOfLifeApp: App {
             RootTabView()
                 .environment(state)
                 .environment(vocab)
+                .modelContainer(PersistenceStore.shared)
                 .task(id: "launch") { await state.loadReleases() }
         }
     }
