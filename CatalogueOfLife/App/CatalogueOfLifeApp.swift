@@ -8,7 +8,7 @@ struct CatalogueOfLifeApp: App {
         WindowGroup {
             RootTabView()
                 .environment(state)
-                .task { await state.loadReleases() }
+                .task(id: "launch") { await state.loadReleases() }
         }
     }
 }
