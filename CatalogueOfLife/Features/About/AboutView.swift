@@ -17,11 +17,23 @@ struct AboutView: View {
                     releaseMetadataSection
                     Divider()
                     contactsSection
+                    versionFooter
                 }
                 .padding()
             }
             .navigationTitle("About")
         }
+    }
+
+    private var versionFooter: some View {
+        let info = Bundle.main.infoDictionary
+        let version = info?["CFBundleShortVersionString"] as? String ?? "?"
+        let build = info?["CFBundleVersion"] as? String ?? "?"
+        return Text("Version \(version) (\(build))")
+            .font(.caption2)
+            .foregroundStyle(.tertiary)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.top, 12)
     }
 
     private var introSection: some View {
