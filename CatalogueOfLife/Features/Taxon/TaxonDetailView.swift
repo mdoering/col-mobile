@@ -33,7 +33,17 @@ struct TaxonDetailView: View {
         }
         .navigationTitle("Taxon")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar { ToolbarItem(placement: .principal) { ReleasePicker() } }
+        .toolbar {
+            ToolbarItem(placement: .principal) { ReleasePicker() }
+            ToolbarItem(placement: .topBarTrailing) {
+                if case let .loaded(info) = vm?.state {
+                    Text("COL:\(info.taxonId)")
+                        .font(.system(.caption2, design: .monospaced))
+                        .foregroundStyle(.secondary)
+                        .textSelection(.enabled)
+                }
+            }
+        }
         .navigationDestination(item: $navigateTo) { id in
             TaxonDetailView(taxonId: id)
         }
