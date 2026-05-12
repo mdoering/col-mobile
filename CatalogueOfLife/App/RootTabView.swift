@@ -5,7 +5,7 @@ struct RootTabView: View {
         TabView {
             TabPlaceholderView(title: "Tree", symbol: "tree")
                 .tabItem { Label("Tree", systemImage: "tree") }
-            TabPlaceholderView(title: "Search", symbol: "magnifyingglass")
+            SearchView()
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }
             TabPlaceholderView(title: "Sources", symbol: "books.vertical")
                 .tabItem { Label("Sources", systemImage: "books.vertical") }
