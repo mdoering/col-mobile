@@ -7,13 +7,14 @@ enum Endpoints {
         baseURL.appending(path: "dataset").appending(path: keyOrAlias)
     }
 
-    static func datasetList(limit: Int = 100, offset: Int = 0) -> URL {
+    static func datasetList(limit: Int = 200, offset: Int = 0, origins: [String] = ["release", "xrelease"]) -> URL {
         var c = URLComponents(url: baseURL.appending(path: "dataset"), resolvingAgainstBaseURL: false)!
-        c.queryItems = [
+        var items: [URLQueryItem] = [
             URLQueryItem(name: "limit", value: String(limit)),
             URLQueryItem(name: "offset", value: String(offset)),
-            URLQueryItem(name: "origin", value: "release")
         ]
+        items.append(contentsOf: origins.map { URLQueryItem(name: "origin", value: $0) })
+        c.queryItems = items
         return c.url!
     }
 

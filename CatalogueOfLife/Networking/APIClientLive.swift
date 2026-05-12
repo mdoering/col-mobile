@@ -40,7 +40,10 @@ actor APIClientLive: APIClient {
         let dto = try await getJSON(Endpoints.dataset(keyOrAlias), as: DatasetDTO.self)
         return DatasetRef(dto: dto)
     }
-    func listReleases() async throws -> [DatasetRef] { fatalError("Task 6") }
+    func listReleases() async throws -> [DatasetRef] {
+        let paged = try await getJSON(Endpoints.datasetList(), as: PagedDTO<DatasetDTO>.self)
+        return paged.result.map(DatasetRef.init(dto:))
+    }
     func searchNames(datasetKey: Int, q: String) async throws -> [SearchHit] { fatalError("Task 9") }
     func getTaxonInfo(datasetKey: Int, taxonId: String) async throws -> TaxonInfo { fatalError("Task 12") }
 }
