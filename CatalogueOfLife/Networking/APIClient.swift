@@ -7,7 +7,3 @@ protocol APIClient: Sendable {
     func getTaxonInfo(datasetKey: Int, taxonId: String) async throws -> TaxonInfo
 }
 
-// MARK: - Forward-ref placeholder (replaced in Task 12)
-
-/// Placeholder. Real definition lands in Plan Task 12.
-struct TaxonInfo: Sendable, Equatable {}

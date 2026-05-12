@@ -49,5 +49,9 @@ actor APIClientLive: APIClient {
         let paged = try await getJSON(url, as: PagedDTO<NameUsageSearchHitDTO>.self)
         return paged.result.map(SearchHit.init(dto:))
     }
-    func getTaxonInfo(datasetKey: Int, taxonId: String) async throws -> TaxonInfo { fatalError("Task 12") }
+    func getTaxonInfo(datasetKey: Int, taxonId: String) async throws -> TaxonInfo {
+        let url = Endpoints.taxonInfo(datasetKey: datasetKey, taxonId: taxonId)
+        let dto = try await getJSON(url, as: TaxonInfoDTO.self)
+        return TaxonInfo(dto: dto)
+    }
 }
