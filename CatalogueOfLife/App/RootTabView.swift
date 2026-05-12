@@ -26,7 +26,7 @@ struct RootTabView: View {
                 .tabItem { Label("Sources", systemImage: "books.vertical") }
             MetricsView()
                 .tabItem { Label("Metrics", systemImage: "chart.pie") }
-            TabPlaceholderView(title: "About", symbol: "info.circle")
+            AboutView()
                 .tabItem { Label("About", systemImage: "info.circle") }
         }
         .sheet(isPresented: $showingFavorites) {
