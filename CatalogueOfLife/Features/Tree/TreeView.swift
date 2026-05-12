@@ -59,17 +59,31 @@ struct TreeView: View {
                 ContentUnavailableView("No children", systemImage: "tree", description: Text("This taxon has no listed descendants in the current release."))
             } else {
                 List(nodes) { node in
-                    Button {
-                        if node.isLeaf {
+                    HStack(spacing: 8) {
+                        Button {
                             nextLeafId = node.id
-                        } else {
-                            nextParentName = node.name
-                            nextParentId = node.id
+                        } label: {
+                            TreeRowView(node: node)
+                                .contentShape(Rectangle())
                         }
-                    } label: {
-                        TreeRowView(node: node)
+                        .buttonStyle(.plain)
+
+                        if !node.isLeaf {
+                            Button {
+                                nextParentName = node.name
+                                nextParentId = node.id
+                            } label: {
+                                Image(systemName: "chevron.forward.2")
+                                    .font(.callout)
+                                    .foregroundStyle(.secondary)
+                                    .frame(width: 32, height: 44)
+                                    .contentShape(Rectangle())
+                            }
+                            .buttonStyle(.borderless)
+                            .accessibilityLabel("Browse children of \(node.name)")
+                        }
                     }
-                    .buttonStyle(.plain)
+                    .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 8))
                 }
                 .listStyle(.plain)
             }
