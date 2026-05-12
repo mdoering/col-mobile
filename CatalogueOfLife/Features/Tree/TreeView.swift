@@ -19,6 +19,14 @@ struct TreeView: View {
             .navigationTitle(rootParentName ?? "Tree")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .principal) { ReleasePicker() } }
+            .safeAreaInset(edge: .top) {
+                if rootParentId == nil {
+                    SuggestField(client: APIClientLive(),
+                                 getDatasetKey: { [appState] in appState.selectedDataset?.key }) { suggestion in
+                        handlePick(suggestion)
+                    }
+                }
+            }
             .navigationDestination(item: $nextParentId) { id in
                 TreeView(rootParentId: id, rootParentName: nextParentName)
             }
@@ -34,6 +42,14 @@ struct TreeView: View {
                 }
                 await vm?.load()
             }
+    }
+
+    private func handlePick(_ suggestion: TaxonSuggestion) {
+        // v1: push the taxon detail directly. The plan's full design says "navigate
+        // the tree to that taxon's row using the classification helper" — that requires
+        // pre-fetching /classification and synthetically constructing the navigation
+        // path. Deferred to a later iteration.
+        nextLeafId = suggestion.id
     }
 
     @ViewBuilder
