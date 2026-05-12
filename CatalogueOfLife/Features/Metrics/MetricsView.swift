@@ -8,7 +8,6 @@ struct MetricsView: View {
         NavigationStack {
             content
                 .navigationTitle("Metrics")
-                .toolbar { ToolbarItem(placement: .principal) { ReleasePicker() } }
         }
         .task {
             if vm == nil {

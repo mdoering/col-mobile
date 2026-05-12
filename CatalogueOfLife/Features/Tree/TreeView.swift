@@ -18,7 +18,6 @@ struct TreeView: View {
         content
             .navigationTitle(rootParentName ?? "Tree")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .principal) { ReleasePicker() } }
             .safeAreaInset(edge: .top) {
                 if rootParentId == nil {
                     SuggestField(client: APIClientLive(),

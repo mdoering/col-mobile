@@ -9,7 +9,6 @@ struct SearchView: View {
         NavigationStack {
             content
                 .navigationTitle("Search")
-                .toolbar { ToolbarItem(placement: .principal) { ReleasePicker() } }
                 .navigationDestination(item: $selectedTaxonId) { id in
                     TaxonDetailView(taxonId: id)
                 }

@@ -18,7 +18,6 @@ struct AboutView: View {
                 .padding()
             }
             .navigationTitle("About")
-            .toolbar { ToolbarItem(placement: .principal) { ReleasePicker() } }
         }
     }
 
@@ -56,6 +55,11 @@ struct AboutView: View {
     private var preferencesSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Preferences").font(.headline)
+            HStack {
+                Text("Release").font(.callout)
+                Spacer()
+                ReleasePicker()
+            }
             HStack {
                 Text("Common-name language").font(.callout)
                 Spacer()

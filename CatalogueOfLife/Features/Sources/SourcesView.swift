@@ -9,7 +9,6 @@ struct SourcesView: View {
         NavigationStack {
             content
                 .navigationTitle("Sources")
-                .toolbar { ToolbarItem(placement: .principal) { ReleasePicker() } }
                 .navigationDestination(item: $selectedSourceKey) { key in
                     SourceDetailView(sourceKey: key)
                 }

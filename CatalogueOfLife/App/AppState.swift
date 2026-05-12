@@ -1,13 +1,19 @@
 import Foundation
 import Observation
 
+struct ReleaseChoice: Equatable, Identifiable, Sendable {
+    let displayName: String
+    let dataset: DatasetRef
+    var id: Int { dataset.key }
+}
+
 @MainActor
 @Observable
 final class AppState {
     private let client: APIClient
     private let defaults: UserDefaults
 
-    var availableReleases: [DatasetRef] = []
+    var availableReleases: [ReleaseChoice] = []
     private(set) var latestExtendedKey: Int?
     private(set) var latestBaseKey: Int?
     private(set) var loadReleasesError: APIError?
@@ -29,7 +35,7 @@ final class AppState {
     }
 
     var selectedDataset: DatasetRef? {
-        availableReleases.first { $0.key == selectedDatasetKey }
+        availableReleases.first { $0.dataset.key == selectedDatasetKey }?.dataset
     }
 
     /// The language code to use for common-name display, falling back to the system
@@ -55,47 +61,47 @@ final class AppState {
         self.preferredVernacularLang = defaults.string(forKey: Keys.preferredVernacularLang)
     }
 
-    /// Load the release list and resolve the current 3LXR / 3LR numeric keys in parallel.
-    /// Sorts the list and applies a default selection if none persists.
+    private static let pickerSpec: [(alias: String, display: String)] = [
+        ("3LXR",    "Latest XR"),
+        ("3LR",     "Latest Base"),
+        ("COL2025", "COL 2025"),
+        ("COL2024", "COL 2024"),
+        ("COL2023", "COL 2023"),
+        ("COL2022", "COL 2022"),
+        ("COL2021", "COL 2021"),
+    ]
+
+    /// Load the 7 named releases in parallel and apply a default selection if none persists.
     func loadReleases() async {
-        async let extendedTask: DatasetRef? = try? await client.getDataset("3LXR")
-        async let baseTask: DatasetRef? = try? await client.getDataset("3LR")
-        do {
-            let raw = try await client.listReleases()
-            let extended = await extendedTask
-            let base = await baseTask
+        async let r0 = try? await client.getDataset(Self.pickerSpec[0].alias)
+        async let r1 = try? await client.getDataset(Self.pickerSpec[1].alias)
+        async let r2 = try? await client.getDataset(Self.pickerSpec[2].alias)
+        async let r3 = try? await client.getDataset(Self.pickerSpec[3].alias)
+        async let r4 = try? await client.getDataset(Self.pickerSpec[4].alias)
+        async let r5 = try? await client.getDataset(Self.pickerSpec[5].alias)
+        async let r6 = try? await client.getDataset(Self.pickerSpec[6].alias)
 
-            self.latestExtendedKey = extended?.key
-            self.latestBaseKey = base?.key
+        let resolved: [DatasetRef?] = await [r0, r1, r2, r3, r4, r5, r6]
 
-            // Merge resolved refs into the list (in case /dataset omits them).
-            var merged = raw
-            for ref in [extended, base].compactMap({ $0 }) where !merged.contains(where: { $0.key == ref.key }) {
-                merged.append(ref)
-            }
-
-            self.availableReleases = DatasetRef.sortedForPicker(
-                merged,
-                latestExtendedKey: extended?.key,
-                latestBaseKey: base?.key
-            )
-
-            // On first launch (or if stored selection has disappeared), default to the latest extended release.
-            if !availableReleases.contains(where: { $0.key == selectedDatasetKey }) {
-                if let extendedKey = extended?.key {
-                    self.selectedDatasetKey = extendedKey
-                } else if let baseKey = base?.key {
-                    self.selectedDatasetKey = baseKey
-                } else if let first = availableReleases.first {
-                    self.selectedDatasetKey = first.key
-                }
-            }
-            self.loadReleasesError = nil
-        } catch let err as APIError {
-            self.loadReleasesError = err
-        } catch {
-            self.loadReleasesError = .server(status: -1)
+        let choices: [ReleaseChoice] = zip(Self.pickerSpec, resolved).compactMap { spec, dataset in
+            guard let dataset else { return nil }
+            return ReleaseChoice(displayName: spec.display, dataset: dataset)
         }
+
+        self.availableReleases = choices
+        self.latestExtendedKey = choices.first(where: { $0.displayName == "Latest XR" })?.dataset.key
+        self.latestBaseKey = choices.first(where: { $0.displayName == "Latest Base" })?.dataset.key
+
+        if !choices.contains(where: { $0.dataset.key == selectedDatasetKey }) {
+            if let extendedKey = latestExtendedKey {
+                self.selectedDatasetKey = extendedKey
+            } else if let baseKey = latestBaseKey {
+                self.selectedDatasetKey = baseKey
+            } else if let first = choices.first {
+                self.selectedDatasetKey = first.dataset.key
+            }
+        }
+        self.loadReleasesError = nil
     }
 
     private enum Keys {

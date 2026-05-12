@@ -17,7 +17,6 @@ struct TabPlaceholderView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationTitle(title)
-            .toolbar { ToolbarItem(placement: .principal) { ReleasePicker() } }
         }
     }
 }

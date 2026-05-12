@@ -15,7 +15,6 @@ struct SourceDetailView: View {
         content
             .navigationTitle("Source")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .principal) { ReleasePicker() } }
             .task { await load() }
     }
 

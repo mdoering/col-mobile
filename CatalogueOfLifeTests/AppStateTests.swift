@@ -12,6 +12,8 @@ struct AppStateTests {
         return defaults
     }
 
+    /// Populate stub with extended + base + one annual release.
+    /// Keys used: 100 (3LXR), 200 (3LR), 300 (COL2024).
     private func sampleStub() -> StubAPIClient {
         let stub = StubAPIClient()
         let extended = DatasetRef(key: 100, alias: "COL26.4 XR", title: "Catalogue of Life",
@@ -20,9 +22,10 @@ struct AppStateTests {
                                version: "2026-04-15", issued: "2026-04-15", origin: "release", citation: nil)
         let annual = DatasetRef(key: 300, alias: "COL24", title: "Catalogue of Life",
                                  version: "2024-01-01", issued: "2024-01-01", origin: "release", citation: nil)
-        stub.datasetByKey["3LXR"] = extended
-        stub.datasetByKey["3LR"] = base
-        stub.releases = [annual, base, extended]
+        stub.datasetByKey["3LXR"]    = extended
+        stub.datasetByKey["3LR"]     = base
+        stub.datasetByKey["COL2024"] = annual
+        // COL2025, COL2023, COL2022, COL2021 are intentionally absent — they will be filtered out.
         return stub
     }
 
@@ -34,7 +37,9 @@ struct AppStateTests {
         await state.loadReleases()
         #expect(state.selectedDatasetKey == 100)
         #expect(state.gbifAvailable == true)
-        #expect(state.availableReleases.map(\.key) == [100, 200, 300])
+        // Resolved order: 3LXR (100), 3LR (200), COL2024 (300); others absent.
+        #expect(state.availableReleases.map(\.dataset.key) == [100, 200, 300])
+        #expect(state.availableReleases.map(\.displayName) == ["Latest XR", "Latest Base", "COL 2024"])
     }
 
     @Test("Selecting the latest base release also enables gbifAvailable")
@@ -66,17 +71,6 @@ struct AppStateTests {
         await state.loadReleases()
         #expect(state.selectedDatasetKey == 300)
         #expect(state.gbifAvailable == false)
-    }
-
-    @Test("Resolves alias keys even when /dataset list omits them")
-    func mergesResolvedAliases() async {
-        let defaults = freshDefaults()
-        let stub = sampleStub()
-        stub.releases = stub.releases.filter { $0.key != 100 }
-        let state = AppState(client: stub, defaults: defaults)
-        await state.loadReleases()
-        #expect(state.availableReleases.contains(where: { $0.key == 100 }))
-        #expect(state.selectedDatasetKey == 100)
     }
 
     @Test("effectiveVernacularLanguage falls back to system locale when unset")

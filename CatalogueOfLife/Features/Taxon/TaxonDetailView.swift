@@ -59,7 +59,6 @@ struct TaxonDetailView: View {
         .navigationTitle("Taxon")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .principal) { ReleasePicker() }
             ToolbarItem(placement: .topBarTrailing) {
                 if case let .loaded(info) = vm?.state {
                     HStack(spacing: 8) {
