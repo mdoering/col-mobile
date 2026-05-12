@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# Claude Code per-developer state
+.claude/
+
+# Xcode / Swift
+*.xcuserstate
+xcuserdata/
+DerivedData/
+build/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+.swiftpm/
+Package.resolved
+
+# IDEs
+.idea/
+.vscode/
