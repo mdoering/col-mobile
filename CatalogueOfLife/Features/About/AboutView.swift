@@ -23,8 +23,12 @@ struct AboutView: View {
     }
 
     private var introSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Catalogue of Life").font(.title2).bold()
+        VStack(alignment: .leading, spacing: 12) {
+            Image("CoLLogo")
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: 280)
+                .accessibilityLabel("Catalogue of Life")
             Text("""
             The Catalogue of Life (CoL) is the most comprehensive and authoritative \
             global index of species. It combines hundreds of taxonomic sources into a \
