@@ -205,16 +205,21 @@ git commit -m "Add TaxGroup vocab DTO + domain + decoding test"
 
 ---
 
-## Task 2: Bundle TaxGroup vocab + SVG assets
+## Task 2: Bundle TaxGroup vocab + SVG assets (with weekly auto-refresh)
 
-This is a one-shot build-tool task: download SVGs from the vocab's `iconSVG` URLs, write them as Xcode vector image assets, and bundle the vocab JSON for runtime lookup.
+This task does two things:
+1. Adds a build-time script that fetches the live vocab + SVGs and regenerates the bundled assets
+2. Adds a scheduled GitHub Action that runs the script weekly and commits any diff so the repo stays fresh automatically
+
+The script is the source of truth; the committed snapshot is the build-time input. The cron job keeps them in sync.
 
 **Files:**
 - Create: `Tools/bundle_taxgroup_assets.py` (build-time script)
 - Create: `CatalogueOfLife/Resources/Bundle/taxgroup_vocab.json` (committed snapshot)
 - Create: `CatalogueOfLife/Resources/Assets.xcassets/Groups/<name>.imageset/<name>.svg` × N (one per vocab entry)
 - Create: `CatalogueOfLife/Resources/Assets.xcassets/Groups/<name>.imageset/Contents.json` × N
-- Modify: `project.yml` — add `CatalogueOfLife/Resources/Bundle` to the app target's resources (Assets.xcassets is already included)
+- Modify: `project.yml` — `CatalogueOfLife/Resources` is already covered, no change needed
+- Create: `.github/workflows/refresh-taxgroup.yml` (scheduled refresh)
 
 - [ ] **Step 2.1: Write `Tools/bundle_taxgroup_assets.py`**
 
@@ -339,11 +344,50 @@ ls "$APP_PATH/taxgroup_vocab.json"
 ```
 Expected: `Assets.car` exists (the compiled asset catalog containing the SVGs as PDFs); the JSON snapshot ships in the app bundle root.
 
-- [ ] **Step 2.5: Commit**
+- [ ] **Step 2.5: Add the scheduled refresh workflow**
+
+`.github/workflows/refresh-taxgroup.yml`:
+
+```yaml
+name: Refresh TaxGroup assets
+on:
+  schedule:
+    - cron: "17 4 * * 1"   # Monday 04:17 UTC — off-peak
+  workflow_dispatch:        # allow manual trigger from the Actions UI
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run bundling script
+        run: |
+          python3 Tools/bundle_taxgroup_assets.py
+
+      - name: Commit and push if there are changes
+        run: |
+          if [ -n "$(git status --porcelain CatalogueOfLife/Resources/Bundle CatalogueOfLife/Resources/Assets.xcassets/Groups)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add CatalogueOfLife/Resources/Bundle CatalogueOfLife/Resources/Assets.xcassets/Groups
+            git commit -m "Refresh TaxGroup vocab + SVG assets (automated)"
+            git push
+          else
+            echo "No vocab/asset changes."
+          fi
+```
+
+The schedule runs once a week (Monday 04:17 UTC); `workflow_dispatch` lets you trigger it on demand from the Actions UI. `contents: write` permission lets the bot push directly to `main` — fine for a solo-developer repo.
+
+- [ ] **Step 2.6: Commit**
 
 ```bash
-git add Tools CatalogueOfLife/Resources
-git commit -m "Bundle TaxGroup SVG icons + vocab snapshot via Tools/bundle_taxgroup_assets.py"
+git add Tools CatalogueOfLife/Resources .github/workflows/refresh-taxgroup.yml
+git commit -m "Bundle TaxGroup SVG icons + vocab snapshot; add weekly auto-refresh workflow"
 ```
 
 ---
