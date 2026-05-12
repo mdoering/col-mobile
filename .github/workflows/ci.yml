@@ -22,7 +22,7 @@ jobs:
           xcodebuild -version
 
       - name: Install XcodeGen
-        run: brew install xcodegen || brew upgrade xcodegen || true
+        run: brew list xcodegen &>/dev/null || brew install xcodegen
 
       - name: Generate project
         run: xcodegen generate
@@ -40,15 +40,25 @@ jobs:
           set -o pipefail
           # Pick any available iPhone simulator with iOS 18 or newer.
           DEVICE=$(xcrun simctl list devices available --json | python3 -c "
-          import json,sys
+          import json,sys,re
           data = json.load(sys.stdin)
           for runtime, devs in data['devices'].items():
-              if 'iOS-18' not in runtime and 'iOS-19' not in runtime and 'iOS-20' not in runtime and 'iOS-26' not in runtime:
+              # Prefix match ensures we only accept iOS (not tvOS/watchOS/etc.)
+              # and the numeric version floor of 18 keeps us future-proof:
+              #   'com.apple.CoreSimulator.SimRuntime.iOS-26-3' -> matches (26 >= 18)
+              #   'com.apple.CoreSimulator.SimRuntime.tvOS-18-0' -> excluded (wrong prefix)
+              #   'com.apple.CoreSimulator.SimRuntime.iOS-17-5'  -> excluded (17 < 18)
+              m = re.search(r'iOS-(\d+)', runtime)
+              if not runtime.startswith('com.apple.CoreSimulator.SimRuntime.iOS-') or not m or int(m.group(1)) < 18:
                   continue
               for d in devs:
                   if d.get('isAvailable') and d.get('name', '').startswith('iPhone'):
                       print(d['name']); sys.exit(0)
           ")
+          if [ -z "$DEVICE" ]; then
+            echo "ERROR: no available iPhone simulator with iOS 18+" >&2
+            exit 1
+          fi
           echo "Using simulator: ${DEVICE}"
           xcodebuild \
             -scheme CatalogueOfLife \
