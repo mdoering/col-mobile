@@ -22,5 +22,6 @@ struct ClassificationChipsView: View {
             }
             .padding(.horizontal, 1)
         }
+        .defaultScrollAnchor(.trailing)
     }
 }
