@@ -93,26 +93,30 @@ private struct SearchRow: View {
     let hit: SearchHit
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack(alignment: .firstTextBaseline) {
-                Text(hit.scientificName).italic().font(.body)
-                if let auth = hit.authorship {
-                    Text(auth).font(.caption).foregroundStyle(.secondary)
+        HStack(alignment: .top, spacing: 8) {
+            GroupIcon(code: hit.group, size: 22)
+                .padding(.top, 2)
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text(hit.scientificName).italic().font(.body)
+                    if let auth = hit.authorship {
+                        Text(auth).font(.caption).foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Text(hit.rank.rawValue.capitalized)
+                        .font(.caption2)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(.thinMaterial, in: Capsule())
                 }
-                Spacer()
-                Text(hit.rank.rawValue.capitalized)
-                    .font(.caption2)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(.thinMaterial, in: Capsule())
-            }
-            if hit.status.isSynonym {
-                HStack(spacing: 4) {
-                    Text("synonym of").font(.caption2).foregroundStyle(.orange)
-                    if let accepted = hit.acceptedName {
-                        Text(accepted).italic().font(.caption2).foregroundStyle(.orange)
-                    } else {
-                        Text("—").font(.caption2).foregroundStyle(.secondary)
+                if hit.status.isSynonym {
+                    HStack(spacing: 4) {
+                        Text("synonym of").font(.caption2).foregroundStyle(.orange)
+                        if let accepted = hit.acceptedName {
+                            Text(accepted).italic().font(.caption2).foregroundStyle(.orange)
+                        } else {
+                            Text("—").font(.caption2).foregroundStyle(.secondary)
+                        }
                     }
                 }
             }

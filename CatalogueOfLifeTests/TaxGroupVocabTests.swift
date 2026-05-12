@@ -13,4 +13,16 @@ struct TaxGroupVocabTests {
         #expect(groups.contains { $0.name == "viruses" })
         #expect(groups.contains { $0.codes.contains("bacterial") })
     }
+
+    @Test("Lookup resolves a code to its canonical group name")
+    @MainActor
+    func vocabLookup() throws {
+        let data = try FixtureLoader.data("vocab_taxgroup")
+        let dtos = try JSONDecoder().decode([TaxGroupVocabDTO].self, from: data)
+        let vocab = TaxGroupVocab(groups: dtos.map(TaxGroup.init(dto:)))
+        let bacterial = vocab.lookup(code: "bacterial")
+        #expect(bacterial != nil)
+        #expect(vocab.lookup(code: nil) == nil)
+        #expect(vocab.lookup(code: "totally-fake-code") == nil)
+    }
 }
