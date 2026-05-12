@@ -9,6 +9,7 @@ struct TaxonDetailView: View {
     @State private var vm: TaxonDetailViewModel?
     @State private var navigateTo: String?
     @State private var childNodes: [TreeNode] = []
+    @State private var showingFeedback = false
 
     private var isFavorite: Bool {
         guard let key = appState.selectedDataset?.key else { return false }
@@ -78,10 +79,18 @@ struct TaxonDetailView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 if case let .loaded(info) = vm?.state {
                     HStack(spacing: 8) {
+                        Button {
+                            showingFeedback = true
+                        } label: {
+                            Image(systemName: "exclamationmark.bubble")
+                        }
+                        .accessibilityLabel("Report data issue")
+
                         Text("COL:\(info.taxonId)")
                             .font(.system(.caption2, design: .monospaced))
                             .foregroundStyle(.secondary)
                             .textSelection(.enabled)
+
                         Button {
                             toggleFavorite(info)
                         } label: {
@@ -95,6 +104,11 @@ struct TaxonDetailView: View {
         }
         .navigationDestination(item: $navigateTo) { id in
             TaxonDetailView(taxonId: id)
+        }
+        .sheet(isPresented: $showingFeedback) {
+            if case let .loaded(info) = vm?.state, let key = appState.selectedDataset?.key {
+                FeedbackSheet(datasetKey: key, taxonId: info.taxonId, scientificName: info.scientificName)
+            }
         }
         .task {
             if vm == nil {

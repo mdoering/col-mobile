@@ -70,4 +70,12 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
         if let error { throw error }
         return importMetrics[datasetKey]
     }
+
+    var feedbackResult: URL? = URL(string: "https://github.com/CatalogueOfLife/data/issues/0")
+
+    func submitFeedback(datasetKey: Int, taxonId: String, message: String, email: String) async throws -> URL {
+        if let error { throw error }
+        guard let url = feedbackResult else { throw APIError.notFound }
+        return url
+    }
 }

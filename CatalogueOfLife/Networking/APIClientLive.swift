@@ -101,4 +101,40 @@ actor APIClientLive: APIClient {
         let dtos = try await getJSON(url, as: [ImportMetricsDTO].self)
         return dtos.first.map(ImportMetrics.init(dto:))
     }
+
+    func submitFeedback(datasetKey: Int, taxonId: String, message: String, email: String) async throws -> URL {
+        let url = Endpoints.feedback(datasetKey: datasetKey, taxonId: taxonId)
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let body: [String: String] = ["message": message, "email": email]
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+
+        let (data, response): (Data, URLResponse)
+        do {
+            (data, response) = try await session.data(for: request)
+        } catch let urlError as URLError {
+            throw APIError.network(urlError)
+        }
+        guard let http = response as? HTTPURLResponse else {
+            throw APIError.server(status: -1)
+        }
+        guard (200..<300).contains(http.statusCode) else {
+            throw APIError.server(status: http.statusCode)
+        }
+        // Response body is a JSON string (e.g. "https://github.com/.../issues/1575")
+        let urlString: String
+        if let decoded = try? JSONDecoder().decode(String.self, from: data) {
+            urlString = decoded
+        } else if let raw = String(data: data, encoding: .utf8) {
+            // Fallback: maybe not JSON-quoted
+            urlString = raw.trimmingCharacters(in: CharacterSet(charactersIn: "\"\n "))
+        } else {
+            throw APIError.decoding("empty feedback response")
+        }
+        guard let result = URL(string: urlString) else {
+            throw APIError.decoding("invalid feedback response url: \(urlString)")
+        }
+        return result
+    }
 }

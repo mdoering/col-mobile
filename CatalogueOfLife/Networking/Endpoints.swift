@@ -92,4 +92,13 @@ enum Endpoints {
     static func importMetrics(datasetKey: Int) -> URL {
         baseURL.appending(path: "dataset/\(datasetKey)/import")
     }
+
+    static func feedback(datasetKey: Int, taxonId: String) -> URL {
+        baseURL
+            .appending(path: "dataset")
+            .appending(path: "\(datasetKey)")
+            .appending(path: "nameusage")
+            .appending(path: taxonId)
+            .appending(path: "feedback")
+    }
 }
