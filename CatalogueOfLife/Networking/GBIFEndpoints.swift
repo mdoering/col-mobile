@@ -16,7 +16,7 @@ enum GBIFEndpoints {
         ("pink",   "purpleHeat.point"),
         ("blue",   "blueHeat.point"),
         ("orange", "orangeHeat.point"),
-        ("yellow", "classic.point"),
+        ("classic", "classic.point"),
     ]
 
     /// `GET /v1/occurrence/search` — used for metrics (limit=0 + facets) and image fetch (mediaType=StillImage).
