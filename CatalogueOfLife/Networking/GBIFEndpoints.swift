@@ -16,7 +16,6 @@ enum GBIFEndpoints {
         ("pink",   "purpleHeat.point"),
         ("blue",   "blueHeat.point"),
         ("orange", "orangeHeat.point"),
-        ("red",    "red.poly"),
         ("yellow", "classic.point"),
     ]
 
