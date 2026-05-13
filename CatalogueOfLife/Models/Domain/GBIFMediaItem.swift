@@ -9,6 +9,11 @@ struct GBIFMediaItem: Equatable, Hashable, Identifiable, Sendable {
     let publisher: String?
     let license: String?
     let rightsHolder: String?
+    /// Carried over from the parent occurrence so the fullscreen viewer can
+    /// caption the image with the recorded identification + place + date.
+    let occurrenceName: String?
+    let occurrenceCountry: String?
+    let occurrenceDate: String?
 }
 
 extension GBIFMediaItem {
@@ -31,7 +36,10 @@ extension GBIFMediaItem {
                     creator: media.creator,
                     publisher: media.publisher,
                     license: media.license,
-                    rightsHolder: media.rightsHolder
+                    rightsHolder: media.rightsHolder,
+                    occurrenceName: result.scientificName,
+                    occurrenceCountry: result.country,
+                    occurrenceDate: result.eventDate
                 ))
             }
         }

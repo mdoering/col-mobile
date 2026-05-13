@@ -8,6 +8,9 @@ struct OccurrenceWithMediaDTO: Decodable, Sendable {
     struct OccurrenceResultDTO: Decodable, Sendable {
         let gbifID: String?
         let media: [MediaItemDTO]?
+        let scientificName: String?
+        let country: String?
+        let eventDate: String?
     }
 
     struct MediaItemDTO: Decodable, Sendable {

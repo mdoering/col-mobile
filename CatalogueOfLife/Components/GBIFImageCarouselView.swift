@@ -127,9 +127,12 @@ private struct FullScreenImagePage: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .clipped()
-            attribution
-                .padding()
-                .background(.black.opacity(0.6))
+            VStack(alignment: .leading, spacing: 6) {
+                occurrenceHeader
+                attribution
+            }
+            .padding()
+            .background(.black.opacity(0.6))
         }
         .onChange(of: isActive) { _, active in
             if !active { resetZoom() }
@@ -162,6 +165,48 @@ private struct FullScreenImagePage: View {
         lastZoom = 1
         pan = .zero
         lastPan = .zero
+    }
+
+    @ViewBuilder
+    private var occurrenceHeader: some View {
+        if item.occurrenceName != nil || item.occurrenceCountry != nil || item.occurrenceDate != nil {
+            VStack(alignment: .leading, spacing: 2) {
+                if let name = item.occurrenceName, !name.isEmpty {
+                    Text(name)
+                        .font(.headline)
+                        .italic()
+                        .foregroundStyle(.white)
+                        .lineLimit(2)
+                }
+                if let line = locationDateLine, !line.isEmpty {
+                    Text(line)
+                        .font(.caption)
+                        .foregroundStyle(.white.opacity(0.85))
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+
+    /// "Country · 4 Jan 2026", with whichever pieces are present.
+    private var locationDateLine: String? {
+        var parts: [String] = []
+        if let c = item.occurrenceCountry, !c.isEmpty { parts.append(c) }
+        if let raw = item.occurrenceDate, let date = formatOccurrenceDate(raw) {
+            parts.append(date)
+        }
+        return parts.isEmpty ? nil : parts.joined(separator: " · ")
+    }
+
+    private func formatOccurrenceDate(_ s: String) -> String? {
+        // eventDate from GBIF can be "yyyy-MM-dd" or "yyyy-MM-ddTHH:mm:ss" (no TZ).
+        // Take the leading date prefix and format with the user's locale.
+        let datePart = String(s.prefix(10))
+        let df = DateFormatter()
+        df.locale = Locale(identifier: "en_US_POSIX")
+        df.dateFormat = "yyyy-MM-dd"
+        guard let date = df.date(from: datePart) else { return nil }
+        return date.formatted(date: .abbreviated, time: .omitted)
     }
 
     private var attribution: some View {
