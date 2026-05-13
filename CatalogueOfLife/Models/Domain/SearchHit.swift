@@ -9,6 +9,8 @@ struct SearchHit: Equatable, Identifiable, Sendable {
     let acceptedId: String?
     let acceptedName: String?
     let group: String?
+    let merged: Bool
+    let extinct: Bool
 
     /// Taxon id to navigate to on row tap. Returns nil for a synonym hit whose
     /// accepted target wasn't included in the response — callers should disable the row.

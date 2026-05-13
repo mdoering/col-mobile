@@ -97,9 +97,15 @@ private struct SearchRow: View {
                 .padding(.top, 2)
             VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .firstTextBaseline) {
-                    Text(hit.scientificName).italic().font(.body)
+                    Text(hit.extinct ? "† \(hit.scientificName)" : hit.scientificName).italic().font(.body)
                     if let auth = hit.authorship {
                         Text(auth).font(.caption).foregroundStyle(.secondary)
+                    }
+                    if hit.merged {
+                        Text("XR").font(.caption2.bold())
+                            .padding(.horizontal, 4).padding(.vertical, 1)
+                            .background(.purple.opacity(0.18), in: Capsule())
+                            .foregroundStyle(.purple)
                     }
                     Spacer()
                     Text(hit.rank.rawValue.capitalized)

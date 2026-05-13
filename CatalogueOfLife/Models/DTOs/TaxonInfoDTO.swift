@@ -9,17 +9,23 @@ struct TaxonInfoDTO: Decodable, Sendable {
     let publishedIn: PublishedInDTO?
     let source: SourceRefDTO?
     let nameRelations: [NameRelationDTO]?
+    let typeMaterial: [String: [TypeMaterialDTO]]?
 
     struct UsageDTO: Decodable, Sendable {
         let id: String
         let name: NameDTO
         let status: String?
+        let group: String?
+        let merged: Bool?
+        let extinct: Bool?
+        let remarks: String?
     }
 
     struct NameDTO: Decodable, Sendable {
         let scientificName: String
         let authorship: String?
         let rank: String?
+        let etymology: String?
     }
 
     struct ClassificationDTO: Decodable, Sendable {
@@ -60,5 +66,15 @@ struct TaxonInfoDTO: Decodable, Sendable {
         let type: String
         let usageId: String?
         let relatedUsageId: String?
+    }
+
+    struct TypeMaterialDTO: Decodable, Sendable {
+        let id: String?
+        let citation: String?
+        let status: String?
+        let institutionCode: String?
+        let catalogNumber: String?
+        let link: String?
+        let merged: Bool?
     }
 }

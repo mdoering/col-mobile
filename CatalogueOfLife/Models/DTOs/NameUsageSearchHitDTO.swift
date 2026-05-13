@@ -14,6 +14,8 @@ struct NameUsageSearchHitDTO: Decodable, Sendable {
         let id: String
         let status: String?
         let name: NameDTO
+        let merged: Bool?
+        let extinct: Bool?
         /// Present when the usage is a synonym; contains the accepted taxon.
         let accepted: AcceptedDTO?
     }
@@ -45,7 +47,9 @@ extension SearchHit {
             status: TaxonStatus(apiValue: dto.usage.status),
             acceptedId: dto.usage.accepted?.id,
             acceptedName: dto.usage.accepted?.name?.scientificName,
-            group: dto.group
+            group: dto.group,
+            merged: dto.usage.merged ?? false,
+            extinct: dto.usage.extinct ?? false
         )
     }
 }

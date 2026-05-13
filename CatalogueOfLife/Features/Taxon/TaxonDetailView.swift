@@ -57,6 +57,10 @@ struct TaxonDetailView: View {
                             DescendantsByRankView(children: childNodes)
                         }
                     }
+                    if let ety = info.etymology, !ety.isEmpty {
+                        Divider()
+                        RemarksView(title: "Etymology", text: ety)
+                    }
                     if let citation = info.publishedInCitation, !citation.isEmpty {
                         Divider()
                         PublishedInView(citation: citation)
@@ -78,11 +82,19 @@ struct TaxonDetailView: View {
                             navigateTo = usageId
                         }
                     }
+                    if !info.typeMaterials.isEmpty {
+                        Divider()
+                        TypeMaterialView(entries: info.typeMaterials)
+                    }
                     if let sourceKey = info.sourceDatasetKey {
                         Divider()
                         SourceLinkView(sourceDatasetKey: sourceKey) {
                             navigateToSourceKey = sourceKey
                         }
+                    }
+                    if let r = info.remarks, !r.isEmpty {
+                        Divider()
+                        RemarksView(title: "Remarks", text: r)
                     }
                     if appState.gbifAvailable {
                         Divider()
@@ -101,10 +113,10 @@ struct TaxonDetailView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 if case let .loaded(info) = vm?.state {
-                    Text(info.rank.rawValue.capitalized)
-                        .font(.caption)
-                        .padding(.horizontal, 8).padding(.vertical, 2)
-                        .background(.thinMaterial, in: Capsule())
+                    Text("COL:\(info.taxonId)")
+                        .font(.system(.caption, design: .monospaced))
+                        .foregroundStyle(.secondary)
+                        .textSelection(.enabled)
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {
@@ -117,10 +129,10 @@ struct TaxonDetailView: View {
                         }
                         .accessibilityLabel("Report data issue")
 
-                        Text("COL:\(info.taxonId)")
-                            .font(.system(.caption2, design: .monospaced))
-                            .foregroundStyle(.secondary)
-                            .textSelection(.enabled)
+                        Text(info.rank.rawValue.capitalized)
+                            .font(.caption2)
+                            .padding(.horizontal, 6).padding(.vertical, 2)
+                            .background(.thinMaterial, in: Capsule())
 
                         Button {
                             toggleFavorite(info)

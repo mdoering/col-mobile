@@ -13,7 +13,7 @@ struct SynonymyGroupingTests {
     private func synonymEntry(_ id: String, name: String = "X", rank: String = "species") -> TaxonInfoDTO.SynonymEntryDTO {
         TaxonInfoDTO.SynonymEntryDTO(
             id: id,
-            name: TaxonInfoDTO.NameDTO(scientificName: name, authorship: nil, rank: rank),
+            name: TaxonInfoDTO.NameDTO(scientificName: name, authorship: nil, rank: rank, etymology: nil),
             status: "synonym"
         )
     }

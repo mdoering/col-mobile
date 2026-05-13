@@ -25,7 +25,12 @@ struct TaxonDetailViewModelTests {
             ],
             publishedInCitation: nil,
             sourceDatasetKey: nil,
-            nameRelations: []
+            nameRelations: [],
+            merged: false,
+            extinct: false,
+            remarks: nil,
+            etymology: nil,
+            typeMaterials: []
         )
     }
 

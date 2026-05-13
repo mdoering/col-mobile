@@ -7,6 +7,15 @@ struct NameRelation: Equatable, Identifiable, Sendable {
     let relatedUsageId: String?
 }
 
+struct TypeMaterialEntry: Equatable, Identifiable, Sendable {
+    let id: String
+    let citation: String?
+    let status: String?
+    let institutionCode: String?
+    let catalogNumber: String?
+    let link: URL?
+}
+
 struct TaxonInfo: Equatable, Sendable {
     let taxonId: String
     let scientificName: String
@@ -20,6 +29,11 @@ struct TaxonInfo: Equatable, Sendable {
     let publishedInCitation: String?
     let sourceDatasetKey: Int?
     let nameRelations: [NameRelation]
+    let merged: Bool
+    let extinct: Bool
+    let remarks: String?
+    let etymology: String?
+    let typeMaterials: [TypeMaterialEntry]
 }
 
 extension TaxonInfo {
@@ -52,6 +66,20 @@ extension TaxonInfo {
                 relatedUsageId: r.relatedUsageId
             )
         }
+        let tm: [TypeMaterialEntry] = (dto.typeMaterial ?? [:])
+            .values
+            .flatMap { $0 }
+            .enumerated()
+            .map { idx, t in
+                TypeMaterialEntry(
+                    id: t.id ?? "tm-\(idx)",
+                    citation: t.citation,
+                    status: t.status,
+                    institutionCode: t.institutionCode,
+                    catalogNumber: t.catalogNumber,
+                    link: t.link.flatMap(URL.init(string:))
+                )
+            }
         self.init(
             taxonId: u.id,
             scientificName: u.name.scientificName,
@@ -64,7 +92,12 @@ extension TaxonInfo {
             vernacularNames: vernaculars,
             publishedInCitation: dto.publishedIn?.citation,
             sourceDatasetKey: dto.source?.sourceDatasetKey,
-            nameRelations: nameRelations
+            nameRelations: nameRelations,
+            merged: u.merged ?? false,
+            extinct: u.extinct ?? false,
+            remarks: u.remarks,
+            etymology: u.name.etymology,
+            typeMaterials: tm
         )
     }
 }

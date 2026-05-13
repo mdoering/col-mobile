@@ -17,15 +17,18 @@ struct NameSearchDecodingTests {
     func synonymRoutesToAccepted() {
         let synonym = SearchHit(
             id: "S1", scientificName: "Felis x", authorship: nil,
-            rank: .species, status: .synonym, acceptedId: "ACC1", acceptedName: nil, group: nil
+            rank: .species, status: .synonym, acceptedId: "ACC1", acceptedName: nil, group: nil,
+            merged: false, extinct: false
         )
         let accepted = SearchHit(
             id: "ACC2", scientificName: "Felis catus", authorship: nil,
-            rank: .species, status: .accepted, acceptedId: nil, acceptedName: nil, group: nil
+            rank: .species, status: .accepted, acceptedId: nil, acceptedName: nil, group: nil,
+            merged: false, extinct: false
         )
         let orphanSynonym = SearchHit(
             id: "OS1", scientificName: "Felis ghost", authorship: nil,
-            rank: .species, status: .synonym, acceptedId: nil, acceptedName: nil, group: nil
+            rank: .species, status: .synonym, acceptedId: nil, acceptedName: nil, group: nil,
+            merged: false, extinct: false
         )
         #expect(synonym.navigationTaxonId == "ACC1")
         #expect(accepted.navigationTaxonId == "ACC2")
