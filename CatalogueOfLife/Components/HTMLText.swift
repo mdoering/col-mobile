@@ -17,7 +17,15 @@ extension AttributedString {
         guard let ns = try? NSAttributedString(data: data, options: options, documentAttributes: nil) else {
             return nil
         }
-        self.init(ns)
+        // The HTML parser bakes in explicit black foregroundColor and a Times-Roman 12pt
+        // font on every run. Both make the result render wrong in SwiftUI: black-on-dark
+        // in dark mode and a serif body font that doesn't match the surrounding style.
+        // Strip them so the parent view's .font and .foregroundColor environment apply.
+        let mutable = NSMutableAttributedString(attributedString: ns)
+        let full = NSRange(location: 0, length: mutable.length)
+        mutable.removeAttribute(.foregroundColor, range: full)
+        mutable.removeAttribute(.font, range: full)
+        self.init(mutable)
     }
 }
 
@@ -34,7 +42,7 @@ struct HTMLText: View {
             if let parsed {
                 Text(parsed)
             } else {
-                Text(stripped(html))
+                Text(HTMLText.plainText(html))
             }
         }
         .task(id: html) {
@@ -46,13 +54,18 @@ struct HTMLText: View {
         }
     }
 
-    private func stripped(_ s: String) -> String {
+    /// Strip tags and decode common HTML entities. Used as a plain-text fallback for display
+    /// and as the source of truth when copying HTML content (e.g. CSL citations) to the pasteboard.
+    static func plainText(_ s: String) -> String {
         s
             .replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
             .replacingOccurrences(of: "&amp;", with: "&")
             .replacingOccurrences(of: "&lt;", with: "<")
             .replacingOccurrences(of: "&gt;", with: ">")
             .replacingOccurrences(of: "&nbsp;", with: " ")
+            .replacingOccurrences(of: "&quot;", with: "\"")
+            .replacingOccurrences(of: "&apos;", with: "'")
+            .replacingOccurrences(of: "&#39;", with: "'")
             .replacingOccurrences(of: "&aacute;", with: "á")
             .replacingOccurrences(of: "&Aacute;", with: "Á")
             .replacingOccurrences(of: "&eacute;", with: "é")

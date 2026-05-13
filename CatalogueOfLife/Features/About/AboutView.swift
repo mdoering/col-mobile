@@ -224,7 +224,7 @@ struct AboutView: View {
                     Text("Citation").font(.caption).foregroundStyle(.secondary)
                     Spacer()
                     Button {
-                        UIPasteboard.general.string = stripHTML(citation)
+                        UIPasteboard.general.string = HTMLText.plainText(citation)
                     } label: {
                         Image(systemName: "doc.on.doc")
                     }
@@ -244,10 +244,6 @@ struct AboutView: View {
                     .textSelection(.enabled)
             }
         }
-    }
-
-    private func stripHTML(_ s: String) -> String {
-        s.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
     }
 
     private func copyBibTeX(datasetKey: Int) async {
