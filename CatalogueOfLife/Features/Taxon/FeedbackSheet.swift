@@ -12,23 +12,23 @@ final class FeedbackViewModel {
     }
 
     var message: String = ""
-    var email: String = ""
     private(set) var state: SubmitState = .editing
 
     private let client: APIClient
     private let datasetKey: Int
     private let taxonId: String
+    private let email: String
 
-    init(client: APIClient, datasetKey: Int, taxonId: String) {
+    init(client: APIClient, datasetKey: Int, taxonId: String, userEmail: String) {
         self.client = client
         self.datasetKey = datasetKey
         self.taxonId = taxonId
+        self.email = userEmail
     }
 
     var isValid: Bool {
         let trimmedMsg = message.trimmingCharacters(in: .whitespacesAndNewlines)
-        let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
-        return trimmedMsg.count >= 5 && trimmedEmail.contains("@") && trimmedEmail.contains(".")
+        return trimmedMsg.count >= 5
     }
 
     func submit() async {
@@ -54,11 +54,12 @@ struct FeedbackSheet: View {
     @State private var vm: FeedbackViewModel
     let scientificName: String
 
-    init(datasetKey: Int, taxonId: String, scientificName: String) {
+    init(datasetKey: Int, taxonId: String, scientificName: String, userEmail: String) {
         self._vm = State(initialValue: FeedbackViewModel(
             client: APIClientLive(),
             datasetKey: datasetKey,
-            taxonId: taxonId
+            taxonId: taxonId,
+            userEmail: userEmail
         ))
         self.scientificName = scientificName
     }
@@ -80,17 +81,6 @@ struct FeedbackSheet: View {
                         .disabled(vm.state == .submitting)
                 } header: {
                     Text("Message")
-                }
-                Section {
-                    TextField("you@example.com", text: $vm.email)
-                        .keyboardType(.emailAddress)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                        .disabled(vm.state == .submitting)
-                } header: {
-                    Text("Email")
-                } footer: {
-                    Text("So the curator can follow up if needed.")
                 }
 
                 resultSection

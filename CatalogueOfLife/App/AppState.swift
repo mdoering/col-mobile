@@ -34,6 +34,22 @@ final class AppState {
         }
     }
 
+    /// User's email, used as the reply-to address for feedback submissions. nil = unset.
+    var userEmail: String? {
+        didSet {
+            if let v = userEmail, !v.isEmpty {
+                defaults.set(v, forKey: Keys.userEmail)
+            } else {
+                defaults.removeObject(forKey: Keys.userEmail)
+            }
+        }
+    }
+
+    var hasValidUserEmail: Bool {
+        guard let e = userEmail?.trimmingCharacters(in: .whitespacesAndNewlines), !e.isEmpty else { return false }
+        return e.contains("@") && e.contains(".")
+    }
+
     var selectedDataset: DatasetRef? {
         availableReleases.first { $0.dataset.key == selectedDatasetKey }?.dataset
     }
@@ -59,6 +75,7 @@ final class AppState {
         self.defaults = defaults
         self.selectedDatasetKey = defaults.integer(forKey: Keys.selectedDatasetKey)
         self.preferredVernacularLang = defaults.string(forKey: Keys.preferredVernacularLang)
+        self.userEmail = defaults.string(forKey: Keys.userEmail)
     }
 
     private static let pickerSpec: [(alias: String, display: String)] = [
@@ -107,5 +124,6 @@ final class AppState {
     private enum Keys {
         static let selectedDatasetKey = "selectedDatasetKey"
         static let preferredVernacularLang = "preferredVernacularLang"
+        static let userEmail = "userEmail"
     }
 }

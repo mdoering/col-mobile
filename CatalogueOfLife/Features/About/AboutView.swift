@@ -7,22 +7,56 @@ struct AboutView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 24) {
+                    banner
+                    releaseMetadataSection
                     introSection
                     Divider()
                     identifiersSection
+                        .padding(.horizontal, 20)
                     Divider()
                     preferencesSection
-                    Divider()
-                    releaseMetadataSection
-                    Divider()
-                    contactsSection
+                        .padding(.horizontal, 20)
                     versionFooter
+                        .padding(.horizontal, 20)
                 }
-                .padding()
+                .padding(.bottom)
             }
             .navigationTitle("About")
+            .navigationBarTitleDisplayMode(.inline)
+            .ignoresSafeArea(edges: .top)
         }
+    }
+
+    private var banner: some View {
+        ZStack(alignment: .bottomLeading) {
+            LinearGradient(
+                colors: [Color(red: 0.09, green: 0.51, blue: 0.69),  // CoL blue (#1782b0)
+                         Color(red: 0.03, green: 0.36, blue: 0.50)],
+                startPoint: .topLeading, endPoint: .bottomTrailing
+            )
+            VStack(alignment: .leading, spacing: 8) {
+                Image("CoLLogoWhite")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: 240)
+                    .padding(.bottom, 4)
+                Text(headerTitle)
+                    .font(.title3).bold()
+                    .foregroundStyle(.white)
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 80)         // leave room below the nav bar
+            .padding(.bottom, 20)
+        }
+        .frame(height: 200)
+    }
+
+    private var headerTitle: String {
+        if let alias = appState.selectedDataset?.alias, !alias.isEmpty {
+            return "About \(alias)"
+        }
+        return "About"
     }
 
     private var versionFooter: some View {
@@ -36,13 +70,22 @@ struct AboutView: View {
             .padding(.top, 12)
     }
 
+    @ViewBuilder
+    private var releaseMetadataSection: some View {
+        if let dataset = appState.selectedDataset {
+            VStack(alignment: .leading, spacing: 10) {
+                doiRow(dataset.doi)
+                meta("Version", dataset.version)
+                licenseRow(dataset.license)
+                meta("Publisher", dataset.publisher)
+                citationRow(dataset: dataset)
+            }
+            .padding(.horizontal, 20)
+        }
+    }
+
     private var introSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Image("CoLLogo")
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: 280)
-                .accessibilityLabel("Catalogue of Life")
+        VStack(alignment: .leading, spacing: 8) {
             Text("""
             The Catalogue of Life (CoL) is the most comprehensive and authoritative \
             global index of species. It combines hundreds of taxonomic sources into a \
@@ -51,7 +94,12 @@ struct AboutView: View {
                 .font(.callout)
             Link("www.catalogueoflife.org", destination: URL(string: "https://www.catalogueoflife.org")!)
                 .font(.callout)
+            Link("support@catalogueoflife.org", destination: URL(string: "mailto:support@catalogueoflife.org")!)
+                .font(.callout)
+            Link("LinkedIn", destination: URL(string: "https://www.linkedin.com/company/catalogue-of-life/")!)
+                .font(.callout)
         }
+        .padding(.horizontal, 20)
     }
 
     private var identifiersSection: some View {
@@ -68,7 +116,8 @@ struct AboutView: View {
     }
 
     private var preferencesSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        @Bindable var appState = appState
+        return VStack(alignment: .leading, spacing: 8) {
             Text("Preferences").font(.headline)
             HStack {
                 Text("Release").font(.callout)
@@ -80,25 +129,18 @@ struct AboutView: View {
                 Spacer()
                 PreferredLanguagePicker()
             }
-        }
-    }
-
-    @ViewBuilder
-    private var releaseMetadataSection: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Selected release").font(.headline)
-            if let dataset = appState.selectedDataset {
-                meta("Title", dataset.title)
-                meta("Alias", dataset.alias)
-                meta("Version", dataset.version)
-                meta("Issued", dataset.issued)
-                meta("Origin", dataset.origin)
-                meta("Publisher", dataset.publisher)
-                licenseRow(dataset.license)
-                doiRow(dataset.doi)
-                citationRow(dataset.citation)
-            } else {
-                Text("Loading release information…").font(.callout).foregroundStyle(.secondary)
+            HStack {
+                Text("Your email").font(.callout)
+                Spacer()
+                TextField("you@example.com", text: Binding(
+                    get: { appState.userEmail ?? "" },
+                    set: { appState.userEmail = $0.isEmpty ? nil : $0 }
+                ))
+                .keyboardType(.emailAddress)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+                .multilineTextAlignment(.trailing)
+                .frame(maxWidth: 220)
             }
         }
     }
@@ -139,14 +181,45 @@ struct AboutView: View {
     }
 
     @ViewBuilder
-    private func citationRow(_ citation: String?) -> some View {
-        if let citation, !citation.isEmpty {
+    private func citationRow(dataset: DatasetRef) -> some View {
+        if let citation = dataset.citation, !citation.isEmpty {
             VStack(alignment: .leading, spacing: 6) {
-                Text("Citation").font(.caption).foregroundStyle(.secondary)
+                HStack(alignment: .firstTextBaseline) {
+                    Text("Citation").font(.caption).foregroundStyle(.secondary)
+                    Spacer()
+                    Button {
+                        UIPasteboard.general.string = stripHTML(citation)
+                    } label: {
+                        Image(systemName: "doc.on.doc")
+                    }
+                    .buttonStyle(.borderless)
+                    .accessibilityLabel("Copy citation")
+
+                    Button {
+                        Task { await copyBibTeX(datasetKey: dataset.key) }
+                    } label: {
+                        Image(systemName: "book.closed")
+                    }
+                    .buttonStyle(.borderless)
+                    .accessibilityLabel("Copy BibTeX citation")
+                }
                 HTMLText(html: citation)
                     .font(.caption)
                     .textSelection(.enabled)
             }
+        }
+    }
+
+    private func stripHTML(_ s: String) -> String {
+        s.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
+    }
+
+    private func copyBibTeX(datasetKey: Int) async {
+        var request = URLRequest(url: URL(string: "https://api.checklistbank.org/dataset/\(datasetKey)")!)
+        request.setValue("application/x-bibtex", forHTTPHeaderField: "Accept")
+        if let (data, _) = try? await URLSession.shared.data(for: request),
+           let text = String(data: data, encoding: .utf8), !text.isEmpty {
+            UIPasteboard.general.string = text
         }
     }
 
@@ -156,20 +229,6 @@ struct AboutView: View {
             HStack(alignment: .firstTextBaseline) {
                 Text(label).font(.caption).foregroundStyle(.secondary).frame(width: 90, alignment: .leading)
                 Text(value).font(.callout)
-            }
-        }
-    }
-
-    private var contactsSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Contact & Follow").font(.headline)
-            Link(destination: URL(string: "mailto:support@catalogueoflife.org")!) {
-                Label("support@catalogueoflife.org", systemImage: "envelope")
-                    .font(.callout)
-            }
-            Link(destination: URL(string: "https://www.linkedin.com/company/catalogue-of-life/")!) {
-                Label("LinkedIn", systemImage: "link")
-                    .font(.callout)
             }
         }
     }

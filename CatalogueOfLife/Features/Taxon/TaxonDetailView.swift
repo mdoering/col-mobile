@@ -141,7 +141,11 @@ struct TaxonDetailView: View {
         }
         .sheet(isPresented: $showingFeedback) {
             if case let .loaded(info) = vm?.state, let key = appState.selectedDataset?.key {
-                FeedbackSheet(datasetKey: key, taxonId: info.taxonId, scientificName: info.scientificName)
+                if appState.hasValidUserEmail {
+                    FeedbackSheet(datasetKey: key, taxonId: info.taxonId, scientificName: info.scientificName, userEmail: appState.userEmail!)
+                } else {
+                    FeedbackEmailMissingView()
+                }
             }
         }
         .task {
@@ -199,5 +203,24 @@ struct TaxonDetailView: View {
             modelContext.insert(fav)
         }
         try? modelContext.save()
+    }
+}
+
+private struct FeedbackEmailMissingView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            ContentUnavailableView(
+                "Set your email first",
+                systemImage: "envelope",
+                description: Text("To send feedback you need to configure your email address in About → Preferences.")
+            )
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Close") { dismiss() }
+                }
+            }
+        }
     }
 }
