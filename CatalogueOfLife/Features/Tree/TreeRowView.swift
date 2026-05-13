@@ -25,8 +25,8 @@ struct TreeRowView: View {
                         }
                         Spacer(minLength: 8)
                         if node.count > 0 {
-                            Text("\(node.count) descendants")
-                                .font(.caption2)
+                            Text(node.count, format: .number)
+                                .font(.caption2.monospacedDigit())
                                 .foregroundStyle(.tertiary)
                         }
                     }
