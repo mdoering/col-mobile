@@ -31,6 +31,10 @@ struct TaxonDetailView: View {
                     ClassificationChipsView(items: info.classification) { item in
                         navigateTo = item.id
                     }
+                    if let citation = info.publishedInCitation, !citation.isEmpty {
+                        Divider()
+                        PublishedInView(citation: citation)
+                    }
                     if info.rank.isSuprageneric {
                         if !breakdownChildren.isEmpty {
                             Divider()
@@ -71,10 +75,6 @@ struct TaxonDetailView: View {
                     if let ety = info.etymology, !ety.isEmpty {
                         Divider()
                         RemarksView(title: "Etymology", text: ety)
-                    }
-                    if let citation = info.publishedInCitation, !citation.isEmpty {
-                        Divider()
-                        PublishedInView(citation: citation)
                     }
                     if !info.synonymyGroups.isEmpty {
                         Divider()
