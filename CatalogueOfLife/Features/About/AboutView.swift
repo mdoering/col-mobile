@@ -17,6 +17,11 @@ struct AboutView: View {
                     Divider()
                     preferencesSection
                         .padding(.horizontal, 20)
+                    #if DEBUG
+                    Divider()
+                    debugSection
+                        .padding(.horizontal, 20)
+                    #endif
                     versionFooter
                         .padding(.horizontal, 20)
                 }
@@ -27,6 +32,54 @@ struct AboutView: View {
             .ignoresSafeArea(edges: .top)
         }
     }
+
+    #if DEBUG
+    private var debugSection: some View {
+        @Bindable var appState = appState
+        return VStack(alignment: .leading, spacing: 8) {
+            Text("Debug").font(.headline)
+            HStack {
+                Text("GBIF map style").font(.callout)
+                Spacer()
+                Picker("GBIF map style", selection: $appState.gbifMapStyle) {
+                    ForEach(GBIFEndpoints.availableMapTileStyles, id: \.self) { style in
+                        Text(style).tag(style)
+                    }
+                }
+                .pickerStyle(.menu).labelsHidden()
+            }
+            HStack {
+                Text("GBIF tile resolution").font(.callout)
+                Spacer()
+                Picker("GBIF tile resolution", selection: $appState.gbifTileResolution) {
+                    Text("@1x · 512px").tag("1x")
+                    Text("@2x · 1024px").tag("2x")
+                }
+                .pickerStyle(.menu).labelsHidden()
+            }
+            HStack {
+                Text("Apple base map").font(.callout)
+                Spacer()
+                Picker("Apple base map", selection: $appState.mapBaseStyle) {
+                    Text("Standard").tag("standard")
+                    Text("Standard Muted").tag("standardMuted")
+                    Text("Hybrid").tag("hybrid")
+                    Text("Imagery").tag("imagery")
+                }
+                .pickerStyle(.menu).labelsHidden()
+            }
+            HStack {
+                Text("Elevation").font(.callout)
+                Spacer()
+                Picker("Elevation", selection: $appState.mapElevation) {
+                    Text("Flat").tag("flat")
+                    Text("Realistic").tag("realistic")
+                }
+                .pickerStyle(.menu).labelsHidden()
+            }
+        }
+    }
+    #endif
 
     private var banner: some View {
         ZStack(alignment: .bottomLeading) {
@@ -141,17 +194,6 @@ struct AboutView: View {
                 .autocorrectionDisabled()
                 .multilineTextAlignment(.trailing)
                 .frame(maxWidth: 220)
-            }
-            HStack {
-                Text("GBIF map style").font(.callout)
-                Spacer()
-                Picker("GBIF map style", selection: $appState.gbifMapStyle) {
-                    ForEach(GBIFEndpoints.availableMapTileStyles, id: \.self) { style in
-                        Text(style).tag(style)
-                    }
-                }
-                .pickerStyle(.menu)
-                .labelsHidden()
             }
         }
     }

@@ -50,6 +50,21 @@ final class AppState {
         didSet { defaults.set(gbifMapStyle, forKey: Keys.gbifMapStyle) }
     }
 
+    /// GBIF tile resolution suffix: "1x" (512×512) or "2x" (1024×1024).
+    var gbifTileResolution: String {
+        didSet { defaults.set(gbifTileResolution, forKey: Keys.gbifTileResolution) }
+    }
+
+    /// Base-map style for MKMapView: "standard", "standardMuted", "hybrid", "imagery".
+    var mapBaseStyle: String {
+        didSet { defaults.set(mapBaseStyle, forKey: Keys.mapBaseStyle) }
+    }
+
+    /// MKMapConfiguration elevation style: "flat" or "realistic".
+    var mapElevation: String {
+        didSet { defaults.set(mapElevation, forKey: Keys.mapElevation) }
+    }
+
     /// Active tab index. Bindable from RootTabView's TabView selection.
     var selectedTabIndex: Int = 0
 
@@ -91,6 +106,15 @@ final class AppState {
         let storedStyle = defaults.string(forKey: Keys.gbifMapStyle)
         self.gbifMapStyle = (storedStyle.map { GBIFEndpoints.availableMapTileStyles.contains($0) ? $0 : nil } ?? nil)
             ?? GBIFEndpoints.defaultMapTileStyle
+        self.gbifTileResolution = defaults.string(forKey: Keys.gbifTileResolution).map {
+            ["1x", "2x"].contains($0) ? $0 : "1x"
+        } ?? "1x"
+        self.mapBaseStyle = defaults.string(forKey: Keys.mapBaseStyle).map {
+            ["standard", "standardMuted", "hybrid", "imagery"].contains($0) ? $0 : "standard"
+        } ?? "standard"
+        self.mapElevation = defaults.string(forKey: Keys.mapElevation).map {
+            ["flat", "realistic"].contains($0) ? $0 : "flat"
+        } ?? "flat"
     }
 
     private static let pickerSpec: [(alias: String, display: String)] = [
@@ -141,5 +165,8 @@ final class AppState {
         static let preferredVernacularLang = "preferredVernacularLang"
         static let userEmail = "userEmail"
         static let gbifMapStyle = "gbifMapStyle"
+        static let gbifTileResolution = "gbifTileResolution"
+        static let mapBaseStyle = "mapBaseStyle"
+        static let mapElevation = "mapElevation"
     }
 }

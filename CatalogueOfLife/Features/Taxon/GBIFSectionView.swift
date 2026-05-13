@@ -13,9 +13,15 @@ struct GBIFSectionView: View {
                     Text("Couldn't load GBIF data for this taxon.")
                         .font(.caption).foregroundStyle(.secondary)
                 } else {
-                    GBIFMapView(taxonId: taxonId, style: appState.gbifMapStyle)
-                        .frame(height: 180)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                    GBIFMapView(
+                        taxonId: taxonId,
+                        style: appState.gbifMapStyle,
+                        resolution: appState.gbifTileResolution,
+                        baseStyle: appState.mapBaseStyle,
+                        elevation: appState.mapElevation
+                    )
+                    .frame(height: 180)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                     if let m = vm.metrics { metricsRow(m) }
                     GBIFImageCarouselView(items: vm.images)
                 }
