@@ -1,0 +1,25 @@
+title: Catalogue of Life Mobile
+description: >-
+  Browse the most comprehensive global checklist of every named living and
+  recently extinct organism — the Catalogue of Life — from your iPhone.
+
+url: "https://mdoering.github.io"
+baseurl: "/col-mobile"
+
+theme: jekyll-theme-cayman
+
+show_downloads: false
+
+# Skip internal planning + spec docs from the rendered site.
+exclude:
+  - superpowers/
+  - "*.swift"
+  - "*.swiftpm"
+  - "Tools/"
+  - "README.md"
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
