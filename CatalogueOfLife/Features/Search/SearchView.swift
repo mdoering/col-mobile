@@ -20,29 +20,46 @@ struct SearchView: View {
                 }
         }
         .onAppear { ensureVM() }
-        .onChange(of: appState.pendingSearchGroup) { _, group in
-            guard let group, let vm else { return }
-            vm.query = ""
-            query = ""
-            vm.rank = nil
-            vm.status = nil
-            vm.group = group
-            vm.taxonId = nil
-            vm.taxonScopeLabel = nil
-            appState.pendingSearchGroup = nil
+        // Use .task(id:) instead of .onChange so the apply path also fires
+        // when SearchView mounts with a pending value already present (e.g.
+        // when the user came here via a tab switch from another tab — the
+        // value was set just before SearchView's body first evaluated, so
+        // .onChange would never see a transition).
+        .task(id: appState.pendingSearchGroup) {
+            await applyPendingGroupIfNeeded()
         }
-        .onChange(of: appState.pendingSearchScope) { _, scope in
-            guard let scope, let vm else { return }
-            vm.query = ""
-            query = ""
-            vm.status = nil
-            vm.group = nil
-            vm.rank = scope.rank
-            vm.taxonId = scope.taxonId
-            vm.taxonScopeLabel = scope.label
-            appState.pendingSearchScope = nil
-            vm.submit()
+        .task(id: appState.pendingSearchScope) {
+            await applyPendingScopeIfNeeded()
         }
+    }
+
+    @MainActor
+    private func applyPendingGroupIfNeeded() async {
+        ensureVM()
+        guard let group = appState.pendingSearchGroup, let vm else { return }
+        vm.query = ""
+        query = ""
+        vm.rank = nil
+        vm.status = nil
+        vm.group = group
+        vm.taxonId = nil
+        vm.taxonScopeLabel = nil
+        appState.pendingSearchGroup = nil
+    }
+
+    @MainActor
+    private func applyPendingScopeIfNeeded() async {
+        ensureVM()
+        guard let scope = appState.pendingSearchScope, let vm else { return }
+        vm.query = ""
+        query = ""
+        vm.status = nil
+        vm.group = nil
+        vm.rank = scope.rank
+        vm.taxonId = scope.taxonId
+        vm.taxonScopeLabel = scope.label
+        appState.pendingSearchScope = nil
+        vm.submit()
     }
 
     private func ensureVM() {
