@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct TaxonHeaderView: View {
     let info: TaxonInfo
@@ -15,8 +16,10 @@ struct TaxonHeaderView: View {
             VStack(alignment: .leading, spacing: 6) {
                 HStack(alignment: .firstTextBaseline) {
                     Text(prefixedName).italic().font(.title2).bold()
+                        .textSelection(.enabled)
                     if let auth = info.authorship {
                         Text(auth).font(.subheadline).foregroundStyle(.secondary)
+                            .textSelection(.enabled)
                     }
                     if info.merged {
                         Text("XR")
@@ -24,6 +27,20 @@ struct TaxonHeaderView: View {
                             .padding(.horizontal, 5).padding(.vertical, 1)
                             .background(.purple.opacity(0.18), in: Capsule())
                             .foregroundStyle(.purple)
+                    }
+                }
+                .contextMenu {
+                    Button {
+                        UIPasteboard.general.string = info.scientificName
+                    } label: {
+                        Label("Copy scientific name", systemImage: "doc.on.doc")
+                    }
+                    if let auth = info.authorship {
+                        Button {
+                            UIPasteboard.general.string = "\(info.scientificName) \(auth)"
+                        } label: {
+                            Label("Copy name with authorship", systemImage: "doc.on.doc.fill")
+                        }
                     }
                 }
                 if let v = preferredVernacular {
