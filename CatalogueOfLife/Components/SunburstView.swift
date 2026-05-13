@@ -6,6 +6,9 @@ struct SunburstView: View {
     var maxDepth: Int = 2
     /// Controls what the popover fetches and what "Tap to open" navigates to.
     var popoverKind: PopoverKind = .taxon
+    /// When true, draws labels for every arc whose chord fits the text (no minimum-sweep cutoff).
+    /// Use in the full-screen / zoomed view; leave off for the inline view to avoid clutter.
+    var alwaysShowLabels: Bool = false
     /// Tap handler: receives the selected node (via the popover's Open button).
     var onSelect: (SunburstNode) -> Void = { _ in }
 
@@ -34,6 +37,7 @@ struct SunburstView: View {
                         innerRadius: innerRadius,
                         ringThickness: ringThickness,
                         maxDepth: maxDepth,
+                        alwaysShowLabels: alwaysShowLabels,
                         context: &context
                     )
                 }
@@ -171,6 +175,7 @@ enum SunburstMath {
         innerRadius: CGFloat,
         ringThickness: CGFloat,
         maxDepth: Int,
+        alwaysShowLabels: Bool = false,
         context: inout GraphicsContext
     ) {
         let total = max(root.children.reduce(0) { $0 + $1.count }, 1)
@@ -184,6 +189,7 @@ enum SunburstMath {
             innerRadius: innerRadius,
             ringThickness: ringThickness,
             maxDepth: maxDepth,
+            alwaysShowLabels: alwaysShowLabels,
             context: &context
         )
     }
@@ -198,6 +204,7 @@ enum SunburstMath {
         innerRadius: CGFloat,
         ringThickness: CGFloat,
         maxDepth: Int,
+        alwaysShowLabels: Bool,
         context: inout GraphicsContext
     ) {
         guard depth <= maxDepth else { return }
@@ -213,7 +220,10 @@ enum SunburstMath {
                 color: arcColor(depth: depth, index: idx, total: parent.children.count),
                 context: &context
             )
-            let minLabelSweep: Double = .pi / 18   // 10 degrees
+            // Sweep threshold protects the inline view from label spam; full-screen view
+            // opts out via `alwaysShowLabels`. drawArcLabel still skips when the chord is
+            // too narrow to fit the text.
+            let minLabelSweep: Double = alwaysShowLabels ? 0 : .pi / 18
             if childSweepValue >= minLabelSweep {
                 drawArcLabel(
                     text: child.label,
@@ -237,6 +247,7 @@ enum SunburstMath {
                     innerRadius: innerRadius,
                     ringThickness: ringThickness,
                     maxDepth: maxDepth,
+                    alwaysShowLabels: alwaysShowLabels,
                     context: &context
                 )
             }

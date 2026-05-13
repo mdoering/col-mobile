@@ -4,6 +4,7 @@ struct MetricsView: View {
     @Environment(AppState.self) private var appState
     @State private var vm: MetricsViewModel?
     @State private var timeline: [ReleaseTimelineEntry] = ReleaseTimeline.loadBundled()
+    @State private var fullScreenSunburst: SunburstNode?
 
     var body: some View {
         NavigationStack {
@@ -17,6 +18,16 @@ struct MetricsView: View {
             }
             await vm?.load()
         }
+        .fullScreenCover(item: $fullScreenSunburst) { root in
+            SunburstFullScreenView(
+                root: root,
+                maxDepth: 2,
+                popoverKind: .group
+            ) { node in
+                appState.pendingSearchGroup = node.label
+                appState.selectedTabIndex = 1
+            }
+        }
     }
 
     @ViewBuilder
@@ -29,9 +40,19 @@ struct MetricsView: View {
                     if let metrics {
                         ImportMetricsList(metrics: metrics, includeSummary: true, includeSections: false)
                     }
-                    Text("Taxonomic breakdown").font(.headline)
+                    let breakdownRoot = SunburstNode.from(breakdown: breakdown)
+                    HStack {
+                        Text("Taxonomic breakdown").font(.headline)
+                        Spacer()
+                        Button {
+                            fullScreenSunburst = breakdownRoot
+                        } label: {
+                            Image(systemName: "arrow.up.left.and.arrow.down.right")
+                        }
+                        .accessibilityLabel("Open breakdown full screen")
+                    }
                     SunburstView(
-                        root: SunburstNode.from(breakdown: breakdown),
+                        root: breakdownRoot,
                         popoverKind: .group
                     ) { node in
                         appState.pendingSearchGroup = node.label

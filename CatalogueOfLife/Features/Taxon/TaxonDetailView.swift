@@ -12,6 +12,7 @@ struct TaxonDetailView: View {
     @State private var childNodes: [TreeNode] = []
     @State private var breakdownChildren: [SunburstNode] = []
     @State private var showingFeedback = false
+    @State private var fullScreenSunburst: SunburstNode?
 
     private var isFavorite: Bool {
         guard let key = appState.selectedDataset?.key else { return false }
@@ -33,16 +34,26 @@ struct TaxonDetailView: View {
                     if info.rank.isSuprageneric {
                         if !breakdownChildren.isEmpty {
                             Divider()
+                            let breakdownRoot = SunburstNode(
+                                id: info.taxonId,
+                                label: info.scientificName,
+                                count: breakdownChildren.reduce(0) { $0 + $1.count },
+                                rank: info.rank,
+                                children: breakdownChildren
+                            )
                             VStack(alignment: .leading, spacing: 6) {
-                                Text("Breakdown of \(info.scientificName)").font(.headline)
+                                HStack {
+                                    Text("Breakdown of \(info.scientificName)").font(.headline)
+                                    Spacer()
+                                    Button {
+                                        fullScreenSunburst = breakdownRoot
+                                    } label: {
+                                        Image(systemName: "arrow.up.left.and.arrow.down.right")
+                                    }
+                                    .accessibilityLabel("Open breakdown full screen")
+                                }
                                 SunburstView(
-                                    root: SunburstNode(
-                                        id: info.taxonId,
-                                        label: info.scientificName,
-                                        count: breakdownChildren.reduce(0) { $0 + $1.count },
-                                        rank: info.rank,
-                                        children: breakdownChildren
-                                    ),
+                                    root: breakdownRoot,
                                     maxDepth: 2
                                 ) { node in
                                     navigateTo = node.id
@@ -158,6 +169,15 @@ struct TaxonDetailView: View {
                 } else {
                     FeedbackEmailMissingView()
                 }
+            }
+        }
+        .fullScreenCover(item: $fullScreenSunburst) { root in
+            SunburstFullScreenView(
+                root: root,
+                maxDepth: 2,
+                popoverKind: .taxon
+            ) { node in
+                navigateTo = node.id
             }
         }
         .task {
