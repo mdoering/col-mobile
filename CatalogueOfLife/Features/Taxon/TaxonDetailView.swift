@@ -70,12 +70,19 @@ struct TaxonDetailView: View {
                         if !childNodes.isEmpty {
                             Divider()
                             DescendantsByRankView(children: childNodes) { rank in
-                                appState.pendingSearchScope = TaxonSearchScope(
+                                let scope = TaxonSearchScope(
                                     taxonId: info.taxonId,
                                     label: info.scientificName,
                                     rank: rank
                                 )
-                                appState.selectedTabIndex = 1
+                                appState.pendingSearchScope = scope
+                                // TabView programmatic selection from inside a
+                                // NavigationStack push only lands reliably when
+                                // it lives in its own runloop tick. Without the
+                                // defer the search fires but the tab stays put.
+                                Task { @MainActor in
+                                    appState.selectedTabIndex = 1
+                                }
                             }
                         }
                     }
