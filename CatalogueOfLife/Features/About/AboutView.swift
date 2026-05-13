@@ -156,23 +156,31 @@ struct AboutView: View {
         let value = binding.wrappedValue
         let isEmpty = value.isEmpty
         let isValid = !isEmpty && AppState.isValidEmail(value)
-        // .foregroundStyle only affects typed text, never the placeholder.
-        // The simple TextField("placeholder", text:) form draws the placeholder
-        // with UIColor.placeholderText (adaptive grey) directly via UITextField,
-        // so an empty field reads as empty no matter the field's foreground.
         let typedColor: Color = isValid ? .blue : (isEmpty ? .primary : .red)
-        return TextField("you@example.com", text: binding)
-            .keyboardType(.emailAddress)
-            .textInputAutocapitalization(.never)
-            .autocorrectionDisabled()
-            .multilineTextAlignment(.trailing)
-            .foregroundStyle(typedColor)
-            .focused($emailFocused)
-            .onSubmit { discardInvalidEmail() }
-            .onChange(of: emailFocused) { _, focused in
-                if !focused { discardInvalidEmail() }
+        // iOS 26's TextField sometimes renders its built-in placeholder in the
+        // field's tint colour, so an empty field reads as a "real" blue value.
+        // Drop the placeholder string entirely and overlay a Text we style
+        // ourselves — guaranteed grey, hides as soon as the field has content.
+        return ZStack(alignment: .trailing) {
+            if isEmpty {
+                Text("you@example.com")
+                    .font(.body)
+                    .foregroundStyle(.tertiary)
+                    .allowsHitTesting(false)
             }
-            .frame(maxWidth: 220)
+            TextField("", text: binding)
+                .keyboardType(.emailAddress)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+                .multilineTextAlignment(.trailing)
+                .foregroundStyle(typedColor)
+                .focused($emailFocused)
+                .onSubmit { discardInvalidEmail() }
+                .onChange(of: emailFocused) { _, focused in
+                    if !focused { discardInvalidEmail() }
+                }
+        }
+        .frame(maxWidth: 220)
     }
 
     /// Clear `userEmail` if the user finished editing on an invalid string.
