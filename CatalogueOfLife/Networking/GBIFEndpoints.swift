@@ -53,8 +53,11 @@ enum GBIFEndpoints {
     }
 
     /// `GET /v2/map/occurrence/density/{z}/{x}/{y}@1x.png?...` — tile template for `MKTileOverlay`.
-    /// Note: the tile endpoint uses `taxonKey` (not `taxonId` as the occurrence search does).
+    /// Notes:
+    /// - The tile endpoint uses `taxonKey` (not `taxonId` as the occurrence search does).
+    /// - `srs=EPSG:3857` requests Web Mercator tiles, matching `MKMapView`'s native projection.
+    ///   Without it GBIF defaults to EPSG:4326 (plate carrée) which would render misaligned.
     static func mapTileURLTemplate(taxonId: String, style: String = defaultMapTileStyle) -> String {
-        "\(baseURL.absoluteString)/v2/map/occurrence/density/{z}/{x}/{y}@1x.png?checklistKey=\(colChecklistKey)&taxonKey=\(taxonId)&style=\(style)"
+        "\(baseURL.absoluteString)/v2/map/occurrence/density/{z}/{x}/{y}@1x.png?srs=EPSG:3857&checklistKey=\(colChecklistKey)&taxonKey=\(taxonId)&style=\(style)"
     }
 }
