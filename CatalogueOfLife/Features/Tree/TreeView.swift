@@ -62,9 +62,11 @@ struct TreeView: View {
                 List(nodes) { node in
                     HStack(spacing: 8) {
                         Button {
-                            if node.isPlaceholder {
-                                // Synthetic "Not assigned" pseudo-node — drill
-                                // into its children instead of opening a detail.
+                            // Tapping the name drills into children. For leaf
+                            // taxa there are no children, so fall through to
+                            // opening the taxon detail. Placeholders always
+                            // drill (they have no detail view).
+                            if node.isPlaceholder || !node.isLeaf {
                                 nextParentName = node.name
                                 nextParentId = node.id
                             } else {
@@ -78,17 +80,24 @@ struct TreeView: View {
 
                         if !node.isLeaf {
                             Button {
-                                nextParentName = node.name
-                                nextParentId = node.id
+                                // Chevron now opens taxon details. Placeholders
+                                // are the exception — they have no detail page,
+                                // so the chevron still drills into children.
+                                if node.isPlaceholder {
+                                    nextParentName = node.name
+                                    nextParentId = node.id
+                                } else {
+                                    nextLeafId = node.id
+                                }
                             } label: {
-                                Image(systemName: "chevron.forward.2")
+                                Image(systemName: node.isPlaceholder ? "chevron.forward.2" : "chevron.forward")
                                     .font(.callout)
                                     .foregroundStyle(.secondary)
                                     .frame(width: 32, height: 44)
                                     .contentShape(Rectangle())
                             }
                             .buttonStyle(.borderless)
-                            .accessibilityLabel("Browse children of \(node.name)")
+                            .accessibilityLabel(node.isPlaceholder ? "Browse children of \(node.name)" : "Open \(node.name) details")
                         }
                     }
                     .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 8))
