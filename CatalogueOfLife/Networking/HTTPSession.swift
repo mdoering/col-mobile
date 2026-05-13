@@ -9,8 +9,22 @@ enum HTTPSession {
             directory: nil
         )
         cfg.requestCachePolicy = .useProtocolCachePolicy
-        cfg.httpAdditionalHeaders = ["Accept": "application/json"]
+        cfg.httpAdditionalHeaders = [
+            "Accept": "application/json",
+            "User-Agent": userAgent,
+        ]
         cfg.timeoutIntervalForRequest = 20
         return URLSession(configuration: cfg)
+    }()
+
+    /// Identifies our requests to ChecklistBank / GBIF logs.
+    /// Format: `CatalogueOfLife/<short-version> (build <build>; iOS <version>)`.
+    static let userAgent: String = {
+        let info = Bundle.main.infoDictionary
+        let version = (info?["CFBundleShortVersionString"] as? String) ?? "0"
+        let build = (info?["CFBundleVersion"] as? String) ?? "0"
+        let v = ProcessInfo.processInfo.operatingSystemVersion
+        let os = "\(v.majorVersion).\(v.minorVersion).\(v.patchVersion)"
+        return "CatalogueOfLife/\(version) (build \(build); iOS \(os))"
     }()
 }

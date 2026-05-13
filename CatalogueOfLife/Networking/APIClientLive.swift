@@ -38,6 +38,9 @@ actor APIClientLive: APIClient {
             do {
                 return try decoder.decode(T.self, from: data)
             } catch {
+                #if DEBUG
+                NetworkLog.decodeFailed(tag: "CoL", url: url, error: error, body: data)
+                #endif
                 throw APIError.decoding(String(describing: error))
             }
         case 404:

@@ -34,7 +34,12 @@ actor GBIFClientLive: GBIFClient {
         switch http.statusCode {
         case 200..<300:
             do { return try decoder.decode(T.self, from: data) }
-            catch { throw APIError.decoding(String(describing: error)) }
+            catch {
+                #if DEBUG
+                NetworkLog.decodeFailed(tag: "GBIF", url: url, error: error, body: data)
+                #endif
+                throw APIError.decoding(String(describing: error))
+            }
         case 404: throw APIError.notFound
         default: throw APIError.server(status: http.statusCode)
         }
