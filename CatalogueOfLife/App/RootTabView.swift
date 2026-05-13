@@ -5,8 +5,13 @@ struct RootTabView: View {
     @State private var showingFavorites = false
 
     var body: some View {
-        @Bindable var appState = appState
-        TabView(selection: $appState.selectedTabIndex) {
+        // Use an explicit Binding rather than @Bindable's projected value —
+        // programmatic writes to selectedTabIndex from deeply pushed views
+        // weren't reliably committing through the @Bindable path on iOS 26.
+        TabView(selection: Binding(
+            get: { appState.selectedTabIndex },
+            set: { appState.selectedTabIndex = $0 }
+        )) {
             NavigationStack {
                 TreeView()
                     .toolbar {
