@@ -18,7 +18,7 @@ enum Endpoints {
         return c.url!
     }
 
-    static func nameSearch(datasetKey: Int, q: String, rank: Rank? = nil, status: TaxonStatus? = nil, group: String? = nil, limit: Int = 25) -> URL {
+    static func nameSearch(datasetKey: Int, q: String, rank: Rank? = nil, status: TaxonStatus? = nil, group: String? = nil, taxonId: String? = nil, limit: Int = 25) -> URL {
         var c = URLComponents(
             url: baseURL.appending(path: "dataset/\(datasetKey)/nameusage/search"),
             resolvingAgainstBaseURL: false
@@ -33,6 +33,7 @@ enum Endpoints {
             items.append(URLQueryItem(name: "status", value: status.rawValue))
         }
         if let group, !group.isEmpty { items.append(URLQueryItem(name: "group", value: group)) }
+        if let taxonId, !taxonId.isEmpty { items.append(URLQueryItem(name: "taxonId", value: taxonId)) }
         c.queryItems = items
         return c.url!
     }

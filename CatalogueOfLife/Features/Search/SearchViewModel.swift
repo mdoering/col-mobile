@@ -15,6 +15,11 @@ final class SearchViewModel {
     var rank: Rank? = nil              // nil = Any
     var status: TaxonStatus? = nil     // nil = Any
     var group: String? = nil           // nil = Any. Lowercase vocab name.
+    /// Scope the search to descendants of this taxon id. nil = whole dataset.
+    /// Set when the user follows a "search descendants" link from a taxon detail.
+    var taxonId: String? = nil
+    /// Optional scope label shown in the UI (e.g. the scoped taxon's scientific name).
+    var taxonScopeLabel: String? = nil
 
     private(set) var state: LoadState = .idle
 
@@ -44,7 +49,11 @@ final class SearchViewModel {
 
     private func run() async {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else {
+        // A query is the usual trigger, but a taxon-id scope (set when arriving
+        // from a "search descendants" link) is enough on its own — there's
+        // always a finite descendant list to enumerate.
+        let hasScope = (taxonId?.isEmpty == false) || (group?.isEmpty == false)
+        guard !trimmed.isEmpty || hasScope else {
             state = .idle
             inFlight?.cancel()
             return
@@ -62,7 +71,8 @@ final class SearchViewModel {
                     q: trimmed,
                     rank: rank,
                     status: status,
-                    group: group
+                    group: group,
+                    taxonId: taxonId
                 )
                 guard !Task.isCancelled else { return }
                 state = .loaded(hits)

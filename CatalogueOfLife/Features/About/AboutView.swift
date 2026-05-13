@@ -90,7 +90,7 @@ struct AboutView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Identifiers").font(.headline)
             Text("""
-            Each taxon in CoL has a short alphanumeric identifier (e.g. COL:CS5HF). \
+            Each taxon in COL has a short alphanumeric identifier (e.g. CS5HF). \
             Identifiers in the latest extended release (3LXR) and the base release (3LR) \
             are stable and tracked by GBIF. Identifiers in older annual releases differ \
             and may not resolve elsewhere.

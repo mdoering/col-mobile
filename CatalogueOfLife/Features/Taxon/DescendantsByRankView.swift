@@ -4,6 +4,9 @@ import SwiftUI
 /// summarize what's below this taxon by counting immediate children grouped by their rank.
 struct DescendantsByRankView: View {
     let children: [TreeNode]
+    /// Called when the user taps a bucket — opens search scoped to this rank
+    /// under the parent taxon.
+    var onTap: ((Rank) -> Void)? = nil
 
     private struct Bucket: Identifiable {
         let rank: Rank
@@ -32,16 +35,28 @@ struct DescendantsByRankView: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text("Descendants").font(.headline)
                 ForEach(buckets) { b in
-                    HStack(alignment: .firstTextBaseline) {
-                        Text("\(b.directCount) \(label(rank: b.rank, count: b.directCount))")
-                            .font(.callout)
-                        if b.deeperCount > 0 {
-                            Text("(+ \(b.deeperCount) deeper)")
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
+                    Button {
+                        onTap?(b.rank)
+                    } label: {
+                        HStack(alignment: .firstTextBaseline) {
+                            Text("\(b.directCount) \(label(rank: b.rank, count: b.directCount))")
+                                .font(.callout)
+                            if b.deeperCount > 0 {
+                                Text("(+ \(b.deeperCount) deeper)")
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            if onTap != nil {
+                                Image(systemName: "chevron.forward")
+                                    .font(.caption2)
+                                    .foregroundStyle(.tertiary)
+                            }
                         }
-                        Spacer()
+                        .contentShape(Rectangle())
                     }
+                    .buttonStyle(.plain)
+                    .disabled(onTap == nil)
                 }
             }
         }

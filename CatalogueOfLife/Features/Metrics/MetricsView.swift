@@ -43,7 +43,7 @@ struct MetricsView: View {
                     }
                     let breakdownRoot = SunburstNode.from(breakdown: breakdown)
                     HStack {
-                        Text("Taxonomic breakdown").font(.headline)
+                        Text("Taxonomic Groups").font(.headline)
                         Spacer()
                         Button {
                             fullScreenSunburst = breakdownRoot

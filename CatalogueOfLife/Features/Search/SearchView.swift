@@ -27,7 +27,21 @@ struct SearchView: View {
             vm.rank = nil
             vm.status = nil
             vm.group = group
+            vm.taxonId = nil
+            vm.taxonScopeLabel = nil
             appState.pendingSearchGroup = nil
+        }
+        .onChange(of: appState.pendingSearchScope) { _, scope in
+            guard let scope, let vm else { return }
+            vm.query = ""
+            query = ""
+            vm.status = nil
+            vm.group = nil
+            vm.rank = scope.rank
+            vm.taxonId = scope.taxonId
+            vm.taxonScopeLabel = scope.label
+            appState.pendingSearchScope = nil
+            vm.submit()
         }
     }
 
@@ -63,6 +77,23 @@ struct SearchView: View {
         @Bindable var vm = vm
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
+                if let scope = vm.taxonScopeLabel {
+                    Button {
+                        vm.taxonId = nil
+                        vm.taxonScopeLabel = nil
+                        vm.reSearchIfQueryPresent()
+                    } label: {
+                        HStack(spacing: 4) {
+                            Text("Within").font(.caption2).foregroundStyle(.secondary)
+                            Text(scope).font(.caption).italic()
+                            Image(systemName: "xmark.circle.fill").font(.caption2)
+                        }
+                        .padding(.horizontal, 8).padding(.vertical, 4)
+                        .background(.tint.opacity(0.18), in: Capsule())
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Clear taxon scope: \(scope)")
+                }
                 FilterMenu(
                     title: "Rank",
                     value: vm.rank?.rawValue.capitalized,

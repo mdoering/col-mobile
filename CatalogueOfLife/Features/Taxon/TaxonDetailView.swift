@@ -69,7 +69,14 @@ struct TaxonDetailView: View {
                     } else {
                         if !childNodes.isEmpty {
                             Divider()
-                            DescendantsByRankView(children: childNodes)
+                            DescendantsByRankView(children: childNodes) { rank in
+                                appState.pendingSearchScope = TaxonSearchScope(
+                                    taxonId: info.taxonId,
+                                    label: info.scientificName,
+                                    rank: rank
+                                )
+                                appState.selectedTabIndex = 1
+                            }
                         }
                     }
                     if let ety = info.etymology, !ety.isEmpty {
@@ -105,9 +112,27 @@ struct TaxonDetailView: View {
                         Divider()
                         RemarksView(title: "Remarks", text: r)
                     }
+                    Divider()
                     if appState.gbifAvailable {
-                        Divider()
                         GBIFSectionView(taxonId: info.taxonId)
+                    } else {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("Occurrences (GBIF)").font(.headline)
+                            Text("GBIF occurrence data is linked only for the latest CoL releases (3LR · 3LXR). Switch the release in About → Preferences to see it.")
+                                .font(.caption).foregroundStyle(.secondary)
+                        }
+                    }
+                    if let key = appState.selectedDataset?.key,
+                       let url = URL(string: "https://www.checklistbank.org/dataset/\(key)/taxon/\(info.taxonId)") {
+                        Divider()
+                        Link(destination: url) {
+                            HStack {
+                                Text("Open in ChecklistBank").font(.callout)
+                                Spacer()
+                                Image(systemName: "arrow.up.right.square")
+                            }
+                        }
+                        .padding(.top, 4)
                     }
                 case .failed(let err):
                     errorView(err)
@@ -120,19 +145,17 @@ struct TaxonDetailView: View {
         .navigationTitle("Taxon")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                if case let .loaded(info) = vm?.state {
-                    Text(info.rank.rawValue.capitalized)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
             ToolbarItem(placement: .principal) {
                 if case let .loaded(info) = vm?.state {
-                    Text(info.taxonId)
-                        .font(.system(.caption, design: .monospaced))
-                        .foregroundStyle(.secondary)
-                        .textSelection(.enabled)
+                    HStack(spacing: 6) {
+                        Text(info.rank.rawValue.capitalized)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        Text(info.taxonId)
+                            .font(.system(.caption, design: .monospaced))
+                            .foregroundStyle(.secondary)
+                            .textSelection(.enabled)
+                    }
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {

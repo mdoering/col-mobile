@@ -7,6 +7,15 @@ struct ReleaseChoice: Equatable, Identifiable, Sendable {
     var id: Int { dataset.key }
 }
 
+/// Carries a "search descendants of this taxon at this rank" request from a
+/// taxon detail view across to the Search tab. `label` is the parent taxon's
+/// scientific name, shown as a scope chip in the search filter bar.
+struct TaxonSearchScope: Equatable, Sendable {
+    let taxonId: String
+    let label: String
+    let rank: Rank
+}
+
 @MainActor
 @Observable
 final class AppState {
@@ -63,6 +72,11 @@ final class AppState {
     /// Pending request to apply a group filter when the search tab opens.
     /// SearchView clears it after applying.
     var pendingSearchGroup: String?
+
+    /// Pending request to scope the search to descendants of a taxon at a given rank.
+    /// Set when the user follows a "search descendants" link from a taxon detail
+    /// (e.g. tapping "Genera" in the Descendants summary).
+    var pendingSearchScope: TaxonSearchScope?
 
     var hasValidUserEmail: Bool {
         guard let e = userEmail?.trimmingCharacters(in: .whitespacesAndNewlines), !e.isEmpty else { return false }

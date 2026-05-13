@@ -14,6 +14,9 @@ struct GBIFSectionView: View {
                 if vm.failed {
                     Text("Couldn't load GBIF data for this taxon.")
                         .font(.caption).foregroundStyle(.secondary)
+                } else if hasNoGBIFData(vm) {
+                    Text("No GBIF occurrence records for this taxon.")
+                        .font(.caption).foregroundStyle(.secondary)
                 } else {
                     mapInline
                     if let m = vm.metrics { metricsRow(m) }
@@ -65,6 +68,14 @@ struct GBIFSectionView: View {
             return region
         }
         return .worldExcludingPoles
+    }
+
+    /// True when both the occurrence count and the image list are empty —
+    /// i.e. GBIF responded successfully but has nothing for this taxon.
+    private func hasNoGBIFData(_ vm: GBIFSectionViewModel) -> Bool {
+        let zeroCount = (vm.metrics?.occurrenceCount ?? 0) == 0
+        let zeroCaps = (vm.capabilities?.total ?? 0) == 0
+        return zeroCount && vm.images.isEmpty && zeroCaps
     }
 
     @ViewBuilder
