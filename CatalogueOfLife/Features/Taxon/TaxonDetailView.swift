@@ -70,16 +70,12 @@ struct TaxonDetailView: View {
                         if !childNodes.isEmpty {
                             Divider()
                             DescendantsByRankView(children: childNodes) { rank in
-                                let scope = TaxonSearchScope(
+                                appState.selectedTabIndex = 1
+                                appState.pendingSearchScope = TaxonSearchScope(
                                     taxonId: info.taxonId,
                                     label: info.scientificName,
                                     rank: rank
                                 )
-                                print("[TAB-SWITCH] before set: selectedTabIndex=\(appState.selectedTabIndex)")
-                                appState.selectedTabIndex = 1
-                                print("[TAB-SWITCH] after set:  selectedTabIndex=\(appState.selectedTabIndex)")
-                                appState.pendingSearchScope = scope
-                                print("[TAB-SWITCH] scope set: \(scope)")
                             }
                         }
                     }

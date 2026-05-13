@@ -49,9 +49,12 @@ struct SearchView: View {
 
     @MainActor
     private func applyPendingScopeIfNeeded() async {
-        print("[SEARCH] applyPendingScopeIfNeeded scope=\(String(describing: appState.pendingSearchScope)) tabIndex=\(appState.selectedTabIndex)")
         ensureVM()
         guard let scope = appState.pendingSearchScope, let vm else { return }
+        // If the user reached this Search-tab apply via a taxon detail pushed
+        // on the Search tab itself, the nav stack needs to be popped — the
+        // tab switch alone is a no-op since they're already on tab 1.
+        selectedTaxonId = nil
         vm.query = ""
         query = ""
         vm.status = nil
