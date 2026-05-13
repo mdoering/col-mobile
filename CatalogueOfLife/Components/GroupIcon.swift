@@ -11,10 +11,15 @@ struct GroupIcon: View {
 
     var body: some View {
         if let resolved = vocab.lookup(code: code) {
+            // Phylopic silhouettes ship as solid-black SVGs. Render as a template
+            // so .foregroundStyle (.primary by default) gives us black-on-light /
+            // white-on-dark instead of an invisible black blob on the dark theme.
             Image("Groups/\(resolved.name)")
+                .renderingMode(.template)
                 .resizable()
                 .scaledToFit()
                 .frame(width: size, height: size)
+                .foregroundStyle(.primary)
                 .accessibilityLabel(resolved.description ?? resolved.name)
         } else {
             EmptyView()
