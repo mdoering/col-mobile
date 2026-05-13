@@ -5,17 +5,19 @@ struct TaxonHeaderView: View {
     let info: TaxonInfo
     let preferredVernacular: VernacularName?
 
-    private var prefixedName: String {
-        info.extinct ? "† \(info.scientificName)" : info.scientificName
-    }
-
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             GroupIcon(code: info.group, size: 28)
                 .padding(.top, 4)
             VStack(alignment: .leading, spacing: 6) {
-                HStack(alignment: .firstTextBaseline) {
-                    Text(prefixedName).italic().font(.title2).bold()
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    if info.extinct {
+                        Text("†")
+                            .font(.title2).bold()
+                            .foregroundStyle(.orange)
+                            .accessibilityLabel("Extinct")
+                    }
+                    Text(info.scientificName).italic().font(.title2).bold()
                         .textSelection(.enabled)
                     if let auth = info.authorship {
                         Text(auth).font(.subheadline).foregroundStyle(.secondary)
