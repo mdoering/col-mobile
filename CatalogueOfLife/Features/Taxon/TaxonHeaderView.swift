@@ -27,10 +27,6 @@ struct TaxonHeaderView: View {
                         .background(.purple.opacity(0.18), in: Capsule())
                         .foregroundStyle(.purple)
                 }
-                Spacer(minLength: 8)
-                // Group icon pinned to the trailing edge of the header row —
-                // visually aligned beneath the favorites star in the toolbar.
-                GroupIcon(code: info.group, size: 28)
             }
             .contextMenu {
                 Button {
