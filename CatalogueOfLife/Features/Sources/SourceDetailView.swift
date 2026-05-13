@@ -48,7 +48,7 @@ struct SourceDetailView: View {
                     if let citation = source.citation {
                         section("Citation") {
                             HTMLText(html: citation)
-                                .font(.callout)
+                                .font(.caption)
                                 .textSelection(.enabled)
                         }
                     }
