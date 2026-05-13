@@ -7,8 +7,21 @@ enum GBIFEndpoints {
     /// `checklistKey` on any GBIF endpoint routes the taxon lookups through CoL.
     static let colChecklistKey = "7ddf754f-d193-4cc9-b351-99906754a03b"
 
-    /// Map tile style used by the density overlay.
-    static let mapTileStyle = "classic.point"
+    /// Default map tile style. Users can pick a different one in About → Preferences.
+    static let defaultMapTileStyle = "classic.point"
+
+    /// Styles available in the GBIF density tile API that we expose in the settings picker.
+    static let availableMapTileStyles: [String] = [
+        "classic.point",
+        "iNaturalist.poly",
+        "fire.point",
+        "purpleHeat.point",
+        "blueHeat.point",
+        "glacier.point",
+        "orange.marker",
+        "blue.marker",
+        "scaled.circles",
+    ]
 
     /// `GET /v1/occurrence/search` — used for metrics (limit=0 + facets) and image fetch (mediaType=StillImage).
     static func occurrenceSearch(
@@ -40,7 +53,8 @@ enum GBIFEndpoints {
     }
 
     /// `GET /v2/map/occurrence/density/{z}/{x}/{y}@1x.png?...` — tile template for `MKTileOverlay`.
-    static func mapTileURLTemplate(taxonId: String) -> String {
-        "\(baseURL.absoluteString)/v2/map/occurrence/density/{z}/{x}/{y}@1x.png?checklistKey=\(colChecklistKey)&taxonId=\(taxonId)&style=\(mapTileStyle)"
+    /// Note: the tile endpoint uses `taxonKey` (not `taxonId` as the occurrence search does).
+    static func mapTileURLTemplate(taxonId: String, style: String = defaultMapTileStyle) -> String {
+        "\(baseURL.absoluteString)/v2/map/occurrence/density/{z}/{x}/{y}@1x.png?checklistKey=\(colChecklistKey)&taxonKey=\(taxonId)&style=\(style)"
     }
 }

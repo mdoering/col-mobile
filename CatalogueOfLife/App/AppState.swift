@@ -45,6 +45,11 @@ final class AppState {
         }
     }
 
+    /// GBIF map tile style. One of `GBIFEndpoints.availableMapTileStyles`.
+    var gbifMapStyle: String {
+        didSet { defaults.set(gbifMapStyle, forKey: Keys.gbifMapStyle) }
+    }
+
     /// Active tab index. Bindable from RootTabView's TabView selection.
     var selectedTabIndex: Int = 0
 
@@ -83,6 +88,9 @@ final class AppState {
         self.selectedDatasetKey = defaults.integer(forKey: Keys.selectedDatasetKey)
         self.preferredVernacularLang = defaults.string(forKey: Keys.preferredVernacularLang)
         self.userEmail = defaults.string(forKey: Keys.userEmail)
+        let storedStyle = defaults.string(forKey: Keys.gbifMapStyle)
+        self.gbifMapStyle = (storedStyle.map { GBIFEndpoints.availableMapTileStyles.contains($0) ? $0 : nil } ?? nil)
+            ?? GBIFEndpoints.defaultMapTileStyle
     }
 
     private static let pickerSpec: [(alias: String, display: String)] = [
@@ -132,5 +140,6 @@ final class AppState {
         static let selectedDatasetKey = "selectedDatasetKey"
         static let preferredVernacularLang = "preferredVernacularLang"
         static let userEmail = "userEmail"
+        static let gbifMapStyle = "gbifMapStyle"
     }
 }

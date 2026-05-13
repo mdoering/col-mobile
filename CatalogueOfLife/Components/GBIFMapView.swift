@@ -5,6 +5,7 @@ import MapKit
 /// for one COL taxon (gated upstream by `AppState.gbifAvailable`).
 struct GBIFMapView: UIViewRepresentable {
     let taxonId: String
+    let style: String
 
     func makeUIView(context: Context) -> MKMapView {
         let map = MKMapView()
@@ -15,17 +16,17 @@ struct GBIFMapView: UIViewRepresentable {
         map.isPitchEnabled = false
         map.showsCompass = false
         map.pointOfInterestFilter = .excludingAll
-        let overlay = GBIFTileOverlay(taxonId: taxonId)
+        let overlay = GBIFTileOverlay(taxonId: taxonId, style: style)
         map.addOverlay(overlay, level: .aboveLabels)
         return map
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        // Replace overlay if taxonId changed (e.g. on push to a new taxon).
+        // Replace overlay if taxonId OR style changed (push to new taxon, or settings change).
         let existing = uiView.overlays.compactMap { $0 as? GBIFTileOverlay }
-        if existing.first?.taxonId != taxonId {
+        if existing.first?.taxonId != taxonId || existing.first?.style != style {
             uiView.removeOverlays(uiView.overlays)
-            uiView.addOverlay(GBIFTileOverlay(taxonId: taxonId), level: .aboveLabels)
+            uiView.addOverlay(GBIFTileOverlay(taxonId: taxonId, style: style), level: .aboveLabels)
         }
     }
 
@@ -39,13 +40,15 @@ struct GBIFMapView: UIViewRepresentable {
     }
 }
 
-/// MKTileOverlay subclass that requests GBIF density tiles for the COL checklist + given taxon.
+/// MKTileOverlay subclass that requests GBIF density tiles for the COL checklist + given taxon + chosen style.
 final class GBIFTileOverlay: MKTileOverlay, @unchecked Sendable {
     let taxonId: String
+    let style: String
 
-    init(taxonId: String) {
+    init(taxonId: String, style: String) {
         self.taxonId = taxonId
-        super.init(urlTemplate: GBIFEndpoints.mapTileURLTemplate(taxonId: taxonId))
+        self.style = style
+        super.init(urlTemplate: GBIFEndpoints.mapTileURLTemplate(taxonId: taxonId, style: style))
         self.canReplaceMapContent = false
         self.minimumZ = 0
         self.maximumZ = 12

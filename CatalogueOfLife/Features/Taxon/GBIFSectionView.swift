@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct GBIFSectionView: View {
+    @Environment(AppState.self) private var appState
     let taxonId: String
     @State private var vm: GBIFSectionViewModel?
 
@@ -13,7 +14,7 @@ struct GBIFSectionView: View {
                         .font(.caption).foregroundStyle(.secondary)
                 } else {
                     if let m = vm.metrics { metricsRow(m) }
-                    GBIFMapView(taxonId: taxonId)
+                    GBIFMapView(taxonId: taxonId, style: appState.gbifMapStyle)
                         .frame(height: 180)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                     GBIFImageCarouselView(items: vm.images)

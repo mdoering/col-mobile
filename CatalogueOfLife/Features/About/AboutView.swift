@@ -142,6 +142,17 @@ struct AboutView: View {
                 .multilineTextAlignment(.trailing)
                 .frame(maxWidth: 220)
             }
+            HStack {
+                Text("GBIF map style").font(.callout)
+                Spacer()
+                Picker("GBIF map style", selection: $appState.gbifMapStyle) {
+                    ForEach(GBIFEndpoints.availableMapTileStyles, id: \.self) { style in
+                        Text(style).tag(style)
+                    }
+                }
+                .pickerStyle(.menu)
+                .labelsHidden()
+            }
         }
     }
 
