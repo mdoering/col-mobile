@@ -13,6 +13,13 @@ struct CatalogueOfLifeApp: App {
                 .environment(vocab)
                 .modelContainer(PersistenceStore.shared)
                 .task(id: "launch") { await state.loadReleases() }
+                .onAppear {
+                    // Pay the ~1s "first keyboard load" cost during launch so the
+                    // Search and email fields focus instantly later.
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        KeyboardWarmup.warm()
+                    }
+                }
         }
     }
 }
