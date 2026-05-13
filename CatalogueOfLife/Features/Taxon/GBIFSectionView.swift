@@ -4,6 +4,7 @@ struct GBIFSectionView: View {
     @Environment(AppState.self) private var appState
     let taxonId: String
     @State private var vm: GBIFSectionViewModel?
+    @State private var mapFullScreen = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -13,15 +14,7 @@ struct GBIFSectionView: View {
                     Text("Couldn't load GBIF data for this taxon.")
                         .font(.caption).foregroundStyle(.secondary)
                 } else {
-                    GBIFMapView(
-                        taxonId: taxonId,
-                        style: appState.gbifMapStyle,
-                        resolution: appState.gbifTileResolution,
-                        baseStyle: appState.mapBaseStyle,
-                        elevation: appState.mapElevation
-                    )
-                    .frame(height: 180)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    mapInline
                     if let m = vm.metrics { metricsRow(m) }
                     GBIFImageCarouselView(items: vm.images)
                 }
@@ -34,6 +27,34 @@ struct GBIFSectionView: View {
                 vm = GBIFSectionViewModel(client: GBIFClientLive())
             }
             await vm?.load(taxonId: taxonId)
+        }
+        .fullScreenCover(isPresented: $mapFullScreen) {
+            GBIFMapFullScreenView(taxonId: taxonId) { mapFullScreen = false }
+        }
+    }
+
+    private var mapInline: some View {
+        ZStack(alignment: .topTrailing) {
+            GBIFMapView(
+                taxonId: taxonId,
+                style: appState.gbifMapStyle,
+                resolution: appState.gbifTileResolution,
+                baseStyle: appState.mapBaseStyle,
+                elevation: appState.mapElevation
+            )
+            .frame(height: 180)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+
+            Button {
+                mapFullScreen = true
+            } label: {
+                Image(systemName: "arrow.up.left.and.arrow.down.right")
+                    .font(.callout.weight(.semibold))
+                    .padding(7)
+                    .background(.regularMaterial, in: Circle())
+            }
+            .accessibilityLabel("Expand map")
+            .padding(8)
         }
     }
 
