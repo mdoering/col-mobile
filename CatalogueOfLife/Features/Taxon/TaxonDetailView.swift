@@ -8,6 +8,7 @@ struct TaxonDetailView: View {
     let taxonId: String
     @State private var vm: TaxonDetailViewModel?
     @State private var navigateTo: String?
+    @State private var navigateToSourceKey: Int?
     @State private var childNodes: [TreeNode] = []
     @State private var showingFeedback = false
 
@@ -46,6 +47,10 @@ struct TaxonDetailView: View {
                             DescendantsByRankView(children: childNodes)
                         }
                     }
+                    if let citation = info.publishedInCitation, !citation.isEmpty {
+                        Divider()
+                        PublishedInView(citation: citation)
+                    }
                     if !info.synonymyGroups.isEmpty {
                         Divider()
                         SynonymyView(groups: info.synonymyGroups)
@@ -56,6 +61,18 @@ struct TaxonDetailView: View {
                             names: info.vernacularNames,
                             preferredLanguage: appState.effectiveVernacularLanguage
                         )
+                    }
+                    if !info.nameRelations.isEmpty {
+                        Divider()
+                        NameRelationsView(relations: info.nameRelations) { usageId in
+                            navigateTo = usageId
+                        }
+                    }
+                    if let sourceKey = info.sourceDatasetKey {
+                        Divider()
+                        SourceLinkView(sourceDatasetKey: sourceKey) {
+                            navigateToSourceKey = sourceKey
+                        }
                     }
                     if appState.gbifAvailable {
                         Divider()
@@ -108,6 +125,9 @@ struct TaxonDetailView: View {
         }
         .navigationDestination(item: $navigateTo) { id in
             TaxonDetailView(taxonId: id)
+        }
+        .navigationDestination(item: $navigateToSourceKey) { key in
+            SourceDetailView(sourceKey: key)
         }
         .sheet(isPresented: $showingFeedback) {
             if case let .loaded(info) = vm?.state, let key = appState.selectedDataset?.key {

@@ -22,7 +22,10 @@ struct TaxonDetailViewModelTests {
             vernacularNames: [
                 VernacularName(id: "v0", name: "House cat", language: "eng", country: nil, area: nil),
                 VernacularName(id: "v1", name: "Hauskatze", language: "deu", country: nil, area: nil)
-            ]
+            ],
+            publishedInCitation: nil,
+            sourceDatasetKey: nil,
+            nameRelations: []
         )
     }
 

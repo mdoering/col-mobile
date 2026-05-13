@@ -1,5 +1,12 @@
 import Foundation
 
+struct NameRelation: Equatable, Identifiable, Sendable {
+    /// Synthesized: "<usageId>↔<relatedUsageId>:<type>"
+    let id: String
+    let type: String
+    let relatedUsageId: String?
+}
+
 struct TaxonInfo: Equatable, Sendable {
     let taxonId: String
     let scientificName: String
@@ -10,6 +17,9 @@ struct TaxonInfo: Equatable, Sendable {
     let classification: [ClassificationItem]
     let synonymyGroups: [SynonymyGroup]
     let vernacularNames: [VernacularName]
+    let publishedInCitation: String?
+    let sourceDatasetKey: Int?
+    let nameRelations: [NameRelation]
 }
 
 extension TaxonInfo {
@@ -35,6 +45,13 @@ extension TaxonInfo {
                 area: v.area
             )
         }
+        let nameRelations = (dto.nameRelations ?? []).enumerated().map { idx, r in
+            NameRelation(
+                id: "\(r.usageId ?? "")-\(r.relatedUsageId ?? "")-\(idx)",
+                type: r.type,
+                relatedUsageId: r.relatedUsageId
+            )
+        }
         self.init(
             taxonId: u.id,
             scientificName: u.name.scientificName,
@@ -44,7 +61,10 @@ extension TaxonInfo {
             group: dto.group,
             classification: classification,
             synonymyGroups: synonymyGroups,
-            vernacularNames: vernaculars
+            vernacularNames: vernaculars,
+            publishedInCitation: dto.publishedIn?.citation,
+            sourceDatasetKey: dto.source?.sourceDatasetKey,
+            nameRelations: nameRelations
         )
     }
 }

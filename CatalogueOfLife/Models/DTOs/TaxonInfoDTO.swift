@@ -6,6 +6,9 @@ struct TaxonInfoDTO: Decodable, Sendable {
     let classification: [ClassificationDTO]?
     let synonyms: SynonymsDTO?
     let vernacularNames: [VernacularNameDTO]?
+    let publishedIn: PublishedInDTO?
+    let source: SourceRefDTO?
+    let nameRelations: [NameRelationDTO]?
 
     struct UsageDTO: Decodable, Sendable {
         let id: String
@@ -39,5 +42,23 @@ struct TaxonInfoDTO: Decodable, Sendable {
         let id: String
         let name: NameDTO
         let status: String?
+    }
+
+    struct PublishedInDTO: Decodable, Sendable {
+        let citation: String?
+        let id: String?
+    }
+
+    struct SourceRefDTO: Decodable, Sendable {
+        let sourceDatasetKey: Int?
+        let sectorKey: Int?
+        let sourceEntity: String?
+        let sourceId: String?
+    }
+
+    struct NameRelationDTO: Decodable, Sendable {
+        let type: String
+        let usageId: String?
+        let relatedUsageId: String?
     }
 }
