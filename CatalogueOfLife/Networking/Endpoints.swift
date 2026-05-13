@@ -18,15 +18,22 @@ enum Endpoints {
         return c.url!
     }
 
-    static func nameSearch(datasetKey: Int, q: String, limit: Int = 25) -> URL {
+    static func nameSearch(datasetKey: Int, q: String, rank: Rank? = nil, status: TaxonStatus? = nil, group: String? = nil, limit: Int = 25) -> URL {
         var c = URLComponents(
             url: baseURL.appending(path: "dataset/\(datasetKey)/nameusage/search"),
             resolvingAgainstBaseURL: false
         )!
-        c.queryItems = [
+        var items: [URLQueryItem] = [
             URLQueryItem(name: "q", value: q),
             URLQueryItem(name: "limit", value: String(limit))
         ]
+        if let rank { items.append(URLQueryItem(name: "rank", value: rank.rawValue)) }
+        if let status {
+            // The API accepts the rawValue from our enum directly (e.g. "accepted", "synonym").
+            items.append(URLQueryItem(name: "status", value: status.rawValue))
+        }
+        if let group, !group.isEmpty { items.append(URLQueryItem(name: "group", value: group)) }
+        c.queryItems = items
         return c.url!
     }
 

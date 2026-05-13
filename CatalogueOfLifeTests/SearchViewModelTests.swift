@@ -9,7 +9,6 @@ struct SearchViewModelTests {
     private func make() -> (SearchViewModel, StubAPIClient) {
         let stub = StubAPIClient()
         let vm = SearchViewModel(client: stub, getDatasetKey: { 9837 })
-        vm.debounceMillis = 10
         return (vm, stub)
     }
 
@@ -17,11 +16,12 @@ struct SearchViewModelTests {
     func emptyQueryIdle() async {
         let (vm, _) = make()
         vm.query = "   "
-        try? await Task.sleep(nanoseconds: 30_000_000)
+        vm.submit()
+        try? await Task.sleep(nanoseconds: 50_000_000)
         #expect(vm.state == .idle)
     }
 
-    @Test("Loads results after debounce")
+    @Test("Loads results after submit")
     func loadsResults() async {
         let (vm, stub) = make()
         let hit = SearchHit(id: "1", scientificName: "Felis catus", authorship: "L., 1758",
@@ -29,7 +29,8 @@ struct SearchViewModelTests {
                             merged: false, extinct: false)
         stub.searchResults["felis"] = [hit]
         vm.query = "felis"
-        try? await Task.sleep(nanoseconds: 100_000_000)
+        vm.submit()
+        try? await Task.sleep(nanoseconds: 50_000_000)
         if case let .loaded(hits) = vm.state {
             #expect(hits.first?.id == "1")
         } else {
@@ -37,20 +38,19 @@ struct SearchViewModelTests {
         }
     }
 
-    @Test("Rapid typing only fires the last query")
-    func debounceDropsIntermediate() async {
+    @Test("Second submit cancels first and only last result wins")
+    func rapidSubmitsCancelEachOther() async {
         let (vm, stub) = make()
-        stub.searchResults["fel"] = []
-        stub.searchResults["feli"] = []
         stub.searchResults["felis"] = [
             SearchHit(id: "1", scientificName: "Felis", authorship: nil, rank: .genus,
                       status: .accepted, acceptedId: nil, acceptedName: nil, group: nil,
                       merged: false, extinct: false)
         ]
-        vm.query = "fel"
-        vm.query = "feli"
+        // Submit twice rapidly — the second cancels the first in-flight task.
         vm.query = "felis"
-        try? await Task.sleep(nanoseconds: 100_000_000)
+        vm.submit()
+        vm.submit()
+        try? await Task.sleep(nanoseconds: 50_000_000)
         if case let .loaded(hits) = vm.state {
             #expect(hits.first?.scientificName == "Felis")
         } else {
@@ -63,7 +63,25 @@ struct SearchViewModelTests {
         let (vm, stub) = make()
         stub.error = .server(status: 500)
         vm.query = "felis"
-        try? await Task.sleep(nanoseconds: 100_000_000)
+        vm.submit()
+        try? await Task.sleep(nanoseconds: 50_000_000)
         #expect(vm.state == .failed(.server(status: 500)))
+    }
+
+    @Test("Filter properties default to nil")
+    func filterDefaults() {
+        let (vm, _) = make()
+        #expect(vm.rank == nil)
+        #expect(vm.status == nil)
+        #expect(vm.group == nil)
+    }
+
+    @Test("reSearchIfQueryPresent does nothing when query is empty")
+    func reSearchNoOp() async {
+        let (vm, _) = make()
+        vm.query = ""
+        vm.reSearchIfQueryPresent()
+        try? await Task.sleep(nanoseconds: 50_000_000)
+        #expect(vm.state == .idle)
     }
 }

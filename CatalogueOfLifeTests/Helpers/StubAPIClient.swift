@@ -20,9 +20,9 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
         if let error { throw error }
         return releases
     }
-    func searchNames(datasetKey: Int, q: String) async throws -> [SearchHit] {
+    func searchNames(datasetKey: Int, q: String, rank: Rank?, status: TaxonStatus?, group: String?) async throws -> [SearchHit] {
         if let error { throw error }
-        return searchResults[q] ?? []
+        return searchResults[q] ?? []   // filters ignored in tests
     }
     func getTaxonInfo(datasetKey: Int, taxonId: String) async throws -> TaxonInfo {
         if let error { throw error }

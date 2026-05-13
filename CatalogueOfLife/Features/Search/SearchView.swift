@@ -28,24 +28,85 @@ struct SearchView: View {
     private var content: some View {
         if let vm {
             @Bindable var vm = vm
-            ZStack {
-                Color.clear
-                switch vm.state {
-                case .idle:
-                    ContentUnavailableView("Search names",
-                        systemImage: "magnifyingglass",
-                        description: Text("Type to find taxa in \(appState.selectedDataset?.alias ?? "the selected release")."))
-                case .loading:
-                    ProgressView()
-                case let .loaded(hits):
-                    resultsList(hits)
-                case let .failed(err):
-                    errorView(err) { vm.query = vm.query }
-                }
+            VStack(spacing: 0) {
+                filterBar(vm: vm)
+                results(vm: vm)
             }
             .searchable(text: $vm.query, prompt: "Scientific or vernacular name")
+            .submitLabel(.search)
+            .onSubmit(of: .search) { vm.submit() }
         } else {
             ProgressView()
+        }
+    }
+
+    @ViewBuilder
+    private func filterBar(vm: SearchViewModel) -> some View {
+        @Bindable var vm = vm
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                FilterMenu(
+                    title: "Rank",
+                    value: vm.rank?.rawValue.capitalized,
+                    options: Self.rankOptions,
+                    selected: vm.rank?.rawValue,
+                    onSelect: { raw in
+                        vm.rank = raw.flatMap { Rank(rawValue: $0) }
+                        vm.reSearchIfQueryPresent()
+                    }
+                )
+                FilterMenu(
+                    title: "Status",
+                    value: vm.status?.rawValue.capitalized,
+                    options: Self.statusOptions,
+                    selected: vm.status?.rawValue,
+                    onSelect: { raw in
+                        vm.status = raw.flatMap { TaxonStatus(rawValue: $0) }
+                        vm.reSearchIfQueryPresent()
+                    }
+                )
+                FilterMenu(
+                    title: "Group",
+                    value: vm.group?.capitalized,
+                    options: Self.groupOptions,
+                    selected: vm.group,
+                    onSelect: { raw in
+                        vm.group = raw
+                        vm.reSearchIfQueryPresent()
+                    }
+                )
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 6)
+        }
+    }
+
+    private static let rankOptions: [String] = [
+        "kingdom", "phylum", "class", "order", "family", "genus", "species", "subspecies"
+    ]
+    private static let statusOptions: [String] = [
+        "accepted", "provisionally accepted", "synonym", "ambiguous synonym", "misapplied", "bare name"
+    ]
+    private static let groupOptions: [String] = [
+        "viruses", "bacteria", "plants", "angiosperms", "gymnosperms", "bryophytes", "pteridophytes",
+        "algae", "protists", "animals", "chordates", "arachnids", "crustacean",
+        "lepidoptera", "coleoptera", "hymenoptera", "diptera", "hemiptera", "orthoptera",
+        "gastropods", "ascomycetes", "basidiomycetes"
+    ]
+
+    @ViewBuilder
+    private func results(vm: SearchViewModel) -> some View {
+        switch vm.state {
+        case .idle:
+            ContentUnavailableView("Search names",
+                systemImage: "magnifyingglass",
+                description: Text("Type to find taxa in \(appState.selectedDataset?.alias ?? "the selected release")."))
+        case .loading:
+            ProgressView()
+        case let .loaded(hits):
+            resultsList(hits)
+        case let .failed(err):
+            errorView(err) { vm.submit() }
         }
     }
 
@@ -84,6 +145,44 @@ struct SearchView: View {
         case .server(let s): "Server error (\(s))."
         case .decoding: "We couldn't understand the response."
         case .notFound: "No matches."
+        }
+    }
+}
+
+private struct FilterMenu: View {
+    let title: String
+    let value: String?       // current selection label, nil = "Any"
+    let options: [String]    // available values, lowercase
+    let selected: String?    // current raw value (lowercase) or nil
+    let onSelect: (String?) -> Void
+
+    var body: some View {
+        Menu {
+            Button {
+                onSelect(nil)
+            } label: {
+                if selected == nil { Label("Any", systemImage: "checkmark") } else { Text("Any") }
+            }
+            Divider()
+            ForEach(options, id: \.self) { opt in
+                Button {
+                    onSelect(opt)
+                } label: {
+                    if selected == opt {
+                        Label(opt.capitalized, systemImage: "checkmark")
+                    } else {
+                        Text(opt.capitalized)
+                    }
+                }
+            }
+        } label: {
+            HStack(spacing: 4) {
+                Text(title).font(.caption2).foregroundStyle(.secondary)
+                Text(value ?? "Any").font(.caption)
+                Image(systemName: "chevron.down").font(.caption2)
+            }
+            .padding(.horizontal, 8).padding(.vertical, 4)
+            .background(.thinMaterial, in: Capsule())
         }
     }
 }
