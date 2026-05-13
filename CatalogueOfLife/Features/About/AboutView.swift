@@ -8,8 +8,8 @@ struct AboutView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    banner
                     releaseMetadataSection
+                    Divider()
                     introSection
                     Divider()
                     identifiersSection
@@ -25,11 +25,11 @@ struct AboutView: View {
                     versionFooter
                         .padding(.horizontal, 20)
                 }
+                .padding(.top, 12)
                 .padding(.bottom)
             }
-            .navigationTitle("About")
+            .navigationTitle(headerTitle)
             .navigationBarTitleDisplayMode(.inline)
-            .ignoresSafeArea(edges: .top)
         }
     }
 
@@ -81,30 +81,6 @@ struct AboutView: View {
     }
     #endif
 
-    private var banner: some View {
-        ZStack(alignment: .bottomLeading) {
-            LinearGradient(
-                colors: [Color(red: 0.09, green: 0.51, blue: 0.69),  // CoL blue (#1782b0)
-                         Color(red: 0.03, green: 0.36, blue: 0.50)],
-                startPoint: .topLeading, endPoint: .bottomTrailing
-            )
-            VStack(alignment: .leading, spacing: 8) {
-                Image("CoLLogoWhite")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: 240)
-                    .padding(.bottom, 4)
-                Text(headerTitle)
-                    .font(.title3).bold()
-                    .foregroundStyle(.white)
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 80)         // leave room below the nav bar
-            .padding(.bottom, 20)
-        }
-        .frame(height: 200)
-    }
-
     private var headerTitle: String {
         if let alias = appState.selectedDataset?.alias, !alias.isEmpty {
             return "About \(alias)"
@@ -138,7 +114,12 @@ struct AboutView: View {
     }
 
     private var introSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 12) {
+            Image("CoLLogo")
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: 220)
+                .padding(.bottom, 4)
             Text("""
             The Catalogue of Life (CoL) is the most comprehensive and authoritative \
             global index of species. It combines hundreds of taxonomic sources into a \
