@@ -27,12 +27,15 @@ struct MetricsView: View {
                 VStack(alignment: .leading, spacing: 28) {
                     ReleaseTimelineChart(entries: timeline)
                     if let metrics {
-                        ImportMetricsList(metrics: metrics)
+                        ImportMetricsList(metrics: metrics, includeSummary: true, includeSections: false)
                     }
                     Text("Taxonomic breakdown").font(.headline)
                     SunburstView(root: SunburstNode.from(breakdown: breakdown))
                         .frame(maxWidth: .infinity)
                         .frame(height: 320)
+                    if let metrics {
+                        ImportMetricsList(metrics: metrics, includeSummary: false, includeSections: true)
+                    }
                 }
                 .padding()
             }

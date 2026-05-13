@@ -32,6 +32,14 @@ enum Rank: String, Codable, Sendable, CaseIterable {
         }
     }
 
+    /// The seven major Linnean ranks plus species. Used for "show key ranks only" UIs.
+    var isMainLinnean: Bool {
+        switch self {
+        case .kingdom, .phylum, .class, .order, .family, .genus, .species: return true
+        default: return false
+        }
+    }
+
     /// Sort key for displaying descendant ranks in a sensible top-down order.
     var sortOrder: Int {
         switch self {
