@@ -45,7 +45,7 @@ struct GBIFSectionView: View {
                 baseStyle: appState.mapBaseStyle,
                 initialRegion: inlineMapRegion
             )
-            .frame(height: 180)
+            .frame(height: 240)
             .clipShape(RoundedRectangle(cornerRadius: 10))
 
             Button {

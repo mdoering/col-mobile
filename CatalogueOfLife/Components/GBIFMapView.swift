@@ -90,23 +90,38 @@ struct GBIFMapView: UIViewRepresentable {
 
 extension MKCoordinateRegion {
     /// World view minus the polar regions — used as the inline-map default when
-    /// the species' bounding box isn't known yet (or has zero occurrences).
+    /// the species' bounding box covers most of the planet (or isn't known yet).
+    /// Centered at 25°N, where most biodiversity occurrence records cluster
+    /// (Europe + North America + temperate Asia), rather than (0, 0) which
+    /// puts the Atlantic-off-Africa front and centre.
     static let worldExcludingPoles = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 15, longitude: 0),
+        center: CLLocationCoordinate2D(latitude: 25, longitude: 10),
         span: MKCoordinateSpan(latitudeDelta: 130, longitudeDelta: 340)
     )
 
-    /// Inset region around the species' GBIF occurrence bounding box, with 30%
+    /// Inset region around the species' GBIF occurrence bounding box, with 40%
     /// padding and a 6° minimum span so single-country ranges don't render
-    /// too tightly. Returns nil if the taxon has no occurrence records.
+    /// too tightly.
+    ///
+    /// Falls back to `worldExcludingPoles` for taxa whose range is effectively
+    /// global — a bbox of (-90..90, -180..180) centres at (0, 0) and visually
+    /// suggests the species lives only in Africa, which is misleading. Once
+    /// the span exceeds ~⅔ of the world in either dimension, the species is
+    /// best framed by the standard world view.
     init?(capabilities: GBIFMapCapabilities) {
         guard capabilities.hasData else { return nil }
+        let rawLatSpan = capabilities.maxLat - capabilities.minLat
+        let rawLngSpan = capabilities.maxLng - capabilities.minLng
+        if rawLatSpan > 120 || rawLngSpan > 240 {
+            self = .worldExcludingPoles
+            return
+        }
         let minLat = max(capabilities.minLat, -85)
         let maxLat = min(capabilities.maxLat, 85)
         let centerLat = (minLat + maxLat) / 2
         let centerLng = (capabilities.minLng + capabilities.maxLng) / 2
-        let latDelta = max(maxLat - minLat, 6) * 1.3
-        let lonDelta = max(capabilities.maxLng - capabilities.minLng, 6) * 1.3
+        let latDelta = max(maxLat - minLat, 6) * 1.4
+        let lonDelta = max(rawLngSpan, 6) * 1.4
         self.init(
             center: CLLocationCoordinate2D(latitude: centerLat, longitude: centerLng),
             span: MKCoordinateSpan(
