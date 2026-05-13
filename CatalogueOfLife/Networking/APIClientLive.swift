@@ -12,15 +12,27 @@ actor APIClientLive: APIClient {
     }
 
     func getJSON<T: Decodable>(_ url: URL, as type: T.Type) async throws -> T {
+        #if DEBUG
+        let start = Date()
+        #endif
         let (data, response): (Data, URLResponse)
         do {
             (data, response) = try await session.data(from: url)
         } catch let urlError as URLError {
+            #if DEBUG
+            NetworkLog.log(tag: "CoL", method: "GET", url: url, status: nil, error: urlError, start: start)
+            #endif
             throw APIError.network(urlError)
         }
         guard let http = response as? HTTPURLResponse else {
+            #if DEBUG
+            NetworkLog.log(tag: "CoL", method: "GET", url: url, status: -1, error: nil, start: start)
+            #endif
             throw APIError.server(status: -1)
         }
+        #if DEBUG
+        NetworkLog.log(tag: "CoL", method: "GET", url: url, status: http.statusCode, error: nil, start: start)
+        #endif
         switch http.statusCode {
         case 200..<300:
             do {
@@ -140,15 +152,27 @@ actor APIClientLive: APIClient {
         let body: [String: String] = ["message": message, "email": email]
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
 
+        #if DEBUG
+        let start = Date()
+        #endif
         let (data, response): (Data, URLResponse)
         do {
             (data, response) = try await session.data(for: request)
         } catch let urlError as URLError {
+            #if DEBUG
+            NetworkLog.log(tag: "CoL", method: "POST", url: url, status: nil, error: urlError, start: start)
+            #endif
             throw APIError.network(urlError)
         }
         guard let http = response as? HTTPURLResponse else {
+            #if DEBUG
+            NetworkLog.log(tag: "CoL", method: "POST", url: url, status: -1, error: nil, start: start)
+            #endif
             throw APIError.server(status: -1)
         }
+        #if DEBUG
+        NetworkLog.log(tag: "CoL", method: "POST", url: url, status: http.statusCode, error: nil, start: start)
+        #endif
         guard (200..<300).contains(http.statusCode) else {
             throw APIError.server(status: http.statusCode)
         }
