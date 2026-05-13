@@ -123,9 +123,8 @@ struct TaxonDetailView: View {
             ToolbarItem(placement: .topBarLeading) {
                 if case let .loaded(info) = vm?.state {
                     Text(info.rank.rawValue.capitalized)
-                        .font(.caption2)
-                        .padding(.horizontal, 6).padding(.vertical, 2)
-                        .background(.thinMaterial, in: Capsule())
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
             }
             ToolbarItem(placement: .principal) {
