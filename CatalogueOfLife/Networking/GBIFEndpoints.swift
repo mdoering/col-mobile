@@ -13,12 +13,11 @@ enum GBIFEndpoints {
     /// Styles exposed in the About → GBIF map → Color picker, paired with the
     /// friendly label we show in the menu. Order is preserved in the UI.
     static let availableMapTileStyles: [(label: String, value: String)] = [
-        ("pink",    "purpleHeat.point"),
-        ("blue",    "blueHeat.point"),
-        ("orange",  "orangeHeat.point"),
-        ("red",     "red.poly"),
-        ("poly",    "classic.poly"),
-        ("classic", "classic.point"),
+        ("pink",   "purpleHeat.point"),
+        ("blue",   "blueHeat.point"),
+        ("orange", "orangeHeat.point"),
+        ("red",    "red.poly"),
+        ("yellow", "classic.point"),
     ]
 
     /// `GET /v1/occurrence/search` — used for metrics (limit=0 + facets) and image fetch (mediaType=StillImage).
