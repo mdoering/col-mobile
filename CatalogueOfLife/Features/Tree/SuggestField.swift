@@ -72,28 +72,31 @@ struct SuggestField: View {
                 .padding(.horizontal)
                 .padding(.vertical, 6)
             if case let .loaded(suggestions) = vm.state, !suggestions.isEmpty {
-                VStack(alignment: .leading, spacing: 0) {
-                    ForEach(suggestions) { s in
-                        Button {
-                            vm.query = ""
-                            onPick(s)
-                        } label: {
-                            HStack(alignment: .firstTextBaseline) {
-                                GroupIcon(code: s.group, size: 18)
-                                VStack(alignment: .leading, spacing: 1) {
-                                    Text(s.suggestion).font(.caption)
-                                    if let ctx = s.context {
-                                        Text(ctx).font(.caption2).foregroundStyle(.secondary)
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 0) {
+                        ForEach(suggestions.prefix(10)) { s in
+                            Button {
+                                vm.query = ""
+                                onPick(s)
+                            } label: {
+                                HStack(alignment: .firstTextBaseline) {
+                                    GroupIcon(code: s.group, size: 18)
+                                    VStack(alignment: .leading, spacing: 1) {
+                                        Text(s.suggestion).font(.caption)
+                                        if let ctx = s.context {
+                                            Text(ctx).font(.caption2).foregroundStyle(.secondary)
+                                        }
                                     }
                                 }
+                                .padding(.horizontal).padding(.vertical, 6)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             }
-                            .padding(.horizontal).padding(.vertical, 6)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .buttonStyle(.plain)
+                            Divider()
                         }
-                        .buttonStyle(.plain)
-                        Divider()
                     }
                 }
+                .frame(maxHeight: 280)
                 .background(.thinMaterial)
             }
         }
