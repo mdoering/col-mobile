@@ -12,22 +12,24 @@ struct TreeRowView: View {
             VStack(alignment: .leading, spacing: 2) {
                 HStack(alignment: .firstTextBaseline) {
                     Text(node.name).italic().font(.body)
-                    if let auth = node.authorship {
-                        Text(auth).font(.caption).foregroundStyle(.secondary)
-                    }
-                    Spacer()
+                    Spacer(minLength: 8)
                     Text(node.rank.rawValue.capitalized)
                         .font(.caption2)
                         .padding(.horizontal, 6).padding(.vertical, 2)
                         .background(.thinMaterial, in: Capsule())
                 }
-                HStack(spacing: 8) {
-                    if !node.isLeaf {
-                        Label("\(node.childCount)", systemImage: "chevron.right.2")
-                            .font(.caption2).foregroundStyle(.secondary)
+                if node.authorship != nil || node.count > 0 {
+                    HStack(alignment: .firstTextBaseline) {
+                        if let auth = node.authorship {
+                            Text(auth).font(.caption).foregroundStyle(.secondary)
+                        }
+                        Spacer(minLength: 8)
+                        if node.count > 0 {
+                            Text("\(node.count) descendants")
+                                .font(.caption2)
+                                .foregroundStyle(.tertiary)
+                        }
                     }
-                    Text("\(node.count) descendants")
-                        .font(.caption2).foregroundStyle(.tertiary)
                 }
             }
         }
