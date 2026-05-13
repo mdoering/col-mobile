@@ -169,22 +169,32 @@ private struct FullScreenImagePage: View {
 
     @ViewBuilder
     private var occurrenceHeader: some View {
-        if item.occurrenceName != nil || item.occurrenceCountry != nil || item.occurrenceDate != nil {
-            VStack(alignment: .leading, spacing: 2) {
-                if let name = item.occurrenceName, !name.isEmpty {
-                    Text(name)
-                        .font(.headline)
-                        .italic()
-                        .foregroundStyle(.white)
-                        .lineLimit(2)
+        if item.occurrenceName != nil || item.occurrenceCountry != nil || item.occurrenceDate != nil || item.occurrenceURL != nil {
+            HStack(alignment: .top, spacing: 12) {
+                VStack(alignment: .leading, spacing: 2) {
+                    if let name = item.occurrenceName, !name.isEmpty {
+                        Text(name)
+                            .font(.headline)
+                            .italic()
+                            .foregroundStyle(.white)
+                            .lineLimit(2)
+                    }
+                    if let line = locationDateLine, !line.isEmpty {
+                        Text(line)
+                            .font(.caption)
+                            .foregroundStyle(.white.opacity(0.85))
+                    }
                 }
-                if let line = locationDateLine, !line.isEmpty {
-                    Text(line)
-                        .font(.caption)
-                        .foregroundStyle(.white.opacity(0.85))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                if let url = item.occurrenceURL {
+                    Link(destination: url) {
+                        Image(systemName: "arrow.up.right.square")
+                            .font(.title3)
+                            .foregroundStyle(.white)
+                    }
+                    .accessibilityLabel("Open GBIF occurrence page")
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 

@@ -14,6 +14,13 @@ struct GBIFMediaItem: Equatable, Hashable, Identifiable, Sendable {
     let occurrenceName: String?
     let occurrenceCountry: String?
     let occurrenceDate: String?
+    /// GBIF occurrence id — used to deep-link to www.gbif.org/occurrence/<id>.
+    let gbifID: String?
+
+    var occurrenceURL: URL? {
+        guard let gbifID, !gbifID.isEmpty else { return nil }
+        return URL(string: "https://www.gbif.org/occurrence/\(gbifID)")
+    }
 }
 
 extension GBIFMediaItem {
@@ -39,7 +46,8 @@ extension GBIFMediaItem {
                     rightsHolder: media.rightsHolder,
                     occurrenceName: result.scientificName,
                     occurrenceCountry: result.country,
-                    occurrenceDate: result.eventDate
+                    occurrenceDate: result.eventDate,
+                    gbifID: result.gbifID
                 ))
             }
         }
