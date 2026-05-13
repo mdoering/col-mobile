@@ -39,19 +39,6 @@
     "species": 2109214
   },
   {
-    "alias": "Markus TEST-2023-08-30",
-    "displayName": "Markus TEST-2023-08-30",
-    "datasetKey": 264436,
-    "issued": "2023-08-30",
-    "origin": "release",
-    "taxonCount": 13598,
-    "nameCount": 13604,
-    "synonymCount": 0,
-    "families": 153,
-    "genera": 1230,
-    "species": 5417
-  },
-  {
     "alias": "COL24",
     "displayName": "COL24",
     "datasetKey": 299029,
@@ -115,19 +102,6 @@
     "families": 14323,
     "genera": 213790,
     "species": 2198585
-  },
-  {
-    "alias": "XR Test-2025-01-22",
-    "displayName": "XR Test-2025-01-22",
-    "datasetKey": 307801,
-    "issued": "2025-01-22",
-    "origin": "release",
-    "taxonCount": 37613,
-    "nameCount": 43055,
-    "synonymCount": 5442,
-    "families": 677,
-    "genera": 6040,
-    "species": 29236
   },
   {
     "alias": "COL25.2",
@@ -336,19 +310,6 @@
     "families": 21740,
     "genera": 355389,
     "species": 2516577
-  },
-  {
-    "alias": "Markus Project ID Test-2025-10-06",
-    "displayName": "Markus Project ID Test-2025-10-06",
-    "datasetKey": 312513,
-    "issued": "2025-10-06",
-    "origin": "release",
-    "taxonCount": 1819,
-    "nameCount": 2477,
-    "synonymCount": 658,
-    "families": 1388,
-    "genera": 3,
-    "species": 0
   },
   {
     "alias": "COL25.10",

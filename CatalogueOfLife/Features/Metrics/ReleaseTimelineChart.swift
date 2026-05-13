@@ -42,6 +42,8 @@ struct ReleaseTimelineChart: View {
                 Point(entry: entry, series: .allNames, value: entry.nameCount),
             ]
         }
+        // Log y-scale asserts on non-positive values; drop them rather than crash.
+        .filter { $0.value > 0 }
     }
 
     var body: some View {

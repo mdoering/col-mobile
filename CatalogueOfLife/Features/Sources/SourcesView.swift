@@ -9,6 +9,7 @@ struct SourcesView: View {
         NavigationStack {
             content
                 .navigationTitle("Sources")
+                .navigationBarTitleDisplayMode(.inline)
                 .navigationDestination(item: $selectedSourceKey) { key in
                     SourceDetailView(sourceKey: key)
                 }

@@ -28,9 +28,18 @@ def main() -> int:
     for origin in ["release", "xrelease"]:
         page = fetch_json(f"{API}/dataset?origin={origin}&limit=200")
         for r in (page.get("result") or []):
+            # Skip non-public/private/test releases that leak into the listing.
+            # The official CoL release of every year has access PUBLIC; user
+            # snapshots are PRIVATE or have alias prefixes like "Markus".
+            if r.get("access") and r.get("access") != "PUBLIC":
+                continue
+            title = (r.get("title") or "")
+            alias = (r.get("alias") or "")
+            if "test" in title.lower() or "test" in alias.lower():
+                continue
             releases.append({
                 "key": r.get("key"),
-                "alias": r.get("alias"),
+                "alias": alias,
                 "issued": r.get("issued"),
                 "origin": origin,
             })

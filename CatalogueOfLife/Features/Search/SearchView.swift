@@ -9,6 +9,7 @@ struct SearchView: View {
         NavigationStack {
             content
                 .navigationTitle("Search")
+                .navigationBarTitleDisplayMode(.inline)
                 .navigationDestination(item: $selectedTaxonId) { id in
                     TaxonDetailView(taxonId: id)
                 }

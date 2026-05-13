@@ -10,6 +10,7 @@ struct MetricsView: View {
         NavigationStack {
             content
                 .navigationTitle("Metrics")
+                .navigationBarTitleDisplayMode(.inline)
         }
         .task(id: appState.selectedDataset?.key) {
             if vm == nil {
