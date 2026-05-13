@@ -3,10 +3,9 @@ import SwiftUI
 struct NameRelationsView: View {
     @Environment(AppState.self) private var appState
     let relations: [NameRelation]
-    let onSelect: (String) -> Void  // related usageId → push detail
 
     /// Resolved labels keyed by relatedNameId. Loaded lazily on appear so
-    /// rows are interactive immediately even before the labels arrive.
+    /// rows render immediately even before the labels arrive.
     @State private var labels: [String: String] = [:]
 
     var body: some View {
@@ -16,19 +15,16 @@ struct NameRelationsView: View {
                 HStack(alignment: .firstTextBaseline) {
                     Text(rel.type.capitalized).font(.callout)
                     Spacer()
-                    if let related = rel.relatedUsageId {
-                        Button {
-                            onSelect(related)
-                        } label: {
-                            Text(displayLabel(for: rel))
-                                .font(.caption)
-                                .italic()
-                                .foregroundStyle(.tint)
-                                .lineLimit(2)
-                                .multilineTextAlignment(.trailing)
-                        }
-                        .buttonStyle(.borderless)
-                    }
+                    // Rows are deliberately non-tappable: name relations almost
+                    // always point at synonyms, and we don't open synonym
+                    // pages — only accepted taxa get their own detail view.
+                    Text(displayLabel(for: rel))
+                        .font(.caption)
+                        .italic()
+                        .foregroundStyle(.secondary)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.trailing)
+                        .textSelection(.enabled)
                 }
             }
         }

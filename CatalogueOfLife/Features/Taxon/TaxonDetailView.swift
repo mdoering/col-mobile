@@ -89,9 +89,7 @@ struct TaxonDetailView: View {
                     }
                     if !info.nameRelations.isEmpty {
                         Divider()
-                        NameRelationsView(relations: info.nameRelations) { usageId in
-                            navigateTo = usageId
-                        }
+                        NameRelationsView(relations: info.nameRelations)
                     }
                     if !info.typeMaterials.isEmpty {
                         Divider()
@@ -122,6 +120,14 @@ struct TaxonDetailView: View {
         .navigationTitle("Taxon")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                if case let .loaded(info) = vm?.state {
+                    Text(info.rank.rawValue.capitalized)
+                        .font(.caption2)
+                        .padding(.horizontal, 6).padding(.vertical, 2)
+                        .background(.thinMaterial, in: Capsule())
+                }
+            }
             ToolbarItem(placement: .principal) {
                 if case let .loaded(info) = vm?.state {
                     Text("COL:\(info.taxonId)")
@@ -133,17 +139,14 @@ struct TaxonDetailView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 if case let .loaded(info) = vm?.state {
                     HStack(spacing: 8) {
+                        GroupIcon(code: info.group, size: 22)
+
                         Button {
                             showingFeedback = true
                         } label: {
                             Image(systemName: "exclamationmark.bubble")
                         }
                         .accessibilityLabel("Report data issue")
-
-                        Text(info.rank.rawValue.capitalized)
-                            .font(.caption2)
-                            .padding(.horizontal, 6).padding(.vertical, 2)
-                            .background(.thinMaterial, in: Capsule())
 
                         Button {
                             toggleFavorite(info)
