@@ -151,27 +151,23 @@ struct AboutView: View {
         let value = binding.wrappedValue
         let isEmpty = value.isEmpty
         let isValid = !isEmpty && AppState.isValidEmail(value)
-        // Empty → no foreground colour matters (placeholder is .tertiary grey).
-        // Valid → blue, signalling a real stored value.
-        // Invalid → red while typing, then cleared on commit/blur.
-        let color: Color = isEmpty ? .primary : (isValid ? .blue : .red)
-        return TextField(
-            text: binding,
-            prompt: Text("you@example.com").foregroundStyle(.tertiary)
-        ) {
-            Text("Email")
-        }
-        .keyboardType(.emailAddress)
-        .textInputAutocapitalization(.never)
-        .autocorrectionDisabled()
-        .multilineTextAlignment(.trailing)
-        .foregroundStyle(color)
-        .focused($emailFocused)
-        .onSubmit { discardInvalidEmail() }
-        .onChange(of: emailFocused) { _, focused in
-            if !focused { discardInvalidEmail() }
-        }
-        .frame(maxWidth: 220)
+        // .foregroundStyle only affects typed text, never the placeholder.
+        // The simple TextField("placeholder", text:) form draws the placeholder
+        // with UIColor.placeholderText (adaptive grey) directly via UITextField,
+        // so an empty field reads as empty no matter the field's foreground.
+        let typedColor: Color = isValid ? .blue : (isEmpty ? .primary : .red)
+        return TextField("you@example.com", text: binding)
+            .keyboardType(.emailAddress)
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+            .multilineTextAlignment(.trailing)
+            .foregroundStyle(typedColor)
+            .focused($emailFocused)
+            .onSubmit { discardInvalidEmail() }
+            .onChange(of: emailFocused) { _, focused in
+                if !focused { discardInvalidEmail() }
+            }
+            .frame(maxWidth: 220)
     }
 
     /// Clear `userEmail` if the user finished editing on an invalid string.
