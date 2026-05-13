@@ -303,11 +303,13 @@ enum SunburstMath {
         guard textSize.width <= chord * 0.95 else { return }
 
         // Rotate so text runs tangentially (perpendicular to the radius).
-        // On the bottom half the naive rotation is upside-down, so flip by π.
+        // Flip by π when the wedge sits in the bottom half of the canvas
+        // (clock positions 3 → 9 going through 6), so the text reads
+        // right-side-up. In y-down canvas coordinates that's midAngle in
+        // (0, π) — equivalently `sin(midAngle) > 0`.
         var rotation = midAngle + .pi / 2
-        // Normalise to [0, 2π] for the flip check.
         let normAngle = midAngle.truncatingRemainder(dividingBy: 2 * .pi) + (midAngle < 0 ? 2 * .pi : 0)
-        if normAngle > .pi / 2, normAngle < 3 * .pi / 2 {
+        if normAngle > 0, normAngle < .pi {
             rotation += .pi
         }
 
