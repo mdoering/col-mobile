@@ -5,9 +5,17 @@ struct TreeView: View {
     let rootParentId: String?         // nil = dataset root
     let rootParentName: String?       // for the nav title
     @State private var vm: TreeViewModel?
-    @State private var nextParentId: String?      // for non-leaf pushes
-    @State private var nextParentName: String?
-    @State private var nextLeafId: String?        // for leaf -> TaxonDetailView
+    @State private var nextParent: TreeChildTarget?   // bundled id+name for non-leaf push
+    @State private var nextLeafId: String?            // for leaf -> TaxonDetailView
+
+    /// Pushed via navigationDestination(item:) so SwiftUI receives id + name
+    /// in one observation tick. Two separate @State vars was racy — the
+    /// destination closure occasionally fired with stale captured state and
+    /// the pushed TreeView's title fell back to "Tree".
+    struct TreeChildTarget: Hashable, Identifiable {
+        let id: String
+        let name: String
+    }
 
     init(rootParentId: String? = nil, rootParentName: String? = nil) {
         self.rootParentId = rootParentId
@@ -26,8 +34,8 @@ struct TreeView: View {
                     }
                 }
             }
-            .navigationDestination(item: $nextParentId) { id in
-                TreeView(rootParentId: id, rootParentName: nextParentName)
+            .navigationDestination(item: $nextParent) { target in
+                TreeView(rootParentId: target.id, rootParentName: target.name)
             }
             .navigationDestination(item: $nextLeafId) { id in
                 TaxonDetailView(taxonId: id)
@@ -67,8 +75,7 @@ struct TreeView: View {
                             // opening the taxon detail. Placeholders always
                             // drill (they have no detail view).
                             if node.isPlaceholder || !node.isLeaf {
-                                nextParentName = node.name
-                                nextParentId = node.id
+                                nextParent = TreeChildTarget(id: node.id, name: node.name)
                             } else {
                                 nextLeafId = node.id
                             }
@@ -84,8 +91,7 @@ struct TreeView: View {
                                 // are the exception — they have no detail page,
                                 // so the chevron still drills into children.
                                 if node.isPlaceholder {
-                                    nextParentName = node.name
-                                    nextParentId = node.id
+                                    nextParent = TreeChildTarget(id: node.id, name: node.name)
                                 } else {
                                     nextLeafId = node.id
                                 }
