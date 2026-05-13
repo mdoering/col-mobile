@@ -207,26 +207,31 @@ private struct SearchRow: View {
 
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
+            // Reserve the icon slot even when GroupIcon resolves to nothing —
+            // keeps every row's text aligned the same way.
             GroupIcon(code: hit.group, size: 22)
+                .frame(width: 22, height: 22, alignment: .topLeading)
                 .padding(.top, 2)
-            VStack(alignment: .leading, spacing: 4) {
-                HStack(alignment: .firstTextBaseline) {
-                    Text(hit.extinct ? "† \(hit.scientificName)" : hit.scientificName).italic().font(.body)
-                    if let auth = hit.authorship {
-                        Text(auth).font(.caption).foregroundStyle(.secondary)
-                    }
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                    Text(hit.extinct ? "† \(hit.scientificName)" : hit.scientificName)
+                        .italic().font(.body)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer(minLength: 4)
                     if hit.merged {
                         Text("XR").font(.caption2.bold())
                             .padding(.horizontal, 4).padding(.vertical, 1)
                             .background(.purple.opacity(0.18), in: Capsule())
                             .foregroundStyle(.purple)
                     }
-                    Spacer()
                     Text(hit.rank.rawValue.capitalized)
                         .font(.caption2)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 2)
                         .background(.thinMaterial, in: Capsule())
+                }
+                if let auth = hit.authorship {
+                    Text(auth).font(.caption2).foregroundStyle(.secondary)
                 }
                 if hit.status.isSynonym {
                     HStack(spacing: 4) {
