@@ -118,7 +118,9 @@ struct AboutView: View {
             Image("CoLLogo")
                 .resizable()
                 .scaledToFit()
-                .frame(maxWidth: 220)
+                .frame(width: 160, height: 160)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.bottom, 4)
             Text("""
             The Catalogue of Life (CoL) is the most comprehensive and authoritative \
