@@ -9,8 +9,13 @@ final class TaxGroupVocab {
     init(groups: [TaxGroup]) {
         var map: [String: TaxGroup] = [:]
         for group in groups {
+            // The API surfaces the vocab `name` on taxa (e.g. "chordates", "mammals"), so
+            // index by name first.
+            map[group.name] = group
+            // Some endpoints/codes can still return one of the `codes` values
+            // (bacterial / botanical / virus / zoological) — keep those mapped too.
             for code in group.codes {
-                map[code] = group
+                if map[code] == nil { map[code] = group }
             }
         }
         self.byCode = map
