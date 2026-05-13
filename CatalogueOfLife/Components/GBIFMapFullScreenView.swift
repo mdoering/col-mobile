@@ -1,10 +1,14 @@
 import SwiftUI
+import MapKit
 
 /// Edge-to-edge GBIF density map for one taxon. Presented from
-/// `GBIFSectionView` via `fullScreenCover`.
+/// `GBIFSectionView` via `fullScreenCover`. Shares the same `region`
+/// binding as the inline map so the user's pan/zoom transfers in both
+/// directions.
 struct GBIFMapFullScreenView: View {
     @Environment(AppState.self) private var appState
     let taxonId: String
+    @Binding var region: MKCoordinateRegion
     let onDismiss: () -> Void
 
     var body: some View {
@@ -12,7 +16,8 @@ struct GBIFMapFullScreenView: View {
             GBIFMapView(
                 taxonId: taxonId,
                 style: appState.gbifMapStyle,
-                baseStyle: appState.mapBaseStyle
+                baseStyle: appState.mapBaseStyle,
+                region: $region
             )
             .ignoresSafeArea()
 

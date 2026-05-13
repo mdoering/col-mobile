@@ -6,6 +6,14 @@ struct GBIFSectionView: View {
     let taxonId: String
     @State private var vm: GBIFSectionViewModel?
     @State private var mapFullScreen = false
+    /// Single source of truth for the map's view. Initialised to the global
+    /// default and overwritten once the bbox capabilities arrive; subsequent
+    /// pan/zoom (in either the inline or fullscreen presenter) write back
+    /// through GBIFMapView's @Binding so the two stay in sync.
+    @State private var mapRegion: MKCoordinateRegion = .worldExcludingPoles
+    /// Set once per taxon — guards against the bbox region overwriting a user
+    /// pan if `vm.capabilities` re-publishes for any reason.
+    @State private var regionSeeded = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -30,10 +38,14 @@ struct GBIFSectionView: View {
             if vm == nil {
                 vm = GBIFSectionViewModel(client: GBIFClientLive())
             }
+            regionSeeded = false
             await vm?.load(taxonId: taxonId)
+            seedRegionFromCapabilities()
         }
         .fullScreenCover(isPresented: $mapFullScreen) {
-            GBIFMapFullScreenView(taxonId: taxonId) { mapFullScreen = false }
+            GBIFMapFullScreenView(taxonId: taxonId, region: $mapRegion) {
+                mapFullScreen = false
+            }
         }
     }
 
@@ -43,7 +55,7 @@ struct GBIFSectionView: View {
                 taxonId: taxonId,
                 style: appState.gbifMapStyle,
                 baseStyle: appState.mapBaseStyle,
-                initialRegion: inlineMapRegion
+                region: $mapRegion
             )
             .frame(height: 240)
             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -61,13 +73,16 @@ struct GBIFSectionView: View {
         }
     }
 
-    /// Frame the species' actual range when GBIF capabilities are available;
-    /// otherwise fall back to a global view minus the poles.
-    private var inlineMapRegion: MKCoordinateRegion {
+    /// Seed the map view from the species' bbox the first time the taxon's
+    /// capabilities arrive. Subsequent pan/zoom is left untouched.
+    private func seedRegionFromCapabilities() {
+        guard !regionSeeded else { return }
         if let caps = vm?.capabilities, let region = MKCoordinateRegion(capabilities: caps) {
-            return region
+            mapRegion = region
+        } else {
+            mapRegion = .worldExcludingPoles
         }
-        return .worldExcludingPoles
+        regionSeeded = true
     }
 
     /// True when both the occurrence count and the image list are empty —

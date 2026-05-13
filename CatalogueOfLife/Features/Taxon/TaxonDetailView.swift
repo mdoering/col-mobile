@@ -126,6 +126,15 @@ struct TaxonDetailView: View {
                         }
                         .padding(.top, 4)
                     }
+                    if let gbifURL = URL(string: "https://www.gbif-test.org/taxon/\(info.taxonId)") {
+                        Link(destination: gbifURL) {
+                            HStack {
+                                Text("Open in GBIF").font(.callout)
+                                Spacer()
+                                Image(systemName: "arrow.up.right.square")
+                            }
+                        }
+                    }
                 case .failed(let err):
                     errorView(err)
                 case .loading, .none:

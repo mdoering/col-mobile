@@ -8,16 +8,17 @@ struct GBIFMapView: UIViewRepresentable {
     let style: String
     /// Apple base-map style: "standard", "standardMuted", "hybrid", "imagery".
     var baseStyle: String = "hybrid"
-    /// Initial region to frame. Nil = leave at MKMapView's default. The region is
-    /// applied once on creation and re-applied if the taxon (and therefore the
-    /// region) changes, so the user can still pan/zoom afterwards.
-    var initialRegion: MKCoordinateRegion?
+    /// Two-way region binding. The owning view drives the initial framing and
+    /// receives the user's pan/zoom changes, so the inline map and the
+    /// fullscreen presentation share the same view-state.
+    @Binding var region: MKCoordinateRegion
 
     /// GBIF tile resolution is fixed to "1x" (512×512). "2x" doubled bandwidth
     /// for a marginal visual difference at typical zoom levels.
     private let resolution = "1x"
 
     func makeUIView(context: Context) -> MKMapView {
+        context.coordinator.parent = self
         let map = MKMapView()
         map.delegate = context.coordinator
         map.isZoomEnabled = true
@@ -29,14 +30,13 @@ struct GBIFMapView: UIViewRepresentable {
         map.preferredConfiguration = mapConfiguration()
         let overlay = GBIFTileOverlay(taxonId: taxonId, style: style, resolution: resolution)
         map.addOverlay(overlay, level: .aboveLabels)
-        if let r = initialRegion {
-            map.setRegion(r, animated: false)
-        }
+        context.coordinator.applyProgrammatically(region, to: map)
         context.coordinator.lastAppliedTaxonId = taxonId
         return map
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
+        context.coordinator.parent = self
         let existing = uiView.overlays.compactMap { $0 as? GBIFTileOverlay }
         let taxonChanged = existing.first?.taxonId != taxonId
         if taxonChanged
@@ -47,13 +47,13 @@ struct GBIFMapView: UIViewRepresentable {
             uiView.addOverlay(GBIFTileOverlay(taxonId: taxonId, style: style, resolution: resolution), level: .aboveLabels)
         }
         uiView.preferredConfiguration = mapConfiguration()
-        // Re-apply the region only when the taxon changes — otherwise the user's
-        // pan/zoom would be reset every time AppState publishes (style, etc.).
-        if taxonChanged, let r = initialRegion {
-            uiView.setRegion(r, animated: false)
-            context.coordinator.lastAppliedTaxonId = taxonId
-        } else if context.coordinator.lastAppliedTaxonId != taxonId, let r = initialRegion {
-            uiView.setRegion(r, animated: false)
+        // Apply the binding's region whenever it diverges noticeably from the
+        // map's current view (e.g. fullscreen was just dismissed) or when the
+        // taxon itself changed. We never override during a user gesture: the
+        // delegate's region-change callback skips itself while we're inside
+        // applyProgrammatically, so this branch can't trigger a feedback loop.
+        if taxonChanged || !regionsApproximatelyEqual(uiView.region, region) {
+            context.coordinator.applyProgrammatically(region, to: uiView)
             context.coordinator.lastAppliedTaxonId = taxonId
         }
     }
@@ -61,13 +61,28 @@ struct GBIFMapView: UIViewRepresentable {
     func makeCoordinator() -> Coordinator { Coordinator() }
 
     final class Coordinator: NSObject, MKMapViewDelegate {
+        var parent: GBIFMapView?
         /// Tracks which taxon's region we last applied so AppState-driven
         /// updateUIView calls don't clobber the user's pan/zoom.
         var lastAppliedTaxonId: String?
+        /// True while we're setting the region ourselves — used to suppress
+        /// the delegate's write-back so the parent binding doesn't oscillate.
+        private var isProgrammaticUpdate = false
+
+        func applyProgrammatically(_ region: MKCoordinateRegion, to map: MKMapView) {
+            isProgrammaticUpdate = true
+            map.setRegion(region, animated: false)
+            isProgrammaticUpdate = false
+        }
 
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             guard let tile = overlay as? MKTileOverlay else { return MKOverlayRenderer(overlay: overlay) }
             return MKTileOverlayRenderer(tileOverlay: tile)
+        }
+
+        func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+            guard !isProgrammaticUpdate, let parent else { return }
+            parent.region = mapView.region
         }
     }
 
@@ -130,6 +145,17 @@ extension MKCoordinateRegion {
             )
         )
     }
+}
+
+/// Centre + span equality with a small epsilon — used to decide whether the
+/// SwiftUI binding's region has drifted from the live MKMapView region enough
+/// to need a re-apply (e.g. after the fullscreen presenter dismissed).
+private func regionsApproximatelyEqual(_ a: MKCoordinateRegion, _ b: MKCoordinateRegion) -> Bool {
+    let eps = 0.0005
+    return abs(a.center.latitude - b.center.latitude) < eps
+        && abs(a.center.longitude - b.center.longitude) < eps
+        && abs(a.span.latitudeDelta - b.span.latitudeDelta) < eps
+        && abs(a.span.longitudeDelta - b.span.longitudeDelta) < eps
 }
 
 /// MKTileOverlay subclass that requests GBIF density tiles for the COL checklist + given taxon + chosen style.
