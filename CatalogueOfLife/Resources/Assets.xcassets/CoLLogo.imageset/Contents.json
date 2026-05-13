@@ -1,6 +1,6 @@
 {
   "images": [
-    { "filename": "col_logo_square_1024.png", "idiom": "universal", "scale": "1x" }
+    { "filename": "col_logo_1024.png", "idiom": "universal", "scale": "1x" }
   ],
   "info": { "author": "xcode", "version": 1 }
 }
