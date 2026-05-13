@@ -9,6 +9,7 @@ struct AboutView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
+                    logoHeader
                     releaseMetadataSection
                     Divider()
                     introSection
@@ -62,14 +63,18 @@ struct AboutView: View {
         }
     }
 
+    private var logoHeader: some View {
+        Image("CoLLogoWhite")
+            .resizable()
+            .scaledToFit()
+            .frame(maxWidth: 260)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.horizontal, 20)
+    }
+
     private var introSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Image("CoLLogoWhite")
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: 260)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.bottom, 4)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Description").font(.headline)
             Text("""
             The Catalogue of Life (CoL) is the most comprehensive and authoritative \
             global index of species. It combines hundreds of taxonomic sources into a \
