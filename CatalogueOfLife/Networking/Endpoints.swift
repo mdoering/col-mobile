@@ -89,6 +89,20 @@ enum Endpoints {
         baseURL.appending(path: "dataset/\(datasetKey)/breakdown")
     }
 
+    static func taxonBreakdown(datasetKey: Int, taxonId: String) -> URL {
+        baseURL
+            .appending(path: "dataset").appending(path: "\(datasetKey)")
+            .appending(path: "taxon").appending(path: taxonId)
+            .appending(path: "breakdown")
+    }
+
+    static func taxonMetrics(datasetKey: Int, taxonId: String) -> URL {
+        baseURL
+            .appending(path: "dataset").appending(path: "\(datasetKey)")
+            .appending(path: "taxon").appending(path: taxonId)
+            .appending(path: "metrics")
+    }
+
     static func importMetrics(datasetKey: Int) -> URL {
         baseURL.appending(path: "dataset/\(datasetKey)/import")
     }

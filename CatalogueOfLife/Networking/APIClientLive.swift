@@ -102,6 +102,18 @@ actor APIClientLive: APIClient {
         return dtos.first.map(ImportMetrics.init(dto:))
     }
 
+    func getTaxonBreakdown(datasetKey: Int, taxonId: String) async throws -> [SunburstNode] {
+        let url = Endpoints.taxonBreakdown(datasetKey: datasetKey, taxonId: taxonId)
+        let dtos = try await getJSON(url, as: [TaxonBreakdownEntryDTO].self)
+        return dtos.map(SunburstNode.from(taxonBreakdown:))
+    }
+
+    func getTaxonMetrics(datasetKey: Int, taxonId: String) async throws -> TaxonMetrics {
+        let url = Endpoints.taxonMetrics(datasetKey: datasetKey, taxonId: taxonId)
+        let dto = try await getJSON(url, as: TaxonMetricsDTO.self)
+        return TaxonMetrics(dto: dto)
+    }
+
     func submitFeedback(datasetKey: Int, taxonId: String, message: String, email: String) async throws -> URL {
         let url = Endpoints.feedback(datasetKey: datasetKey, taxonId: taxonId)
         var request = URLRequest(url: url)

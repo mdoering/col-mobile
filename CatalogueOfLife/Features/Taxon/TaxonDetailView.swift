@@ -10,6 +10,7 @@ struct TaxonDetailView: View {
     @State private var navigateTo: String?
     @State private var navigateToSourceKey: Int?
     @State private var childNodes: [TreeNode] = []
+    @State private var breakdownChildren: [SunburstNode] = []
     @State private var showingFeedback = false
 
     private var isFavorite: Bool {
@@ -29,21 +30,30 @@ struct TaxonDetailView: View {
                     ClassificationChipsView(items: info.classification) { item in
                         navigateTo = item.id
                     }
-                    if !childNodes.isEmpty {
-                        Divider()
-                        if info.rank.isSuprageneric {
+                    if info.rank.isSuprageneric {
+                        if !breakdownChildren.isEmpty {
+                            Divider()
                             VStack(alignment: .leading, spacing: 6) {
                                 Text("Breakdown of \(info.scientificName)").font(.headline)
                                 SunburstView(
-                                    root: sunburstRoot(for: info),
-                                    maxDepth: 1
+                                    root: SunburstNode(
+                                        id: info.taxonId,
+                                        label: info.scientificName,
+                                        count: breakdownChildren.reduce(0) { $0 + $1.count },
+                                        rank: info.rank,
+                                        children: breakdownChildren
+                                    ),
+                                    maxDepth: 2
                                 ) { node in
                                     navigateTo = node.id
                                 }
                                 .frame(maxWidth: .infinity)
-                                .frame(height: 260)
+                                .frame(height: 320)
                             }
-                        } else {
+                        }
+                    } else {
+                        if !childNodes.isEmpty {
+                            Divider()
                             DescendantsByRankView(children: childNodes)
                         }
                     }
@@ -152,8 +162,14 @@ struct TaxonDetailView: View {
                                              group: info.group)
             }
             if case let .loaded(info) = vm?.state, let key = appState.selectedDataset?.key {
-                if let children = try? await APIClientLive().getTreeChildren(datasetKey: key, parentId: info.taxonId) {
-                    childNodes = children
+                if info.rank.isSuprageneric {
+                    if let nodes = try? await APIClientLive().getTaxonBreakdown(datasetKey: key, taxonId: info.taxonId) {
+                        breakdownChildren = nodes
+                    }
+                } else {
+                    if let children = try? await APIClientLive().getTreeChildren(datasetKey: key, parentId: info.taxonId) {
+                        childNodes = children
+                    }
                 }
             }
         }
@@ -166,17 +182,6 @@ struct TaxonDetailView: View {
             Button("Retry") { Task { await vm?.load() } }
                 .buttonStyle(.bordered)
         }
-    }
-
-    private func sunburstRoot(for info: TaxonInfo) -> SunburstNode {
-        SunburstNode(
-            id: info.taxonId,
-            label: info.scientificName,
-            count: childNodes.reduce(0) { $0 + $1.count },
-            children: childNodes.map {
-                SunburstNode(id: $0.id, label: $0.name, count: max($0.count, 1), children: [])
-            }
-        )
     }
 
     private func toggleFavorite(_ info: TaxonInfo) {

@@ -5,7 +5,7 @@ import Foundation
 @Suite("Sunburst math")
 struct SunburstMathTests {
     private func node(_ id: String, count: Int, _ children: [SunburstNode] = []) -> SunburstNode {
-        SunburstNode(id: id, label: id, count: count, children: children)
+        SunburstNode(id: id, label: id, count: count, rank: nil, children: children)
     }
 
     @Test("Equal-count children get equal sweeps")

@@ -4,11 +4,12 @@ struct ImportMetricsList: View {
     let metrics: ImportMetrics
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 28) {
             if !metrics.summary.isEmpty {
                 section(title: "Summary", rows: metrics.summary)
             }
             ForEach(metrics.sections, id: \.title) { section in
+                Divider()
                 self.section(title: section.title, rows: section.rows)
             }
         }

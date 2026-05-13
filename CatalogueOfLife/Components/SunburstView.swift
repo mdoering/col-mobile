@@ -53,6 +53,7 @@ struct SunburstView: View {
                     }
                     .presentationCompactAdaptation(.popover)
                 }
+
                 Text(root.label)
                     .font(.caption)
                     .foregroundStyle(.primary)
@@ -66,18 +67,67 @@ struct SunburstView: View {
 }
 
 private struct SunburstPopover: View {
+    @Environment(AppState.self) private var appState
     let node: SunburstNode
-    let onOpen: () -> Void
+    let onTap: () -> Void
+
+    @State private var metrics: TaxonMetrics?
+    @State private var loaded = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(node.label).font(.headline)
-            Text("\(node.count) descendants").font(.caption).foregroundStyle(.secondary)
-            Button("Open") { onOpen() }
-                .buttonStyle(.borderedProminent)
+        Button(action: onTap) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(node.label).italic().font(.headline)
+                if let rank = node.rank {
+                    Text(rank.rawValue.capitalized).font(.caption2).foregroundStyle(.secondary)
+                }
+                if let m = metrics {
+                    metricRow("All taxa", m.taxonCount)
+                    if showRank(.family) {
+                        if let n = m.taxaByRankCount[.family], n > 0 { metricRow("Families", n) }
+                    }
+                    if showRank(.genus) {
+                        if let n = m.taxaByRankCount[.genus], n > 0 { metricRow("Genera", n) }
+                    }
+                    if showRank(.species) {
+                        if let n = m.taxaByRankCount[.species], n > 0 { metricRow("Species", n) }
+                    }
+                    if m.sourceCount > 0 {
+                        metricRow("Sources", m.sourceCount)
+                    }
+                } else if !loaded {
+                    HStack { ProgressView().controlSize(.small); Text("Loading…").font(.caption2) }
+                }
+                Text("Tap to open").font(.caption2).foregroundStyle(.tertiary).padding(.top, 4)
+            }
+            .padding()
+            .frame(minWidth: 200, alignment: .leading)
         }
-        .padding()
-        .frame(minWidth: 180)
+        .buttonStyle(.plain)
+        .contentShape(Rectangle())
+        .task(id: node.id) {
+            loaded = false
+            guard let key = appState.selectedDataset?.key else { loaded = true; return }
+            metrics = try? await APIClientLive().getTaxonMetrics(datasetKey: key, taxonId: node.id)
+            loaded = true
+        }
+    }
+
+    /// Show a rank's metric only if it's strictly below this taxon's rank.
+    /// Without a known node rank, show all (no gating).
+    private func showRank(_ candidate: Rank) -> Bool {
+        guard let nodeRank = node.rank else { return true }
+        return candidate.sortOrder > nodeRank.sortOrder
+    }
+
+    @ViewBuilder
+    private func metricRow(_ label: String, _ value: Int) -> some View {
+        HStack {
+            Text(label).font(.caption)
+            Spacer(minLength: 12)
+            Text(value, format: .number).font(.caption.monospacedDigit())
+                .foregroundStyle(.secondary)
+        }
     }
 }
 

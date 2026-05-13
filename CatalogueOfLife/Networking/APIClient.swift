@@ -14,6 +14,9 @@ protocol APIClient: Sendable {
     func getDatasetBreakdown(datasetKey: Int) async throws -> BreakdownNode
     func getImportMetrics(datasetKey: Int) async throws -> ImportMetrics?
 
+    func getTaxonBreakdown(datasetKey: Int, taxonId: String) async throws -> [SunburstNode]
+    func getTaxonMetrics(datasetKey: Int, taxonId: String) async throws -> TaxonMetrics
+
     /// Submits user feedback for a taxon. Returns the URL of the created GitHub issue.
     func submitFeedback(datasetKey: Int, taxonId: String, message: String, email: String) async throws -> URL
 }

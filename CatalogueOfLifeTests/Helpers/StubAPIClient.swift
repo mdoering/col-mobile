@@ -71,6 +71,20 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
         return importMetrics[datasetKey]
     }
 
+    var taxonBreakdown: [String: [SunburstNode]] = [:]
+    var taxonMetrics: [String: TaxonMetrics] = [:]
+
+    func getTaxonBreakdown(datasetKey: Int, taxonId: String) async throws -> [SunburstNode] {
+        if let error { throw error }
+        return taxonBreakdown[taxonId] ?? []
+    }
+
+    func getTaxonMetrics(datasetKey: Int, taxonId: String) async throws -> TaxonMetrics {
+        if let error { throw error }
+        guard let m = taxonMetrics[taxonId] else { throw APIError.notFound }
+        return m
+    }
+
     var feedbackResult: URL? = URL(string: "https://github.com/CatalogueOfLife/data/issues/0")
 
     func submitFeedback(datasetKey: Int, taxonId: String, message: String, email: String) async throws -> URL {
