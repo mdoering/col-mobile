@@ -115,12 +115,22 @@ struct AboutView: View {
 
     private var introSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Image("CoLLogo")
+            // White-text wordmark needs a dark backdrop — reuse the brand-blue
+            // gradient from the original banner as a contained tile.
+            Image("CoLLogoWhite")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 160, height: 160)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-                .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.horizontal, 22)
+                .padding(.vertical, 18)
+                .frame(maxWidth: .infinity)
+                .background(
+                    LinearGradient(
+                        colors: [Color(red: 0.09, green: 0.51, blue: 0.69),
+                                 Color(red: 0.03, green: 0.36, blue: 0.50)],
+                        startPoint: .topLeading, endPoint: .bottomTrailing
+                    ),
+                    in: RoundedRectangle(cornerRadius: 14)
+                )
                 .padding(.bottom, 4)
             Text("""
             The Catalogue of Life (CoL) is the most comprehensive and authoritative \
