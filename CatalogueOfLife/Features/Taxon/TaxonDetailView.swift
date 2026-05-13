@@ -30,16 +30,20 @@ struct TaxonDetailView: View {
                     }
                     if !childNodes.isEmpty {
                         Divider()
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("Breakdown of \(info.scientificName)").font(.headline)
-                            SunburstView(
-                                root: sunburstRoot(for: info),
-                                maxDepth: 1
-                            ) { node in
-                                navigateTo = node.id
+                        if info.rank.isSuprageneric {
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text("Breakdown of \(info.scientificName)").font(.headline)
+                                SunburstView(
+                                    root: sunburstRoot(for: info),
+                                    maxDepth: 1
+                                ) { node in
+                                    navigateTo = node.id
+                                }
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 260)
                             }
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 260)
+                        } else {
+                            DescendantsByRankView(children: childNodes)
                         }
                     }
                     if !info.synonymyGroups.isEmpty {
