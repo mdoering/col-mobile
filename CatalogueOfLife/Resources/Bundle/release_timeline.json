@@ -1,0 +1,86 @@
+[
+  {
+    "alias": "COL2021",
+    "displayName": "COL 2021",
+    "datasetKey": 2328,
+    "issued": "2021-07-29",
+    "taxonCount": 2414214,
+    "nameCount": 4359064,
+    "synonymCount": 1943593,
+    "families": 12850,
+    "genera": 196613,
+    "species": 2008947
+  },
+  {
+    "alias": "COL2022",
+    "displayName": "COL 2022",
+    "datasetKey": 9837,
+    "issued": "2022-08-30",
+    "taxonCount": 2485345,
+    "nameCount": 4716121,
+    "synonymCount": 2230776,
+    "families": 13126,
+    "genera": 203597,
+    "species": 2065448
+  },
+  {
+    "alias": "COL2023",
+    "displayName": "COL 2023",
+    "datasetKey": 9910,
+    "issued": "2023-06-27",
+    "taxonCount": 2528349,
+    "nameCount": 4983455,
+    "synonymCount": 2455106,
+    "families": 13510,
+    "genera": 206521,
+    "species": 2109214
+  },
+  {
+    "alias": "COL2024",
+    "displayName": "COL 2024",
+    "datasetKey": 299029,
+    "issued": "2024-06-27",
+    "taxonCount": 2604154,
+    "nameCount": 5189179,
+    "synonymCount": 2585025,
+    "families": 14142,
+    "genera": 210948,
+    "species": 2172471
+  },
+  {
+    "alias": "COL2025",
+    "displayName": "COL 2025",
+    "datasetKey": 310463,
+    "issued": "2025-06-13",
+    "taxonCount": 2660394,
+    "nameCount": 5302873,
+    "synonymCount": 2642479,
+    "families": 14914,
+    "genera": 217931,
+    "species": 2221237
+  },
+  {
+    "alias": "3LR",
+    "displayName": "Latest Base",
+    "datasetKey": 314909,
+    "issued": "2026-04-15",
+    "taxonCount": 2686187,
+    "nameCount": 5381679,
+    "synonymCount": 2695492,
+    "families": 14956,
+    "genera": 217802,
+    "species": 2245825
+  },
+  {
+    "alias": "3LXR",
+    "displayName": "Latest",
+    "datasetKey": 314965,
+    "issued": "2026-04-18",
+    "taxonCount": 4629957,
+    "nameCount": 7834411,
+    "synonymCount": 3204454,
+    "families": 21836,
+    "genera": 302022,
+    "species": 2485747
+  }
+]

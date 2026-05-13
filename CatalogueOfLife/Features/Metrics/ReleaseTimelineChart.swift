@@ -1,0 +1,61 @@
+import SwiftUI
+import Charts
+
+struct ReleaseTimelineChart: View {
+    let entries: [ReleaseTimelineEntry]
+
+    enum Series: String, CaseIterable, Identifiable, Sendable {
+        case species = "Species"
+        case genera = "Genera"
+        case families = "Families"
+        case allNames = "All names"
+        var id: String { rawValue }
+    }
+
+    /// Pre-computed flattened data points: (entry, series, value).
+    private struct Point: Identifiable {
+        let entry: ReleaseTimelineEntry
+        let series: Series
+        let value: Int
+        var id: String { "\(entry.id)-\(series.rawValue)" }
+    }
+
+    private var points: [Point] {
+        entries.flatMap { entry in
+            [
+                Point(entry: entry, series: .species,  value: entry.species),
+                Point(entry: entry, series: .genera,   value: entry.genera),
+                Point(entry: entry, series: .families, value: entry.families),
+                Point(entry: entry, series: .allNames, value: entry.nameCount),
+            ]
+        }
+    }
+
+    var body: some View {
+        if entries.isEmpty {
+            EmptyView()
+        } else {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Release timeline").font(.headline)
+                Chart {
+                    ForEach(points) { p in
+                        if let date = p.entry.issuedDate {
+                            LineMark(
+                                x: .value("Issued", date),
+                                y: .value("Count", p.value)
+                            )
+                            .foregroundStyle(by: .value("Series", p.series.rawValue))
+                            .symbol(by: .value("Series", p.series.rawValue))
+                        }
+                    }
+                }
+                .chartYScale(type: .log)
+                .chartYAxis {
+                    AxisMarks(position: .leading)
+                }
+                .chartLegend(position: .bottom)
+                .frame(height: 240)
+            }
+        }
+    }
+}

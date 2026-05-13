@@ -3,6 +3,7 @@ import SwiftUI
 struct MetricsView: View {
     @Environment(AppState.self) private var appState
     @State private var vm: MetricsViewModel?
+    @State private var timeline: [ReleaseTimelineEntry] = ReleaseTimeline.loadBundled()
 
     var body: some View {
         NavigationStack {
@@ -23,15 +24,15 @@ struct MetricsView: View {
         switch vm?.state {
         case .loaded(let breakdown, let metrics):
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    Text("Taxonomic breakdown")
-                        .font(.headline)
-                    SunburstView(root: SunburstNode.from(breakdown: breakdown))
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 320)
+                VStack(alignment: .leading, spacing: 28) {
+                    ReleaseTimelineChart(entries: timeline)
                     if let metrics {
                         ImportMetricsList(metrics: metrics)
                     }
+                    Text("Taxonomic breakdown").font(.headline)
+                    SunburstView(root: SunburstNode.from(breakdown: breakdown))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 320)
                 }
                 .padding()
             }

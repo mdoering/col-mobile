@@ -1,4 +1,4 @@
-name: Refresh TaxGroup assets
+name: Refresh bundled snapshots
 on:
   schedule:
     - cron: "17 4 * * 1"   # Monday 04:17 UTC — off-peak
@@ -13,9 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run bundling script
-        run: |
-          python3 Tools/bundle_taxgroup_assets.py
+      - name: Run TaxGroup bundling
+        run: python3 Tools/bundle_taxgroup_assets.py
+
+      - name: Run release-timeline bundling
+        run: python3 Tools/bundle_release_timeline.py
 
       - name: Commit and push if there are changes
         run: |
@@ -23,8 +25,8 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add CatalogueOfLife/Resources/Bundle CatalogueOfLife/Resources/Assets.xcassets/Groups
-            git commit -m "Refresh TaxGroup vocab + SVG assets (automated)"
+            git commit -m "Refresh bundled snapshots (TaxGroup + release timeline)"
             git push
           else
-            echo "No vocab/asset changes."
+            echo "No bundle changes."
           fi
