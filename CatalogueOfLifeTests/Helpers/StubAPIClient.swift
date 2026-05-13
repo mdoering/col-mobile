@@ -85,6 +85,14 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
         return m
     }
 
+    var groupMetrics: [String: GroupBreakdownMetrics] = [:]
+
+    func getGroupMetrics(datasetKey: Int, group: String) async throws -> GroupBreakdownMetrics {
+        if let error { throw error }
+        guard let m = groupMetrics[group] else { throw APIError.notFound }
+        return m
+    }
+
     var feedbackResult: URL? = URL(string: "https://github.com/CatalogueOfLife/data/issues/0")
 
     func submitFeedback(datasetKey: Int, taxonId: String, message: String, email: String) async throws -> URL {

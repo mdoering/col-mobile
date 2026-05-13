@@ -14,6 +14,14 @@ struct SearchView: View {
                 }
         }
         .onAppear { ensureVM() }
+        .onChange(of: appState.pendingSearchGroup) { _, group in
+            guard let group, let vm else { return }
+            vm.query = ""
+            vm.rank = nil
+            vm.status = nil
+            vm.group = group
+            appState.pendingSearchGroup = nil
+        }
     }
 
     private func ensureVM() {
@@ -98,9 +106,15 @@ struct SearchView: View {
     private func results(vm: SearchViewModel) -> some View {
         switch vm.state {
         case .idle:
-            ContentUnavailableView("Search names",
-                systemImage: "magnifyingglass",
-                description: Text("Type to find taxa in \(appState.selectedDataset?.alias ?? "the selected release")."))
+            if let group = vm.group {
+                ContentUnavailableView("Filtered by group: \(group.capitalized)",
+                    systemImage: "magnifyingglass",
+                    description: Text("Type to search within \(group.capitalized)."))
+            } else {
+                ContentUnavailableView("Search names",
+                    systemImage: "magnifyingglass",
+                    description: Text("Type to find taxa in \(appState.selectedDataset?.alias ?? "the selected release")."))
+            }
         case .loading:
             ProgressView()
         case let .loaded(hits):

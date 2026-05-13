@@ -122,4 +122,19 @@ enum Endpoints {
             .appending(path: taxonId)
             .appending(path: "feedback")
     }
+
+    static func nameSearchFacets(datasetKey: Int, group: String) -> URL {
+        var c = URLComponents(
+            url: baseURL.appending(path: "dataset/\(datasetKey)/nameusage/search"),
+            resolvingAgainstBaseURL: false
+        )!
+        c.queryItems = [
+            URLQueryItem(name: "group", value: group),
+            URLQueryItem(name: "limit", value: "0"),
+            URLQueryItem(name: "facet", value: "rank"),
+            URLQueryItem(name: "facet", value: "status"),
+            URLQueryItem(name: "facetLimit", value: "50"),
+        ]
+        return c.url!
+    }
 }

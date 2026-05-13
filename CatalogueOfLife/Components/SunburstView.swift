@@ -4,8 +4,17 @@ struct SunburstView: View {
     let root: SunburstNode
     /// Max number of rings beyond the center. Default 2.
     var maxDepth: Int = 2
+    /// Controls what the popover fetches and what "Tap to open" navigates to.
+    var popoverKind: PopoverKind = .taxon
     /// Tap handler: receives the selected node (via the popover's Open button).
     var onSelect: (SunburstNode) -> Void = { _ in }
+
+    enum PopoverKind {
+        /// Metrics from /taxon/{id}/metrics; tap → navigate to that taxon.
+        case taxon
+        /// Metrics from /nameusage/search?group=…; tap → apply group filter in Search.
+        case group
+    }
 
     @State private var popoverNode: SunburstNode?
 
@@ -47,7 +56,7 @@ struct SunburstView: View {
                     }
                 )
                 .popover(item: $popoverNode) { node in
-                    SunburstPopover(node: node) {
+                    SunburstPopover(node: node, kind: popoverKind) {
                         popoverNode = nil
                         onSelect(node)
                     }
@@ -69,9 +78,11 @@ struct SunburstView: View {
 private struct SunburstPopover: View {
     @Environment(AppState.self) private var appState
     let node: SunburstNode
+    let kind: SunburstView.PopoverKind
     let onTap: () -> Void
 
-    @State private var metrics: TaxonMetrics?
+    @State private var taxonMetrics: TaxonMetrics?
+    @State private var groupMetrics: GroupBreakdownMetrics?
     @State private var loaded = false
 
     var body: some View {
@@ -81,21 +92,9 @@ private struct SunburstPopover: View {
                 if let rank = node.rank {
                     Text(rank.rawValue.capitalized).font(.caption2).foregroundStyle(.secondary)
                 }
-                if let m = metrics {
-                    metricRow("All taxa", m.taxonCount)
-                    if showRank(.family) {
-                        if let n = m.taxaByRankCount[.family], n > 0 { metricRow("Families", n) }
-                    }
-                    if showRank(.genus) {
-                        if let n = m.taxaByRankCount[.genus], n > 0 { metricRow("Genera", n) }
-                    }
-                    if showRank(.species) {
-                        if let n = m.taxaByRankCount[.species], n > 0 { metricRow("Species", n) }
-                    }
-                    if m.sourceCount > 0 {
-                        metricRow("Sources", m.sourceCount)
-                    }
-                } else if !loaded {
+                if loaded {
+                    metricRows
+                } else {
                     HStack { ProgressView().controlSize(.small); Text("Loading…").font(.caption2) }
                 }
                 Text("Tap to open").font(.caption2).foregroundStyle(.tertiary).padding(.top, 4)
@@ -108,8 +107,34 @@ private struct SunburstPopover: View {
         .task(id: node.id) {
             loaded = false
             guard let key = appState.selectedDataset?.key else { loaded = true; return }
-            metrics = try? await APIClientLive().getTaxonMetrics(datasetKey: key, taxonId: node.id)
+            switch kind {
+            case .taxon:
+                taxonMetrics = try? await APIClientLive().getTaxonMetrics(datasetKey: key, taxonId: node.id)
+            case .group:
+                groupMetrics = try? await APIClientLive().getGroupMetrics(datasetKey: key, group: node.label)
+            }
             loaded = true
+        }
+    }
+
+    @ViewBuilder
+    private var metricRows: some View {
+        switch kind {
+        case .taxon:
+            if let m = taxonMetrics {
+                metricRow("All taxa", m.taxonCount)
+                if showRank(.family), let n = m.taxaByRankCount[.family], n > 0 { metricRow("Families", n) }
+                if showRank(.genus), let n = m.taxaByRankCount[.genus], n > 0 { metricRow("Genera", n) }
+                if showRank(.species), let n = m.taxaByRankCount[.species], n > 0 { metricRow("Species", n) }
+                if m.sourceCount > 0 { metricRow("Sources", m.sourceCount) }
+            }
+        case .group:
+            if let m = groupMetrics {
+                metricRow("All names", m.total)
+                if let n = m.taxaByRank[.family], n > 0 { metricRow("Families", n) }
+                if let n = m.taxaByRank[.genus], n > 0 { metricRow("Genera", n) }
+                if let n = m.taxaByRank[.species], n > 0 { metricRow("Species", n) }
+            }
         }
     }
 

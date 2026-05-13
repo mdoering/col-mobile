@@ -1,10 +1,12 @@
 import SwiftUI
 
 struct RootTabView: View {
+    @Environment(AppState.self) private var appState
     @State private var showingFavorites = false
 
     var body: some View {
-        TabView {
+        @Bindable var appState = appState
+        TabView(selection: $appState.selectedTabIndex) {
             NavigationStack {
                 TreeView()
                     .toolbar {
@@ -19,15 +21,20 @@ struct RootTabView: View {
                     }
             }
             .tabItem { Label("Tree", systemImage: "tree") }
+            .tag(0)
 
             SearchView()
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }
+                .tag(1)
             SourcesView()
                 .tabItem { Label("Sources", systemImage: "books.vertical") }
+                .tag(2)
             MetricsView()
                 .tabItem { Label("Metrics", systemImage: "chart.pie") }
+                .tag(3)
             AboutView()
                 .tabItem { Label("About", systemImage: "info.circle") }
+                .tag(4)
         }
         .sheet(isPresented: $showingFavorites) {
             FavoritesSheet()

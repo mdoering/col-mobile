@@ -45,6 +45,13 @@ final class AppState {
         }
     }
 
+    /// Active tab index. Bindable from RootTabView's TabView selection.
+    var selectedTabIndex: Int = 0
+
+    /// Pending request to apply a group filter when the search tab opens.
+    /// SearchView clears it after applying.
+    var pendingSearchGroup: String?
+
     var hasValidUserEmail: Bool {
         guard let e = userEmail?.trimmingCharacters(in: .whitespacesAndNewlines), !e.isEmpty else { return false }
         return e.contains("@") && e.contains(".")

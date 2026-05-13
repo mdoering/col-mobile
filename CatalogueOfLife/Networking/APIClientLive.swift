@@ -114,6 +114,24 @@ actor APIClientLive: APIClient {
         return TaxonMetrics(dto: dto)
     }
 
+    func getGroupMetrics(datasetKey: Int, group: String) async throws -> GroupBreakdownMetrics {
+        let url = Endpoints.nameSearchFacets(datasetKey: datasetKey, group: group)
+        let dto = try await getJSON(url, as: NameSearchFacetsDTO.self)
+        var ranks: [Rank: Int] = [:]
+        for entry in dto.facets?["rank"] ?? [] {
+            ranks[Rank(apiValue: entry.value)] = entry.count
+        }
+        var statuses: [String: Int] = [:]
+        for entry in dto.facets?["status"] ?? [] {
+            statuses[entry.value] = entry.count
+        }
+        return GroupBreakdownMetrics(
+            total: dto.total ?? 0,
+            taxaByRank: ranks,
+            countsByStatus: statuses
+        )
+    }
+
     func submitFeedback(datasetKey: Int, taxonId: String, message: String, email: String) async throws -> URL {
         let url = Endpoints.feedback(datasetKey: datasetKey, taxonId: taxonId)
         var request = URLRequest(url: url)

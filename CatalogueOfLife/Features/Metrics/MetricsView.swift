@@ -30,9 +30,15 @@ struct MetricsView: View {
                         ImportMetricsList(metrics: metrics, includeSummary: true, includeSections: false)
                     }
                     Text("Taxonomic breakdown").font(.headline)
-                    SunburstView(root: SunburstNode.from(breakdown: breakdown))
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 320)
+                    SunburstView(
+                        root: SunburstNode.from(breakdown: breakdown),
+                        popoverKind: .group
+                    ) { node in
+                        appState.pendingSearchGroup = node.label
+                        appState.selectedTabIndex = 1
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 320)
                     if let metrics {
                         ImportMetricsList(metrics: metrics, includeSummary: false, includeSections: true)
                     }
