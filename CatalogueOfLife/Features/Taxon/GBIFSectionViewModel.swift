@@ -6,6 +6,7 @@ import Observation
 final class GBIFSectionViewModel {
     private(set) var metrics: GBIFMetrics?
     private(set) var images: [GBIFMediaItem] = []
+    private(set) var capabilities: GBIFMapCapabilities?
     private(set) var didLoad = false
     private(set) var failed = false
 
@@ -20,10 +21,13 @@ final class GBIFSectionViewModel {
         failed = false
         async let metricsResult = try? await client.getOccurrenceMetrics(taxonId: taxonId)
         async let imagesResult = try? await client.getOccurrenceImages(taxonId: taxonId, limit: 20)
+        async let capabilitiesResult = try? await client.getMapCapabilities(taxonId: taxonId)
         let m = await metricsResult
         let i = await imagesResult ?? []
+        let c = await capabilitiesResult ?? nil
         self.metrics = m
         self.images = i
+        self.capabilities = c
         self.didLoad = true
         self.failed = (m == nil && i.isEmpty)
     }

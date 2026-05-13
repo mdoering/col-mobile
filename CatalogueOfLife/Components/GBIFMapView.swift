@@ -12,6 +12,10 @@ struct GBIFMapView: UIViewRepresentable {
     var baseStyle: String = "standard"
     /// Elevation style: "flat" or "realistic".
     var elevation: String = "flat"
+    /// Initial region to frame. Nil = leave at MKMapView's default. The region is
+    /// applied once on creation and re-applied if the taxon (and therefore the
+    /// region) changes, so the user can still pan/zoom afterwards.
+    var initialRegion: MKCoordinateRegion?
 
     func makeUIView(context: Context) -> MKMapView {
         let map = MKMapView()
@@ -25,12 +29,17 @@ struct GBIFMapView: UIViewRepresentable {
         map.preferredConfiguration = mapConfiguration()
         let overlay = GBIFTileOverlay(taxonId: taxonId, style: style, resolution: resolution)
         map.addOverlay(overlay, level: .aboveLabels)
+        if let r = initialRegion {
+            map.setRegion(r, animated: false)
+        }
+        context.coordinator.lastAppliedTaxonId = taxonId
         return map
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
         let existing = uiView.overlays.compactMap { $0 as? GBIFTileOverlay }
-        if existing.first?.taxonId != taxonId
+        let taxonChanged = existing.first?.taxonId != taxonId
+        if taxonChanged
             || existing.first?.style != style
             || existing.first?.resolution != resolution
         {
@@ -38,11 +47,24 @@ struct GBIFMapView: UIViewRepresentable {
             uiView.addOverlay(GBIFTileOverlay(taxonId: taxonId, style: style, resolution: resolution), level: .aboveLabels)
         }
         uiView.preferredConfiguration = mapConfiguration()
+        // Re-apply the region only when the taxon changes — otherwise the user's
+        // pan/zoom would be reset every time AppState publishes (style, etc.).
+        if taxonChanged, let r = initialRegion {
+            uiView.setRegion(r, animated: false)
+            context.coordinator.lastAppliedTaxonId = taxonId
+        } else if context.coordinator.lastAppliedTaxonId != taxonId, let r = initialRegion {
+            uiView.setRegion(r, animated: false)
+            context.coordinator.lastAppliedTaxonId = taxonId
+        }
     }
 
     func makeCoordinator() -> Coordinator { Coordinator() }
 
     final class Coordinator: NSObject, MKMapViewDelegate {
+        /// Tracks which taxon's region we last applied so AppState-driven
+        /// updateUIView calls don't clobber the user's pan/zoom.
+        var lastAppliedTaxonId: String?
+
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             guard let tile = overlay as? MKTileOverlay else { return MKOverlayRenderer(overlay: overlay) }
             return MKTileOverlayRenderer(tileOverlay: tile)
@@ -61,6 +83,35 @@ struct GBIFMapView: UIViewRepresentable {
         default:
             return MKStandardMapConfiguration(elevationStyle: elev, emphasisStyle: .default)
         }
+    }
+}
+
+extension MKCoordinateRegion {
+    /// World view minus the polar regions — used as the inline-map default when
+    /// the species' bounding box isn't known yet (or has zero occurrences).
+    static let worldExcludingPoles = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 15, longitude: 0),
+        span: MKCoordinateSpan(latitudeDelta: 130, longitudeDelta: 340)
+    )
+
+    /// Inset region around the species' GBIF occurrence bounding box, with 30%
+    /// padding and a 6° minimum span so single-country ranges don't render
+    /// too tightly. Returns nil if the taxon has no occurrence records.
+    init?(capabilities: GBIFMapCapabilities) {
+        guard capabilities.hasData else { return nil }
+        let minLat = max(capabilities.minLat, -85)
+        let maxLat = min(capabilities.maxLat, 85)
+        let centerLat = (minLat + maxLat) / 2
+        let centerLng = (capabilities.minLng + capabilities.maxLng) / 2
+        let latDelta = max(maxLat - minLat, 6) * 1.3
+        let lonDelta = max(capabilities.maxLng - capabilities.minLng, 6) * 1.3
+        self.init(
+            center: CLLocationCoordinate2D(latitude: centerLat, longitude: centerLng),
+            span: MKCoordinateSpan(
+                latitudeDelta: min(latDelta, 160),
+                longitudeDelta: min(lonDelta, 340)
+            )
+        )
     }
 }
 

@@ -52,6 +52,23 @@ enum GBIFEndpoints {
         return c.url!
     }
 
+    /// `GET /v2/map/occurrence/density/capabilities.json?...` — returns the bounding box
+    /// (minLat/maxLat/minLng/maxLng), occurrence total and year range for the taxon.
+    /// Used to auto-frame the inline map on the species' actual range. `srs=EPSG:4326`
+    /// means the lat/lng values come back in plain degrees.
+    static func mapCapabilities(taxonId: String) -> URL {
+        var c = URLComponents(
+            url: baseURL.appending(path: "v2/map/occurrence/density/capabilities.json"),
+            resolvingAgainstBaseURL: false
+        )!
+        c.queryItems = [
+            URLQueryItem(name: "srs", value: "EPSG:4326"),
+            URLQueryItem(name: "checklistKey", value: colChecklistKey),
+            URLQueryItem(name: "taxonKey", value: taxonId),
+        ]
+        return c.url!
+    }
+
     /// `GET /v2/map/occurrence/density/{z}/{x}/{y}@<resolution>.png?...` — tile template for `MKTileOverlay`.
     /// Notes:
     /// - The tile endpoint uses `taxonKey` (not `taxonId` as the occurrence search does).

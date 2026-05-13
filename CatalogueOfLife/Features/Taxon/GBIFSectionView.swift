@@ -1,4 +1,5 @@
 import SwiftUI
+import MapKit
 
 struct GBIFSectionView: View {
     @Environment(AppState.self) private var appState
@@ -40,7 +41,8 @@ struct GBIFSectionView: View {
                 style: appState.gbifMapStyle,
                 resolution: appState.gbifTileResolution,
                 baseStyle: appState.mapBaseStyle,
-                elevation: appState.mapElevation
+                elevation: appState.mapElevation,
+                initialRegion: inlineMapRegion
             )
             .frame(height: 180)
             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -56,6 +58,15 @@ struct GBIFSectionView: View {
             .accessibilityLabel("Expand map")
             .padding(8)
         }
+    }
+
+    /// Frame the species' actual range when GBIF capabilities are available;
+    /// otherwise fall back to a global view minus the poles.
+    private var inlineMapRegion: MKCoordinateRegion {
+        if let caps = vm?.capabilities, let region = MKCoordinateRegion(capabilities: caps) {
+            return region
+        }
+        return .worldExcludingPoles
     }
 
     @ViewBuilder

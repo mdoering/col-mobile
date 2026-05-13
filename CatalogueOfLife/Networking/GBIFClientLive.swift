@@ -64,4 +64,10 @@ actor GBIFClientLive: GBIFClient {
         let dto = try await getJSON(url, as: OccurrenceWithMediaDTO.self)
         return GBIFMediaItem.from(dto: dto)
     }
+
+    func getMapCapabilities(taxonId: String) async throws -> GBIFMapCapabilities? {
+        let url = GBIFEndpoints.mapCapabilities(taxonId: taxonId)
+        let dto = try await getJSON(url, as: GBIFMapCapabilitiesDTO.self)
+        return GBIFMapCapabilities(dto: dto)
+    }
 }
