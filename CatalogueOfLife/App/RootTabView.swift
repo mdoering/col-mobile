@@ -5,12 +5,19 @@ struct RootTabView: View {
     @State private var showingFavorites = false
 
     var body: some View {
+        let _ = print("[ROOT-TAB] body eval, selectedTabIndex=\(appState.selectedTabIndex)")
         // Use an explicit Binding rather than @Bindable's projected value —
         // programmatic writes to selectedTabIndex from deeply pushed views
         // weren't reliably committing through the @Bindable path on iOS 26.
         TabView(selection: Binding(
-            get: { appState.selectedTabIndex },
-            set: { appState.selectedTabIndex = $0 }
+            get: {
+                print("[ROOT-TAB] binding.get → \(appState.selectedTabIndex)")
+                return appState.selectedTabIndex
+            },
+            set: { newVal in
+                print("[ROOT-TAB] binding.set ← \(newVal)")
+                appState.selectedTabIndex = newVal
+            }
         )) {
             NavigationStack {
                 TreeView()

@@ -75,11 +75,11 @@ struct TaxonDetailView: View {
                                     label: info.scientificName,
                                     rank: rank
                                 )
-                                // Set the tab first so SearchView is in the
-                                // foreground before its .task(id:) sees the
-                                // new scope and fires the search.
+                                print("[TAB-SWITCH] before set: selectedTabIndex=\(appState.selectedTabIndex)")
                                 appState.selectedTabIndex = 1
+                                print("[TAB-SWITCH] after set:  selectedTabIndex=\(appState.selectedTabIndex)")
                                 appState.pendingSearchScope = scope
+                                print("[TAB-SWITCH] scope set: \(scope)")
                             }
                         }
                     }

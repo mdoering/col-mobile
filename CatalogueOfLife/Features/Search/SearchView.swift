@@ -49,6 +49,7 @@ struct SearchView: View {
 
     @MainActor
     private func applyPendingScopeIfNeeded() async {
+        print("[SEARCH] applyPendingScopeIfNeeded scope=\(String(describing: appState.pendingSearchScope)) tabIndex=\(appState.selectedTabIndex)")
         ensureVM()
         guard let scope = appState.pendingSearchScope, let vm else { return }
         vm.query = ""
