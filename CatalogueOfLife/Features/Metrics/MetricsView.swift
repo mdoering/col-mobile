@@ -9,7 +9,7 @@ struct MetricsView: View {
             content
                 .navigationTitle("Metrics")
         }
-        .task {
+        .task(id: appState.selectedDataset?.key) {
             if vm == nil {
                 vm = MetricsViewModel(client: APIClientLive(),
                                        getDatasetKey: { [appState] in appState.selectedDataset?.key })

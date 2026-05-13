@@ -13,7 +13,7 @@ struct SourcesView: View {
                     SourceDetailView(sourceKey: key)
                 }
         }
-        .task {
+        .task(id: appState.selectedDataset?.key) {
             if vm == nil {
                 vm = SourcesViewModel(client: APIClientLive(),
                                       getDatasetKey: { [appState] in appState.selectedDataset?.key })

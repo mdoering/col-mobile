@@ -32,7 +32,8 @@ struct TreeView: View {
             .navigationDestination(item: $nextLeafId) { id in
                 TaxonDetailView(taxonId: id)
             }
-            .task {
+            // Re-fire when the resolved dataset key arrives (cold-launch race) or changes.
+            .task(id: appState.selectedDataset?.key) {
                 if vm == nil {
                     vm = TreeViewModel(parentId: rootParentId,
                                         parentName: rootParentName,

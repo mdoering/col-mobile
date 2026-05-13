@@ -29,8 +29,10 @@ final class TreeViewModel {
     }
 
     func load() async {
+        // If the dataset isn't resolved yet (cold launch — AppState.loadReleases() still in flight),
+        // show a loading spinner and wait for the view to re-fire when the key arrives.
         guard let key = getDatasetKey() else {
-            state = .failed(.server(status: -1))
+            state = .loading
             return
         }
         state = .loading

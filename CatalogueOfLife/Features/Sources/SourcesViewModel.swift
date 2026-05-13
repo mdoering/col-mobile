@@ -23,8 +23,10 @@ final class SourcesViewModel {
     }
 
     func load() async {
+        // Cold-launch race: AppState.loadReleases() may not have resolved yet. Stay in
+        // .loading and rely on the view's `.task(id: …key)` to re-fire when the key arrives.
         guard let key = getDatasetKey() else {
-            state = .failed(.server(status: -1))
+            state = .loading
             return
         }
         state = .loading
