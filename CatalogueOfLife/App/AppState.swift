@@ -104,13 +104,10 @@ final class AppState {
         return Locale.current.language.languageCode?.identifier(.alpha3)
     }
 
-    /// True only when the user has selected the latest extended (3LXR) or base (3LR) release.
-    /// GBIF's COL checklist tracks identifiers from those two specific releases.
-    var gbifAvailable: Bool {
-        let k = selectedDatasetKey
-        return (latestExtendedKey.map { $0 == k } ?? false)
-            || (latestBaseKey.map { $0 == k } ?? false)
-    }
+    /// CoL identifiers have been stable since COL21 (2021), so GBIF's COL
+    /// checklist can resolve every taxon in every release we expose. Kept as
+    /// a property to keep call sites flexible if that ever changes.
+    var gbifAvailable: Bool { true }
 
     init(client: APIClient, defaults: UserDefaults = .standard) {
         self.client = client

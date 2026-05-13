@@ -113,15 +113,7 @@ struct TaxonDetailView: View {
                         RemarksView(title: "Remarks", text: r)
                     }
                     Divider()
-                    if appState.gbifAvailable {
-                        GBIFSectionView(taxonId: info.taxonId)
-                    } else {
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("Occurrences (GBIF)").font(.headline)
-                            Text("GBIF occurrence data is linked only for the latest CoL releases (3LR · 3LXR). Switch the release in About → Preferences to see it.")
-                                .font(.caption).foregroundStyle(.secondary)
-                        }
-                    }
+                    GBIFSectionView(taxonId: info.taxonId)
                     if let key = appState.selectedDataset?.key,
                        let url = URL(string: "https://www.checklistbank.org/dataset/\(key)/taxon/\(info.taxonId)") {
                         Divider()

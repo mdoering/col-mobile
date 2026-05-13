@@ -91,9 +91,9 @@ struct AboutView: View {
             Text("Identifiers").font(.headline)
             Text("""
             Each taxon in COL has a short alphanumeric identifier (e.g. CS5HF). \
-            Identifiers in the latest extended release (3LXR) and the base release (3LR) \
-            are stable and tracked by GBIF. Identifiers in older annual releases differ \
-            and may not resolve elsewhere.
+            Identifiers have been stable across releases since COL21 (2021) and \
+            are tracked by GBIF, so a taxon ID resolves the same way in every \
+            release this app exposes.
             """)
                 .font(.callout)
         }
