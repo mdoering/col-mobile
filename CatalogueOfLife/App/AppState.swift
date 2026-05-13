@@ -74,7 +74,16 @@ final class AppState {
 
     var hasValidUserEmail: Bool {
         guard let e = userEmail?.trimmingCharacters(in: .whitespacesAndNewlines), !e.isEmpty else { return false }
-        return e.contains("@") && e.contains(".")
+        return Self.isValidEmail(e)
+    }
+
+    /// Validate against a pragmatic email regex: one or more allowed local-part chars,
+    /// `@`, a domain with at least one dot, and a 2+ letter TLD. Trims whitespace.
+    nonisolated static func isValidEmail(_ s: String) -> Bool {
+        let trimmed = s.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return false }
+        let pattern = #"^[A-Z0-9a-z._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$"#
+        return trimmed.range(of: pattern, options: .regularExpression) != nil
     }
 
     var selectedDataset: DatasetRef? {

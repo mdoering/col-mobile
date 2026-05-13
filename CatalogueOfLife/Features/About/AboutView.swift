@@ -161,24 +161,37 @@ struct AboutView: View {
                 ReleasePicker()
             }
             HStack {
-                Text("Common-name language").font(.callout)
+                Text("Common name").font(.callout)
                 Spacer()
                 PreferredLanguagePicker()
             }
             HStack {
                 Text("Your email").font(.callout)
                 Spacer()
-                TextField("you@example.com", text: Binding(
-                    get: { appState.userEmail ?? "" },
-                    set: { appState.userEmail = $0.isEmpty ? nil : $0 }
-                ))
-                .keyboardType(.emailAddress)
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
-                .multilineTextAlignment(.trailing)
-                .frame(maxWidth: 220)
+                emailField
             }
         }
+    }
+
+    private var emailField: some View {
+        @Bindable var appState = appState
+        let binding = Binding<String>(
+            get: { appState.userEmail ?? "" },
+            set: { appState.userEmail = $0.isEmpty ? nil : $0 }
+        )
+        let invalid = !binding.wrappedValue.isEmpty && !AppState.isValidEmail(binding.wrappedValue)
+        return TextField(
+            text: binding,
+            prompt: Text("you@example.com").foregroundStyle(.tertiary)
+        ) {
+            Text("Email")
+        }
+        .keyboardType(.emailAddress)
+        .textInputAutocapitalization(.never)
+        .autocorrectionDisabled()
+        .multilineTextAlignment(.trailing)
+        .foregroundStyle(invalid ? Color.red : Color.primary)
+        .frame(maxWidth: 220)
     }
 
     @ViewBuilder
