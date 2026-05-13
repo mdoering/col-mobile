@@ -24,22 +24,15 @@ def fetch_json(url: str):
 def main() -> int:
     BUNDLE_DIR.mkdir(parents=True, exist_ok=True)
 
+    # releasedFrom=3 scopes to releases of the official COL project (key 3),
+    # excluding private user snapshots that share the same `origin` value.
     releases = []
     for origin in ["release", "xrelease"]:
-        page = fetch_json(f"{API}/dataset?origin={origin}&limit=200")
+        page = fetch_json(f"{API}/dataset?releasedFrom=3&origin={origin}&limit=200")
         for r in (page.get("result") or []):
-            # Skip non-public/private/test releases that leak into the listing.
-            # The official CoL release of every year has access PUBLIC; user
-            # snapshots are PRIVATE or have alias prefixes like "Markus".
-            if r.get("access") and r.get("access") != "PUBLIC":
-                continue
-            title = (r.get("title") or "")
-            alias = (r.get("alias") or "")
-            if "test" in title.lower() or "test" in alias.lower():
-                continue
             releases.append({
                 "key": r.get("key"),
-                "alias": alias,
+                "alias": r.get("alias"),
                 "issued": r.get("issued"),
                 "origin": origin,
             })

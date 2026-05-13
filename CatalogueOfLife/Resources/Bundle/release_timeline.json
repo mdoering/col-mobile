@@ -247,58 +247,6 @@
     "species": 2232257
   },
   {
-    "alias": "ZA National list-2025-09-13",
-    "displayName": "ZA National list-2025-09-13",
-    "datasetKey": 312272,
-    "issued": "2025-09-13",
-    "origin": "release",
-    "taxonCount": 99317,
-    "nameCount": 137592,
-    "synonymCount": 38275,
-    "families": 2563,
-    "genera": 14389,
-    "species": 64243
-  },
-  {
-    "alias": "ZA National list-2025-09-13",
-    "displayName": "ZA National list-2025-09-13",
-    "datasetKey": 312275,
-    "issued": "2025-09-13",
-    "origin": "release",
-    "taxonCount": 99317,
-    "nameCount": 137592,
-    "synonymCount": 38275,
-    "families": 2563,
-    "genera": 14389,
-    "species": 64243
-  },
-  {
-    "alias": "ZA National list-2025-09-13",
-    "displayName": "ZA National list-2025-09-13",
-    "datasetKey": 312278,
-    "issued": "2025-09-13",
-    "origin": "release",
-    "taxonCount": 99072,
-    "nameCount": 99072,
-    "synonymCount": 0,
-    "families": 2617,
-    "genera": 14519,
-    "species": 64436
-  },
-  {
-    "alias": "ZA National list-2025-09-13",
-    "displayName": "ZA National list-2025-09-13",
-    "datasetKey": 312283,
-    "issued": "2025-09-13",
-    "origin": "release",
-    "taxonCount": 99073,
-    "nameCount": 99073,
-    "synonymCount": 0,
-    "families": 2617,
-    "genera": 14519,
-    "species": 64436
-  },
-  {
     "alias": "COL25.9 XR",
     "displayName": "COL25.9 XR",
     "datasetKey": 312361,
@@ -336,32 +284,6 @@
     "families": 21799,
     "genera": 361139,
     "species": 2539898
-  },
-  {
-    "alias": "Banco Taxon\u00f4mico Integrado da Biodiversidade Brasileira - Flora, Funga e Fauna-2025-10-25",
-    "displayName": "Banco Taxon\u00f4mico Integrado da Biodiversidade Brasileira - Flora, Funga e Fauna-2025-10-25",
-    "datasetKey": 312898,
-    "issued": "2025-10-25",
-    "origin": "release",
-    "taxonCount": 248612,
-    "nameCount": 348722,
-    "synonymCount": 100110,
-    "families": 4093,
-    "genera": 36652,
-    "species": 188025
-  },
-  {
-    "alias": "Banco Taxon\u00f4mico Integrado da Biodiversidade Brasileira - Flora, Funga e Fauna-2025-10-27",
-    "displayName": "Banco Taxon\u00f4mico Integrado da Biodiversidade Brasileira - Flora, Funga e Fauna-2025-10-27",
-    "datasetKey": 312904,
-    "issued": "2025-10-27",
-    "origin": "xrelease",
-    "taxonCount": 248593,
-    "nameCount": 348722,
-    "synonymCount": 100129,
-    "families": 4093,
-    "genera": 36652,
-    "species": 188006
   },
   {
     "alias": "COL25.11",
