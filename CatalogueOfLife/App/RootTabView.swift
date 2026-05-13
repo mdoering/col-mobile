@@ -12,6 +12,14 @@ struct RootTabView: View {
             NavigationStack {
                 TreeView()
                     .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Image("CoLLogo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 28, height: 28)
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                                .accessibilityLabel("Catalogue of Life")
+                        }
                         ToolbarItem(placement: .topBarTrailing) {
                             Button {
                                 showingFavorites = true
