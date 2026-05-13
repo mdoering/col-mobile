@@ -130,7 +130,7 @@ struct TaxonDetailView: View {
             }
             ToolbarItem(placement: .principal) {
                 if case let .loaded(info) = vm?.state {
-                    Text("COL:\(info.taxonId)")
+                    Text(info.taxonId)
                         .font(.system(.caption, design: .monospaced))
                         .foregroundStyle(.secondary)
                         .textSelection(.enabled)
@@ -139,8 +139,6 @@ struct TaxonDetailView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 if case let .loaded(info) = vm?.state {
                     HStack(spacing: 8) {
-                        GroupIcon(code: info.group, size: 22)
-
                         Button {
                             showingFeedback = true
                         } label: {

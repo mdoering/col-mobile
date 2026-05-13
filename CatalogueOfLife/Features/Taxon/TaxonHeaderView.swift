@@ -6,8 +6,6 @@ struct TaxonHeaderView: View {
     let preferredVernacular: VernacularName?
 
     var body: some View {
-        // Group icon moved to the toolbar (top-right) — the header now leads
-        // with the scientific name itself, so long names get the full width.
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .firstTextBaseline, spacing: 4) {
                 if info.extinct {
@@ -29,6 +27,10 @@ struct TaxonHeaderView: View {
                         .background(.purple.opacity(0.18), in: Capsule())
                         .foregroundStyle(.purple)
                 }
+                Spacer(minLength: 8)
+                // Group icon pinned to the trailing edge of the header row —
+                // visually aligned beneath the favorites star in the toolbar.
+                GroupIcon(code: info.group, size: 28)
             }
             .contextMenu {
                 Button {
