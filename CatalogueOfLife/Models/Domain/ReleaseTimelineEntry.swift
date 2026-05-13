@@ -5,6 +5,7 @@ struct ReleaseTimelineEntry: Codable, Equatable, Identifiable, Sendable {
     let displayName: String
     let datasetKey: Int?
     let issued: String?           // ISO date, e.g. "2025-06-13"
+    let origin: String            // "release" or "xrelease"
     let taxonCount: Int
     let nameCount: Int
     let synonymCount: Int
@@ -12,7 +13,7 @@ struct ReleaseTimelineEntry: Codable, Equatable, Identifiable, Sendable {
     let genera: Int
     let species: Int
 
-    var id: String { alias }
+    var id: String { "\(origin):\(alias)" }
 
     /// Parses the ISO date into a `Date` (date-only). Returns nil if unparseable.
     var issuedDate: Date? {
@@ -23,6 +24,23 @@ struct ReleaseTimelineEntry: Codable, Equatable, Identifiable, Sendable {
         f.locale = Locale(identifier: "en_US_POSIX")
         f.timeZone = TimeZone(secondsFromGMT: 0)
         return f.date(from: issued)
+    }
+
+    // Custom decoder to default `origin` to "release" when reading older JSON
+    // that predates the field (e.g. from a cached bundle).
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        alias        = try c.decode(String.self, forKey: .alias)
+        displayName  = try c.decode(String.self, forKey: .displayName)
+        datasetKey   = try c.decodeIfPresent(Int.self, forKey: .datasetKey)
+        issued       = try c.decodeIfPresent(String.self, forKey: .issued)
+        origin       = try c.decodeIfPresent(String.self, forKey: .origin) ?? "release"
+        taxonCount   = try c.decode(Int.self, forKey: .taxonCount)
+        nameCount    = try c.decode(Int.self, forKey: .nameCount)
+        synonymCount = try c.decode(Int.self, forKey: .synonymCount)
+        families     = try c.decode(Int.self, forKey: .families)
+        genera       = try c.decode(Int.self, forKey: .genera)
+        species      = try c.decode(Int.self, forKey: .species)
     }
 }
 

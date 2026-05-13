@@ -4,6 +4,15 @@ import Charts
 struct ReleaseTimelineChart: View {
     let entries: [ReleaseTimelineEntry]
 
+    enum Mode: String, CaseIterable, Identifiable {
+        case base = "Base"
+        case extended = "Extended"
+        var id: String { rawValue }
+        var origin: String { self == .base ? "release" : "xrelease" }
+    }
+
+    @State private var mode: Mode = .base
+
     enum Series: String, CaseIterable, Identifiable, Sendable {
         case species = "Species"
         case genera = "Genera"
@@ -20,8 +29,12 @@ struct ReleaseTimelineChart: View {
         var id: String { "\(entry.id)-\(series.rawValue)" }
     }
 
+    private var filteredEntries: [ReleaseTimelineEntry] {
+        entries.filter { $0.origin == mode.origin }
+    }
+
     private var points: [Point] {
-        entries.flatMap { entry in
+        filteredEntries.flatMap { entry in
             [
                 Point(entry: entry, series: .species,  value: entry.species),
                 Point(entry: entry, series: .genera,   value: entry.genera),
@@ -36,25 +49,38 @@ struct ReleaseTimelineChart: View {
             EmptyView()
         } else {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Release timeline").font(.headline)
-                Chart {
-                    ForEach(points) { p in
-                        if let date = p.entry.issuedDate {
-                            LineMark(
-                                x: .value("Issued", date),
-                                y: .value("Count", p.value)
-                            )
-                            .foregroundStyle(by: .value("Series", p.series.rawValue))
-                            .symbol(by: .value("Series", p.series.rawValue))
+                HStack {
+                    Text("Release timeline").font(.headline)
+                    Spacer()
+                    Picker("", selection: $mode) {
+                        ForEach(Mode.allCases) { m in Text(m.rawValue).tag(m) }
+                    }
+                    .pickerStyle(.segmented)
+                    .fixedSize()
+                }
+                if filteredEntries.isEmpty {
+                    Text("No \(mode.rawValue.lowercased()) releases available.")
+                        .font(.caption).foregroundStyle(.secondary)
+                } else {
+                    Chart {
+                        ForEach(points) { p in
+                            if let date = p.entry.issuedDate {
+                                LineMark(
+                                    x: .value("Issued", date),
+                                    y: .value("Count", p.value)
+                                )
+                                .foregroundStyle(by: .value("Series", p.series.rawValue))
+                                .symbol(by: .value("Series", p.series.rawValue))
+                            }
                         }
                     }
+                    .chartYScale(type: .log)
+                    .chartYAxis {
+                        AxisMarks(position: .leading)
+                    }
+                    .chartLegend(position: .bottom)
+                    .frame(height: 240)
                 }
-                .chartYScale(type: .log)
-                .chartYAxis {
-                    AxisMarks(position: .leading)
-                }
-                .chartLegend(position: .bottom)
-                .frame(height: 240)
             }
         }
     }
