@@ -3,14 +3,51 @@ import SwiftUI
 struct SynonymyView: View {
     let groups: [SynonymyGroup]
 
+    private static let defaultLimit = 4
+
+    @State private var expanded = false
+
+    private var totalEntries: Int {
+        groups.reduce(0) { $0 + $1.entries.count }
+    }
+
+    /// Truncate to at most `limit` entries while preserving group order.
+    /// Each group's `entries` may be partially shown.
+    private func truncated(limit: Int) -> [SynonymyGroup] {
+        var remaining = limit
+        var out: [SynonymyGroup] = []
+        for group in groups {
+            if remaining <= 0 { break }
+            let take = min(remaining, group.entries.count)
+            if take < group.entries.count {
+                out.append(SynonymyGroup(id: group.id, kind: group.kind, entries: Array(group.entries.prefix(take))))
+            } else {
+                out.append(group)
+            }
+            remaining -= take
+        }
+        return out
+    }
+
     var body: some View {
         if groups.isEmpty {
             EmptyView()
         } else {
+            let visible = expanded ? groups : truncated(limit: Self.defaultLimit)
             VStack(alignment: .leading, spacing: 8) {
                 Text("Synonyms and combinations").font(.headline)
-                ForEach(groups) { group in
+                ForEach(visible) { group in
                     groupView(group)
+                }
+                if totalEntries > Self.defaultLimit {
+                    Button {
+                        expanded.toggle()
+                    } label: {
+                        Text(expanded ? "Show fewer" : "Show all \(totalEntries) synonyms")
+                            .font(.caption)
+                    }
+                    .buttonStyle(.borderless)
+                    .padding(.top, 4)
                 }
             }
         }

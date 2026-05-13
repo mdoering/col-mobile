@@ -40,14 +40,33 @@ struct SourceDetailView: View {
         case .loaded(let source):
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    SourceRowView(source: source)
-                    if let citation = source.citation {
-                        section("Citation") { Text(citation).font(.callout) }
-                    }
+                    logoBanner(source)
+                    titleBlock(source)
                     if let description = source.description {
                         section("Description") { Text(description).font(.callout) }
                     }
+                    if let citation = source.citation {
+                        section("Citation") {
+                            HTMLText(html: citation)
+                                .font(.callout)
+                                .textSelection(.enabled)
+                        }
+                    }
                     metadata(source)
+                    if let publisher = source.publisher {
+                        HStack(alignment: .firstTextBaseline) {
+                            Text("Publisher").font(.caption).foregroundStyle(.secondary).frame(width: 130, alignment: .leading)
+                            Text(publisher).font(.callout)
+                        }
+                    }
+                    Link(destination: URL(string: "https://www.checklistbank.org/dataset/\(source.key)")!) {
+                        HStack {
+                            Image(systemName: "arrow.up.right.square")
+                            Text("View on ChecklistBank")
+                        }
+                        .font(.callout)
+                        .padding(.top, 4)
+                    }
                 }
                 .padding()
             }
@@ -57,6 +76,31 @@ struct SourceDetailView: View {
                                    description: Text(String(describing: err)))
         case .loading:
             ProgressView()
+        }
+    }
+
+    @ViewBuilder
+    private func logoBanner(_ source: Source) -> some View {
+        if let url = source.logoURL {
+            AsyncImage(url: url) { phase in
+                switch phase {
+                case .success(let img):
+                    img.resizable().scaledToFit()
+                default:
+                    Color.clear
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: 140)
+            .frame(maxWidth: .infinity)
+        }
+    }
+
+    private func titleBlock(_ source: Source) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(source.title).font(.title3).bold()
+            if let alias = source.alias {
+                Text(alias).font(.caption).foregroundStyle(.secondary)
+            }
         }
     }
 

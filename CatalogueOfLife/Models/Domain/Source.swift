@@ -14,6 +14,7 @@ struct Source: Equatable, Hashable, Identifiable, Sendable {
     let description: String?
     let websiteURL: URL?
     let doi: String?
+    let publisher: String?
 
     var id: Int { key }
 }
@@ -33,7 +34,14 @@ extension Source {
             geographicScope: dto.geographicScope,
             description: dto.description,
             websiteURL: dto.url.flatMap(URL.init(string:)),
-            doi: dto.doi
+            doi: dto.doi,
+            publisher: Self.formatPublisher(dto.contact)
         )
+    }
+
+    private static func formatPublisher(_ p: SourceDTO.PersonDTO?) -> String? {
+        guard let p else { return nil }
+        let name = p.organisation ?? [p.given, p.family].compactMap { $0 }.joined(separator: " ")
+        return name.isEmpty ? nil : name
     }
 }
