@@ -3,6 +3,7 @@ import UIKit
 
 struct AboutView: View {
     @Environment(AppState.self) private var appState
+    @FocusState private var emailFocused: Bool
 
     var body: some View {
         NavigationStack {
@@ -17,11 +18,6 @@ struct AboutView: View {
                     Divider()
                     preferencesSection
                         .padding(.horizontal, 20)
-                    #if DEBUG
-                    Divider()
-                    debugSection
-                        .padding(.horizontal, 20)
-                    #endif
                     versionFooter
                         .padding(.horizontal, 20)
                 }
@@ -33,53 +29,6 @@ struct AboutView: View {
         }
     }
 
-    #if DEBUG
-    private var debugSection: some View {
-        @Bindable var appState = appState
-        return VStack(alignment: .leading, spacing: 8) {
-            Text("Debug").font(.headline)
-            HStack {
-                Text("GBIF map style").font(.callout)
-                Spacer()
-                Picker("GBIF map style", selection: $appState.gbifMapStyle) {
-                    ForEach(GBIFEndpoints.availableMapTileStyles, id: \.self) { style in
-                        Text(style).tag(style)
-                    }
-                }
-                .pickerStyle(.menu).labelsHidden()
-            }
-            HStack {
-                Text("GBIF tile resolution").font(.callout)
-                Spacer()
-                Picker("GBIF tile resolution", selection: $appState.gbifTileResolution) {
-                    Text("@1x · 512px").tag("1x")
-                    Text("@2x · 1024px").tag("2x")
-                }
-                .pickerStyle(.menu).labelsHidden()
-            }
-            HStack {
-                Text("Apple base map").font(.callout)
-                Spacer()
-                Picker("Apple base map", selection: $appState.mapBaseStyle) {
-                    Text("Standard").tag("standard")
-                    Text("Standard Muted").tag("standardMuted")
-                    Text("Hybrid").tag("hybrid")
-                    Text("Imagery").tag("imagery")
-                }
-                .pickerStyle(.menu).labelsHidden()
-            }
-            HStack {
-                Text("Elevation").font(.callout)
-                Spacer()
-                Picker("Elevation", selection: $appState.mapElevation) {
-                    Text("Flat").tag("flat")
-                    Text("Realistic").tag("realistic")
-                }
-                .pickerStyle(.menu).labelsHidden()
-            }
-        }
-    }
-    #endif
 
     private var headerTitle: String {
         if let alias = appState.selectedDataset?.alias, !alias.isEmpty {
@@ -169,6 +118,27 @@ struct AboutView: View {
                 Spacer()
                 emailField
             }
+            HStack {
+                Text("Apple base map").font(.callout)
+                Spacer()
+                Picker("Apple base map", selection: $appState.mapBaseStyle) {
+                    Text("Standard").tag("standard")
+                    Text("Standard Muted").tag("standardMuted")
+                    Text("Hybrid").tag("hybrid")
+                    Text("Imagery").tag("imagery")
+                }
+                .pickerStyle(.menu).labelsHidden()
+            }
+            HStack {
+                Text("GBIF map color").font(.callout)
+                Spacer()
+                Picker("GBIF map color", selection: $appState.gbifMapStyle) {
+                    ForEach(GBIFEndpoints.availableMapTileStyles, id: \.value) { entry in
+                        Text(entry.label).tag(entry.value)
+                    }
+                }
+                .pickerStyle(.menu).labelsHidden()
+            }
         }
     }
 
@@ -178,7 +148,13 @@ struct AboutView: View {
             get: { appState.userEmail ?? "" },
             set: { appState.userEmail = $0.isEmpty ? nil : $0 }
         )
-        let invalid = !binding.wrappedValue.isEmpty && !AppState.isValidEmail(binding.wrappedValue)
+        let value = binding.wrappedValue
+        let isEmpty = value.isEmpty
+        let isValid = !isEmpty && AppState.isValidEmail(value)
+        // Empty → no foreground colour matters (placeholder is .tertiary grey).
+        // Valid → blue, signalling a real stored value.
+        // Invalid → red while typing, then cleared on commit/blur.
+        let color: Color = isEmpty ? .primary : (isValid ? .blue : .red)
         return TextField(
             text: binding,
             prompt: Text("you@example.com").foregroundStyle(.tertiary)
@@ -189,8 +165,20 @@ struct AboutView: View {
         .textInputAutocapitalization(.never)
         .autocorrectionDisabled()
         .multilineTextAlignment(.trailing)
-        .foregroundStyle(invalid ? Color.red : Color.primary)
+        .foregroundStyle(color)
+        .focused($emailFocused)
+        .onSubmit { discardInvalidEmail() }
+        .onChange(of: emailFocused) { _, focused in
+            if !focused { discardInvalidEmail() }
+        }
         .frame(maxWidth: 220)
+    }
+
+    /// Clear `userEmail` if the user finished editing on an invalid string.
+    /// Keeps the persisted value in a known-clean state ("valid email" or nil).
+    private func discardInvalidEmail() {
+        guard let v = appState.userEmail, !v.isEmpty else { return }
+        if !AppState.isValidEmail(v) { appState.userEmail = nil }
     }
 
     @ViewBuilder

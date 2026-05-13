@@ -7,20 +7,18 @@ enum GBIFEndpoints {
     /// `checklistKey` on any GBIF endpoint routes the taxon lookups through CoL.
     static let colChecklistKey = "7ddf754f-d193-4cc9-b351-99906754a03b"
 
-    /// Default map tile style. Users can pick a different one in About → Preferences.
-    static let defaultMapTileStyle = "classic.point"
+    /// Default map tile style. Users can pick a different one in About → GBIF map.
+    static let defaultMapTileStyle = "purpleHeat.point"
 
-    /// Styles available in the GBIF density tile API that we expose in the settings picker.
-    static let availableMapTileStyles: [String] = [
-        "classic.point",
-        "iNaturalist.poly",
-        "fire.point",
-        "purpleHeat.point",
-        "blueHeat.point",
-        "glacier.point",
-        "orange.marker",
-        "blue.marker",
-        "scaled.circles",
+    /// Styles exposed in the About → GBIF map → Color picker, paired with the
+    /// friendly label we show in the menu. Order is preserved in the UI.
+    static let availableMapTileStyles: [(label: String, value: String)] = [
+        ("pink",    "purpleHeat.point"),
+        ("blue",    "blueHeat.point"),
+        ("orange",  "orangeHeat.point"),
+        ("red",     "red.poly"),
+        ("poly",    "classic.poly"),
+        ("classic", "classic.point"),
     ]
 
     /// `GET /v1/occurrence/search` — used for metrics (limit=0 + facets) and image fetch (mediaType=StillImage).

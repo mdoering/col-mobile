@@ -6,16 +6,16 @@ import MapKit
 struct GBIFMapView: UIViewRepresentable {
     let taxonId: String
     let style: String
-    /// GBIF tile resolution: "1x" (512×512) or "2x" (1024×1024).
-    var resolution: String = "1x"
     /// Apple base-map style: "standard", "standardMuted", "hybrid", "imagery".
-    var baseStyle: String = "standard"
-    /// Elevation style: "flat" or "realistic".
-    var elevation: String = "flat"
+    var baseStyle: String = "hybrid"
     /// Initial region to frame. Nil = leave at MKMapView's default. The region is
     /// applied once on creation and re-applied if the taxon (and therefore the
     /// region) changes, so the user can still pan/zoom afterwards.
     var initialRegion: MKCoordinateRegion?
+
+    /// GBIF tile resolution is fixed to "1x" (512×512). "2x" doubled bandwidth
+    /// for a marginal visual difference at typical zoom levels.
+    private let resolution = "1x"
 
     func makeUIView(context: Context) -> MKMapView {
         let map = MKMapView()
@@ -72,7 +72,9 @@ struct GBIFMapView: UIViewRepresentable {
     }
 
     private func mapConfiguration() -> MKMapConfiguration {
-        let elev: MKMapConfiguration.ElevationStyle = (elevation == "realistic") ? .realistic : .flat
+        // Elevation is always flat — realistic 3-D adds a lot of CPU/GPU work
+        // without buying clarity for occurrence-density overlays.
+        let elev: MKMapConfiguration.ElevationStyle = .flat
         switch baseStyle {
         case "hybrid":
             return MKHybridMapConfiguration(elevationStyle: elev)

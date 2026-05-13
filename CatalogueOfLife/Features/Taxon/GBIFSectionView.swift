@@ -39,9 +39,7 @@ struct GBIFSectionView: View {
             GBIFMapView(
                 taxonId: taxonId,
                 style: appState.gbifMapStyle,
-                resolution: appState.gbifTileResolution,
                 baseStyle: appState.mapBaseStyle,
-                elevation: appState.mapElevation,
                 initialRegion: inlineMapRegion
             )
             .frame(height: 180)

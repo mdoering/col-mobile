@@ -12,9 +12,7 @@ struct GBIFMapFullScreenView: View {
             GBIFMapView(
                 taxonId: taxonId,
                 style: appState.gbifMapStyle,
-                resolution: appState.gbifTileResolution,
-                baseStyle: appState.mapBaseStyle,
-                elevation: appState.mapElevation
+                baseStyle: appState.mapBaseStyle
             )
             .ignoresSafeArea()
 

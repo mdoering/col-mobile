@@ -45,24 +45,16 @@ final class AppState {
         }
     }
 
-    /// GBIF map tile style. One of `GBIFEndpoints.availableMapTileStyles`.
+    /// GBIF map tile style — the raw `style` query value sent to the density tile
+    /// endpoint (e.g. `purpleHeat.point`). One of the `value`s in
+    /// `GBIFEndpoints.availableMapTileStyles`.
     var gbifMapStyle: String {
         didSet { defaults.set(gbifMapStyle, forKey: Keys.gbifMapStyle) }
     }
 
-    /// GBIF tile resolution suffix: "1x" (512×512) or "2x" (1024×1024).
-    var gbifTileResolution: String {
-        didSet { defaults.set(gbifTileResolution, forKey: Keys.gbifTileResolution) }
-    }
-
-    /// Base-map style for MKMapView: "standard", "standardMuted", "hybrid", "imagery".
+    /// Apple base-map style for MKMapView: "standard", "standardMuted", "hybrid", "imagery".
     var mapBaseStyle: String {
         didSet { defaults.set(mapBaseStyle, forKey: Keys.mapBaseStyle) }
-    }
-
-    /// MKMapConfiguration elevation style: "flat" or "realistic".
-    var mapElevation: String {
-        didSet { defaults.set(mapElevation, forKey: Keys.mapElevation) }
     }
 
     /// Active tab index. Bindable from RootTabView's TabView selection.
@@ -112,18 +104,13 @@ final class AppState {
         self.selectedDatasetKey = defaults.integer(forKey: Keys.selectedDatasetKey)
         self.preferredVernacularLang = defaults.string(forKey: Keys.preferredVernacularLang)
         self.userEmail = defaults.string(forKey: Keys.userEmail)
+        let validStyleValues = Set(GBIFEndpoints.availableMapTileStyles.map(\.value))
         let storedStyle = defaults.string(forKey: Keys.gbifMapStyle)
-        self.gbifMapStyle = (storedStyle.map { GBIFEndpoints.availableMapTileStyles.contains($0) ? $0 : nil } ?? nil)
+        self.gbifMapStyle = (storedStyle.map { validStyleValues.contains($0) ? $0 : nil } ?? nil)
             ?? GBIFEndpoints.defaultMapTileStyle
-        self.gbifTileResolution = defaults.string(forKey: Keys.gbifTileResolution).map {
-            ["1x", "2x"].contains($0) ? $0 : "1x"
-        } ?? "1x"
         self.mapBaseStyle = defaults.string(forKey: Keys.mapBaseStyle).map {
-            ["standard", "standardMuted", "hybrid", "imagery"].contains($0) ? $0 : "standard"
-        } ?? "standard"
-        self.mapElevation = defaults.string(forKey: Keys.mapElevation).map {
-            ["flat", "realistic"].contains($0) ? $0 : "flat"
-        } ?? "flat"
+            ["standard", "standardMuted", "hybrid", "imagery"].contains($0) ? $0 : "hybrid"
+        } ?? "hybrid"
     }
 
     private static let pickerSpec: [(alias: String, display: String)] = [
@@ -174,8 +161,6 @@ final class AppState {
         static let preferredVernacularLang = "preferredVernacularLang"
         static let userEmail = "userEmail"
         static let gbifMapStyle = "gbifMapStyle"
-        static let gbifTileResolution = "gbifTileResolution"
         static let mapBaseStyle = "mapBaseStyle"
-        static let mapElevation = "mapElevation"
     }
 }
