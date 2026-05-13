@@ -62,7 +62,14 @@ struct TreeView: View {
                 List(nodes) { node in
                     HStack(spacing: 8) {
                         Button {
-                            nextLeafId = node.id
+                            if node.isPlaceholder {
+                                // Synthetic "Not assigned" pseudo-node — drill
+                                // into its children instead of opening a detail.
+                                nextParentName = node.name
+                                nextParentId = node.id
+                            } else {
+                                nextLeafId = node.id
+                            }
                         } label: {
                             TreeRowView(node: node)
                                 .contentShape(Rectangle())

@@ -50,7 +50,14 @@ enum Endpoints {
         var path = "dataset/\(datasetKey)/tree"
         if let parentId { path += "/\(parentId)/children" }
         var c = URLComponents(url: baseURL.appending(path: path), resolvingAgainstBaseURL: false)!
-        c.queryItems = [URLQueryItem(name: "limit", value: String(limit))]
+        // `insertPlaceholder=true` asks the server to synthesise "Not assigned"
+        // pseudo-nodes (id ends in --incertae-sedis--RANK) so the tree always
+        // shows children of a single rank under each parent. The placeholders
+        // are navigable like real taxa but must not open as taxon details.
+        c.queryItems = [
+            URLQueryItem(name: "limit", value: String(limit)),
+            URLQueryItem(name: "insertPlaceholder", value: "true"),
+        ]
         return c.url!
     }
 

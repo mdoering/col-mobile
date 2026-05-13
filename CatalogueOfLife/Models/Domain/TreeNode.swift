@@ -10,6 +10,13 @@ struct TreeNode: Equatable, Identifiable, Sendable {
     let childCount: Int
 
     var isLeaf: Bool { childCount == 0 }
+
+    /// True when the API returned a synthetic "Not assigned" pseudo-node for
+    /// children that lack a parent at the next rank. Detected by the ID
+    /// suffix the server emits when `insertPlaceholder=true` is set on the
+    /// tree request, e.g. `CS5HF--incertae-sedis--KINGDOM`. Placeholders are
+    /// browsable like real taxa but must not open as taxon details.
+    var isPlaceholder: Bool { id.contains("--incertae-sedis--") }
 }
 
 extension TreeNode {
