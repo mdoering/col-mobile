@@ -4,6 +4,11 @@ struct SearchView: View {
     @Environment(AppState.self) private var appState
     @State private var vm: SearchViewModel?
     @State private var selectedTaxonId: String?
+    /// Local mirror of the search text. Decoupling it from `vm.query` (which is
+    /// `@Observable`) means typing no longer triggers a full body recompute of
+    /// `content` — the FilterMenus and results sub-tree only rebuild when the
+    /// VM state actually changes (submit, filter, etc.).
+    @State private var query: String = ""
 
     var body: some View {
         NavigationStack {
@@ -18,6 +23,7 @@ struct SearchView: View {
         .onChange(of: appState.pendingSearchGroup) { _, group in
             guard let group, let vm else { return }
             vm.query = ""
+            query = ""
             vm.rank = nil
             vm.status = nil
             vm.group = group
@@ -41,9 +47,12 @@ struct SearchView: View {
                 filterBar(vm: vm)
                 results(vm: vm)
             }
-            .searchable(text: $vm.query, prompt: "Scientific or vernacular name")
+            .searchable(text: $query, prompt: "Scientific or vernacular name")
             .submitLabel(.search)
-            .onSubmit(of: .search) { vm.submit() }
+            .onSubmit(of: .search) {
+                vm.query = query
+                vm.submit()
+            }
         } else {
             ProgressView()
         }
