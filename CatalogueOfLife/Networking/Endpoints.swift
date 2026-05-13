@@ -46,6 +46,16 @@ enum Endpoints {
             .appending(path: "info")
     }
 
+    /// `GET /dataset/{key}/name/{nameId}` — used to resolve a name relation's
+    /// `relatedNameId` into a human-readable label (scientific name + authorship).
+    static func name(datasetKey: Int, nameId: String) -> URL {
+        baseURL
+            .appending(path: "dataset")
+            .appending(path: "\(datasetKey)")
+            .appending(path: "name")
+            .appending(path: nameId)
+    }
+
     static func treeChildren(datasetKey: Int, parentId: String?, limit: Int = 100) -> URL {
         var path = "dataset/\(datasetKey)/tree"
         if let parentId { path += "/\(parentId)/children" }

@@ -70,6 +70,14 @@ actor APIClientLive: APIClient {
         return TaxonInfo(dto: dto)
     }
 
+    func getNameLabel(datasetKey: Int, nameId: String) async throws -> String? {
+        let dto = try await getJSON(Endpoints.name(datasetKey: datasetKey, nameId: nameId), as: NameDTO.self)
+        if let label = dto.label, !label.isEmpty { return label }
+        guard let sci = dto.scientificName, !sci.isEmpty else { return nil }
+        if let auth = dto.authorship, !auth.isEmpty { return "\(sci) \(auth)" }
+        return sci
+    }
+
     func getTreeChildren(datasetKey: Int, parentId: String?) async throws -> [TreeNode] {
         let url = Endpoints.treeChildren(datasetKey: datasetKey, parentId: parentId)
         let paged = try await getJSON(url, as: PagedDTO<TreeNodeDTO>.self)

@@ -66,6 +66,9 @@ struct TaxonInfoDTO: Decodable, Sendable {
         let type: String
         let usageId: String?
         let relatedUsageId: String?
+        /// Internal id of the *name* this relation points at — used to resolve
+        /// a human-readable label via `/dataset/{key}/name/{nameId}`.
+        let relatedNameId: String?
     }
 
     struct TypeMaterialDTO: Decodable, Sendable {

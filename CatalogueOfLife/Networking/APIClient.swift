@@ -6,6 +6,11 @@ protocol APIClient: Sendable {
     func searchNames(datasetKey: Int, q: String, rank: Rank?, status: TaxonStatus?, group: String?) async throws -> [SearchHit]
     func getTaxonInfo(datasetKey: Int, taxonId: String) async throws -> TaxonInfo
 
+    /// Resolve a name by id and return its human-readable label
+    /// (`scientificName + authorship` if available, falling back to the bare
+    /// scientific name). Used to label name-relation rows.
+    func getNameLabel(datasetKey: Int, nameId: String) async throws -> String?
+
     func getTreeChildren(datasetKey: Int, parentId: String?) async throws -> [TreeNode]
     func suggest(datasetKey: Int, q: String) async throws -> [TaxonSuggestion]
     func getClassification(datasetKey: Int, taxonId: String) async throws -> [ClassificationItem]

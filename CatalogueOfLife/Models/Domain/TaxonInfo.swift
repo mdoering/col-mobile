@@ -5,6 +5,7 @@ struct NameRelation: Equatable, Identifiable, Sendable {
     let id: String
     let type: String
     let relatedUsageId: String?
+    let relatedNameId: String?
 }
 
 struct TypeMaterialEntry: Equatable, Identifiable, Sendable {
@@ -63,7 +64,8 @@ extension TaxonInfo {
             NameRelation(
                 id: "\(r.usageId ?? "")-\(r.relatedUsageId ?? "")-\(idx)",
                 type: r.type,
-                relatedUsageId: r.relatedUsageId
+                relatedUsageId: r.relatedUsageId,
+                relatedNameId: r.relatedNameId
             )
         }
         let tm: [TypeMaterialEntry] = (dto.typeMaterial ?? [:])
