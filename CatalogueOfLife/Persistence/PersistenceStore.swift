@@ -4,10 +4,14 @@ import SwiftData
 enum PersistenceStore {
     @MainActor
     static let shared: ModelContainer = {
-        let schema = Schema([Favorite.self, RecentTaxon.self])
+        let schema = Schema(versionedSchema: PersistenceSchemaV1.self)
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         do {
-            return try ModelContainer(for: schema, configurations: [config])
+            return try ModelContainer(
+                for: schema,
+                migrationPlan: PersistenceMigrationPlan.self,
+                configurations: config
+            )
         } catch {
             fatalError("Failed to create persistent ModelContainer: \(error)")
         }
@@ -15,7 +19,7 @@ enum PersistenceStore {
 
     @MainActor
     static func makeInMemory() -> ModelContainer {
-        let schema = Schema([Favorite.self, RecentTaxon.self])
+        let schema = Schema(versionedSchema: PersistenceSchemaV1.self)
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
         return try! ModelContainer(for: schema, configurations: [config])
     }
