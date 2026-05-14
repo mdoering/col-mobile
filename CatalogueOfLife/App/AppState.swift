@@ -125,7 +125,7 @@ final class AppState {
     }
 
     private static let pickerSpec: [(alias: String, display: String)] = [
-        ("3LXR",    "Latest"),
+        ("3LXR",    "Latest Extended"),
         ("3LR",     "Latest Base"),
         ("COL2025", "COL 2025"),
         ("COL2024", "COL 2024"),
@@ -152,7 +152,7 @@ final class AppState {
         }
 
         self.availableReleases = choices
-        self.latestExtendedKey = choices.first(where: { $0.displayName == "Latest" })?.dataset.key
+        self.latestExtendedKey = choices.first(where: { $0.displayName == "Latest Extended" })?.dataset.key
         self.latestBaseKey = choices.first(where: { $0.displayName == "Latest Base" })?.dataset.key
 
         if !choices.contains(where: { $0.dataset.key == selectedDatasetKey }) {
