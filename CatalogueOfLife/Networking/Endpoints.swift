@@ -18,13 +18,14 @@ enum Endpoints {
         return c.url!
     }
 
-    static func nameSearch(datasetKey: Int, q: String, rank: Rank? = nil, status: TaxonStatus? = nil, group: String? = nil, taxonId: String? = nil, limit: Int = 25) -> URL {
+    static func nameSearch(datasetKey: Int, q: String, rank: Rank? = nil, status: TaxonStatus? = nil, group: String? = nil, taxonId: String? = nil, content: SearchContent = .scientific, limit: Int = 25) -> URL {
         var c = URLComponents(
             url: baseURL.appending(path: "dataset/\(datasetKey)/nameusage/search"),
             resolvingAgainstBaseURL: false
         )!
         var items: [URLQueryItem] = [
             URLQueryItem(name: "q", value: q),
+            URLQueryItem(name: "content", value: content.apiValue),
             URLQueryItem(name: "limit", value: String(limit))
         ]
         if let rank { items.append(URLQueryItem(name: "rank", value: rank.rawValue)) }

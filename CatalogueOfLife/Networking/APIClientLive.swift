@@ -59,8 +59,8 @@ actor APIClientLive: APIClient {
         let paged = try await getJSON(Endpoints.datasetList(), as: PagedDTO<DatasetDTO>.self)
         return paged.result.map(DatasetRef.init(dto:))
     }
-    func searchNames(datasetKey: Int, q: String, rank: Rank?, status: TaxonStatus?, group: String?, taxonId: String?) async throws -> [SearchHit] {
-        let url = Endpoints.nameSearch(datasetKey: datasetKey, q: q, rank: rank, status: status, group: group, taxonId: taxonId)
+    func searchNames(datasetKey: Int, q: String, rank: Rank?, status: TaxonStatus?, group: String?, taxonId: String?, content: SearchContent) async throws -> [SearchHit] {
+        let url = Endpoints.nameSearch(datasetKey: datasetKey, q: q, rank: rank, status: status, group: group, taxonId: taxonId, content: content)
         let paged = try await getJSON(url, as: PagedDTO<NameUsageSearchHitDTO>.self)
         return paged.result.map(SearchHit.init(dto:))
     }

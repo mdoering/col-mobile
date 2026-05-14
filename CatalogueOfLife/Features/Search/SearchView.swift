@@ -68,9 +68,11 @@ struct SearchView: View {
 
     private func ensureVM() {
         if vm == nil {
-            vm = SearchViewModel(client: APIClientLive()) { [appState] in
-                appState.selectedDataset?.key
-            }
+            vm = SearchViewModel(
+                client: APIClientLive(),
+                getDatasetKey: { [appState] in appState.selectedDataset?.key },
+                getContent: { [appState] in appState.searchContent }
+            )
         }
     }
 
@@ -79,10 +81,11 @@ struct SearchView: View {
         if let vm {
             @Bindable var vm = vm
             VStack(spacing: 0) {
+                contentPicker(vm: vm)
                 filterBar(vm: vm)
                 results(vm: vm)
             }
-            .searchable(text: $query, prompt: "Scientific or vernacular name")
+            .searchable(text: $query, prompt: appState.searchContent == .vernacular ? "Common name" : "Scientific name")
             .submitLabel(.search)
             .onSubmit(of: .search) {
                 vm.query = query
@@ -90,6 +93,21 @@ struct SearchView: View {
             }
         } else {
             ProgressView()
+        }
+    }
+
+    @ViewBuilder
+    private func contentPicker(vm: SearchViewModel) -> some View {
+        @Bindable var appState = appState
+        Picker("Search in", selection: $appState.searchContent) {
+            Text("Scientific").tag(SearchContent.scientific)
+            Text("Vernacular").tag(SearchContent.vernacular)
+        }
+        .pickerStyle(.segmented)
+        .padding(.horizontal)
+        .padding(.top, 6)
+        .onChange(of: appState.searchContent) { _, _ in
+            vm.reSearchIfQueryPresent()
         }
     }
 
@@ -193,11 +211,13 @@ struct SearchView: View {
         } else {
             List(hits) { hit in
                 if let target = hit.navigationTaxonId {
-                    Button { selectedTaxonId = target } label: { SearchRow(hit: hit) }
-                        .buttonStyle(.plain)
+                    Button { selectedTaxonId = target } label: {
+                        SearchRow(hit: hit, preferredLanguage: appState.effectiveVernacularLanguage)
+                    }
+                    .buttonStyle(.plain)
                 } else {
                     // Orphan synonym (no accepted) — show but don't navigate
-                    SearchRow(hit: hit)
+                    SearchRow(hit: hit, preferredLanguage: appState.effectiveVernacularLanguage)
                         .opacity(0.6)
                 }
             }
@@ -265,6 +285,7 @@ private struct FilterMenu: View {
 
 private struct SearchRow: View {
     let hit: SearchHit
+    let preferredLanguage: String?
 
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
@@ -275,9 +296,7 @@ private struct SearchRow: View {
                 .padding(.top, 2)
             VStack(alignment: .leading, spacing: 2) {
                 HStack(alignment: .firstTextBaseline, spacing: 6) {
-                    Text(hit.extinct ? "† \(hit.scientificName)" : hit.scientificName)
-                        .italic().font(.body)
-                        .fixedSize(horizontal: false, vertical: true)
+                    primaryName
                     Spacer(minLength: 4)
                     if hit.merged {
                         Text("XR").font(.caption2.bold())
@@ -291,9 +310,7 @@ private struct SearchRow: View {
                         .padding(.vertical, 2)
                         .background(.thinMaterial, in: Capsule())
                 }
-                if let auth = hit.authorship {
-                    Text(auth).font(.caption2).foregroundStyle(.secondary)
-                }
+                secondaryRow
                 if hit.status.isSynonym {
                     HStack(spacing: 4) {
                         Text("synonym of").font(.caption2).foregroundStyle(.orange)
@@ -305,6 +322,42 @@ private struct SearchRow: View {
                     }
                 }
             }
+        }
+    }
+
+    /// Whether this hit came back from a VERNACULAR_NAME search — vernacular
+    /// rows lead with the common name and demote the scientific name.
+    private var isVernacularHit: Bool {
+        !hit.vernacularNames.isEmpty
+    }
+
+    @ViewBuilder
+    private var primaryName: some View {
+        if isVernacularHit, let pick = hit.preferredVernacular(language: preferredLanguage) {
+            HStack(alignment: .firstTextBaseline, spacing: 4) {
+                Text(pick.name)
+                    .font(.body)
+                    .fixedSize(horizontal: false, vertical: true)
+                if let suffix = pick.languageSuffix {
+                    Text("(\(suffix))")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        } else {
+            Text(hit.extinct ? "† \(hit.scientificName)" : hit.scientificName)
+                .italic().font(.body)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    @ViewBuilder
+    private var secondaryRow: some View {
+        if isVernacularHit {
+            Text(hit.extinct ? "† \(hit.scientificName)" : hit.scientificName)
+                .italic().font(.caption2).foregroundStyle(.secondary)
+        } else if let auth = hit.authorship {
+            Text(auth).font(.caption2).foregroundStyle(.secondary)
         }
     }
 }

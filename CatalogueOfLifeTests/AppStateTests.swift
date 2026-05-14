@@ -104,4 +104,16 @@ struct AppStateTests {
         state.preferredVernacularLang = nil
         #expect(defaults.string(forKey: "preferredVernacularLang") == nil)
     }
+
+    @Test("searchContent defaults to scientific and round-trips through UserDefaults")
+    func searchContentPersists() {
+        let defaults = freshDefaults()
+        let state = AppState(client: StubAPIClient(), defaults: defaults)
+        #expect(state.searchContent == .scientific)
+        state.searchContent = .vernacular
+        #expect(defaults.string(forKey: "searchContent") == "vernacular")
+        // Re-instantiate AppState against the same defaults: stored value wins.
+        let reloaded = AppState(client: StubAPIClient(), defaults: defaults)
+        #expect(reloaded.searchContent == .vernacular)
+    }
 }

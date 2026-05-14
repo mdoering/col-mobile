@@ -9,6 +9,8 @@ struct NameUsageSearchHitDTO: Decodable, Sendable {
     let usage: UsageDTO
     /// Group is returned at the top level of the search hit object.
     let group: String?
+    /// Present (and populated) when the search was issued with `content=VERNACULAR_NAME`.
+    let vernacularNames: [VernacularEntryDTO]?
 
     struct UsageDTO: Decodable, Sendable {
         let id: String
@@ -35,6 +37,11 @@ struct NameUsageSearchHitDTO: Decodable, Sendable {
         let authorship: String?
         let rank: String?
     }
+
+    struct VernacularEntryDTO: Decodable, Sendable {
+        let name: String
+        let language: String?
+    }
 }
 
 extension SearchHit {
@@ -49,7 +56,10 @@ extension SearchHit {
             acceptedName: dto.usage.accepted?.name?.scientificName,
             group: dto.group,
             merged: dto.usage.merged ?? false,
-            extinct: dto.usage.extinct ?? false
+            extinct: dto.usage.extinct ?? false,
+            vernacularNames: (dto.vernacularNames ?? []).map {
+                SearchHit.Vernacular(name: $0.name, language: $0.language)
+            }
         )
     }
 }

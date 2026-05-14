@@ -20,10 +20,16 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
         if let error { throw error }
         return releases
     }
-    func searchNames(datasetKey: Int, q: String, rank: Rank?, status: TaxonStatus?, group: String?) async throws -> [SearchHit] {
+    func searchNames(datasetKey: Int, q: String, rank: Rank?, status: TaxonStatus?, group: String?, taxonId: String?, content: SearchContent) async throws -> [SearchHit] {
         if let error { throw error }
         return searchResults[q] ?? []   // filters ignored in tests
     }
+
+    func getNameLabel(datasetKey: Int, nameId: String) async throws -> String? {
+        if let error { throw error }
+        return nameLabels[nameId]
+    }
+    var nameLabels: [String: String] = [:]
     func getTaxonInfo(datasetKey: Int, taxonId: String) async throws -> TaxonInfo {
         if let error { throw error }
         guard let info = taxonInfo[taxonId] else { throw APIError.notFound }

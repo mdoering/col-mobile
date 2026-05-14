@@ -26,7 +26,7 @@ struct SearchViewModelTests {
         let (vm, stub) = make()
         let hit = SearchHit(id: "1", scientificName: "Felis catus", authorship: "L., 1758",
                             rank: .species, status: .accepted, acceptedId: nil, acceptedName: nil, group: nil,
-                            merged: false, extinct: false)
+                            merged: false, extinct: false, vernacularNames: [])
         stub.searchResults["felis"] = [hit]
         vm.query = "felis"
         vm.submit()
@@ -44,7 +44,7 @@ struct SearchViewModelTests {
         stub.searchResults["felis"] = [
             SearchHit(id: "1", scientificName: "Felis", authorship: nil, rank: .genus,
                       status: .accepted, acceptedId: nil, acceptedName: nil, group: nil,
-                      merged: false, extinct: false)
+                      merged: false, extinct: false, vernacularNames: [])
         ]
         // Submit twice rapidly — the second cancels the first in-flight task.
         vm.query = "felis"

@@ -66,6 +66,12 @@ final class AppState {
         didSet { defaults.set(mapBaseStyle, forKey: Keys.mapBaseStyle) }
     }
 
+    /// Which name field the search tab is matching against. Persisted globally
+    /// so the user's last-used mode is restored on relaunch.
+    var searchContent: SearchContent {
+        didSet { defaults.set(searchContent.rawValue, forKey: Keys.searchContent) }
+    }
+
     /// Active tab index. Bindable from RootTabView's TabView selection.
     var selectedTabIndex: Int = 0
 
@@ -122,6 +128,8 @@ final class AppState {
         self.mapBaseStyle = defaults.string(forKey: Keys.mapBaseStyle).map {
             ["standard", "standardMuted", "hybrid", "imagery"].contains($0) ? $0 : "hybrid"
         } ?? "hybrid"
+        self.searchContent = defaults.string(forKey: Keys.searchContent)
+            .flatMap(SearchContent.init(rawValue:)) ?? .scientific
     }
 
     private static let pickerSpec: [(alias: String, display: String)] = [
@@ -173,5 +181,6 @@ final class AppState {
         static let userEmail = "userEmail"
         static let gbifMapStyle = "gbifMapStyle"
         static let mapBaseStyle = "mapBaseStyle"
+        static let searchContent = "searchContent"
     }
 }

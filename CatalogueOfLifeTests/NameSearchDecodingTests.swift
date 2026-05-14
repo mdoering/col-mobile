@@ -18,17 +18,17 @@ struct NameSearchDecodingTests {
         let synonym = SearchHit(
             id: "S1", scientificName: "Felis x", authorship: nil,
             rank: .species, status: .synonym, acceptedId: "ACC1", acceptedName: nil, group: nil,
-            merged: false, extinct: false
+            merged: false, extinct: false, vernacularNames: []
         )
         let accepted = SearchHit(
             id: "ACC2", scientificName: "Felis catus", authorship: nil,
             rank: .species, status: .accepted, acceptedId: nil, acceptedName: nil, group: nil,
-            merged: false, extinct: false
+            merged: false, extinct: false, vernacularNames: []
         )
         let orphanSynonym = SearchHit(
             id: "OS1", scientificName: "Felis ghost", authorship: nil,
             rank: .species, status: .synonym, acceptedId: nil, acceptedName: nil, group: nil,
-            merged: false, extinct: false
+            merged: false, extinct: false, vernacularNames: []
         )
         #expect(synonym.navigationTaxonId == "ACC1")
         #expect(accepted.navigationTaxonId == "ACC2")

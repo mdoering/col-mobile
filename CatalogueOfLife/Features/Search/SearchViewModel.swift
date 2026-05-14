@@ -25,13 +25,19 @@ final class SearchViewModel {
 
     private let client: APIClient
     private let getDatasetKey: @MainActor () -> Int?
+    /// Read the current search content mode at submit time. The mode itself
+    /// lives on AppState so it persists across launches; the VM doesn't own it.
+    private let getContent: @MainActor () -> SearchContent
     private var inFlight: Task<Void, Never>?
 
     var debounceMillis: Int = 300       // kept for test compatibility; no longer used
 
-    init(client: APIClient, getDatasetKey: @escaping @MainActor () -> Int?) {
+    init(client: APIClient,
+         getDatasetKey: @escaping @MainActor () -> Int?,
+         getContent: @escaping @MainActor () -> SearchContent = { .scientific }) {
         self.client = client
         self.getDatasetKey = getDatasetKey
+        self.getContent = getContent
     }
 
     /// Called from the view when the user presses Search on the keyboard
@@ -72,7 +78,8 @@ final class SearchViewModel {
                     rank: rank,
                     status: status,
                     group: group,
-                    taxonId: taxonId
+                    taxonId: taxonId,
+                    content: getContent()
                 )
                 guard !Task.isCancelled else { return }
                 state = .loaded(hits)
