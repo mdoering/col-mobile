@@ -67,6 +67,18 @@ struct NameSearchDecodingTests {
         #expect(synonymWithAccepted?.acceptedName?.isEmpty == false)
     }
 
+    @Test("NameSearchResponseDTO decodes the no-hit response (no result key)")
+    func searchResponseEmpty() throws {
+        // The API omits `result` entirely when total=0; that response must
+        // still decode cleanly into an empty SearchResult, not throw.
+        let json = #"{"offset":0,"limit":25,"total":0,"empty":true,"last":true}"#
+        let dto = try JSONDecoder().decode(NameSearchResponseDTO.self, from: Data(json.utf8))
+        let result = SearchResult(dto: dto)
+        #expect(result.total == 0)
+        #expect(result.hits.isEmpty)
+        #expect(result.facets.isEmpty)
+    }
+
     @Test("NameSearchResponseDTO decodes hits + facets into a SearchResult")
     func searchResponseWithFacets() throws {
         let json = """

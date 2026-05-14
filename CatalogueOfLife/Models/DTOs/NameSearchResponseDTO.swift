@@ -6,7 +6,10 @@ import Foundation
 /// group-metrics path with `limit=0`); this shape is the full thing.
 struct NameSearchResponseDTO: Decodable, Sendable {
     let total: Int?
-    let result: [NameUsageSearchHitDTO]
+    /// Optional because the API drops the `result` key entirely when the
+    /// query has zero hits (returns `{"total":0,"empty":true,"last":true}`).
+    /// Same convention as `PagedDTO`.
+    let result: [NameUsageSearchHitDTO]?
     let facets: [String: [Entry]]?
 
     struct Entry: Decodable, Sendable {
@@ -27,7 +30,7 @@ extension SearchResult {
         }
         self.init(
             total: dto.total ?? 0,
-            hits: dto.result.map(SearchHit.init(dto:)),
+            hits: (dto.result ?? []).map(SearchHit.init(dto:)),
             facets: facetMap
         )
     }
