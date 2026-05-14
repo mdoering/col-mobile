@@ -59,6 +59,15 @@ final class SearchViewModel {
         Task { await run() }
     }
 
+    /// Pull-to-refresh entry point. Re-runs the current search and awaits
+    /// the in-flight task so SwiftUI's `.refreshable` spinner stays visible
+    /// until the new response actually lands. No-op when there's nothing
+    /// to refresh (no query and no scope).
+    func refresh() async {
+        await run()
+        await inFlight?.value
+    }
+
     private func run() async {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         // A query is the usual trigger, but a taxon-id scope (set when arriving

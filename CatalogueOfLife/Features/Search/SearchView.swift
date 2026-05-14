@@ -194,28 +194,34 @@ struct SearchView: View {
 
     @ViewBuilder
     private func results(vm: SearchViewModel) -> some View {
-        switch vm.state {
-        case .idle:
-            if let group = vm.group {
-                ContentUnavailableView("Filtered by group: \(group.capitalized)",
-                    systemImage: "magnifyingglass",
-                    description: Text("Type to search within \(group.capitalized)."))
-            } else {
-                ContentUnavailableView("Search names",
-                    systemImage: "magnifyingglass",
-                    description: Text("Type to find taxa in \(appState.selectedDataset?.alias ?? "the selected release")."))
+        // Pin the results area to the full available height regardless of
+        // state. Without this, the picker + filter chips above slide up
+        // when the area shrinks to a small ProgressView during a re-fetch.
+        Group {
+            switch vm.state {
+            case .idle:
+                if let group = vm.group {
+                    ContentUnavailableView("Filtered by group: \(group.capitalized)",
+                        systemImage: "magnifyingglass",
+                        description: Text("Type to search within \(group.capitalized)."))
+                } else {
+                    ContentUnavailableView("Search names",
+                        systemImage: "magnifyingglass",
+                        description: Text("Type to find taxa in \(appState.selectedDataset?.alias ?? "the selected release")."))
+                }
+            case .loading:
+                ProgressView()
+            case let .loaded(result):
+                resultsList(result.hits, vm: vm)
+            case let .failed(err):
+                errorView(err) { vm.submit() }
             }
-        case .loading:
-            ProgressView()
-        case let .loaded(result):
-            resultsList(result.hits)
-        case let .failed(err):
-            errorView(err) { vm.submit() }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     @ViewBuilder
-    private func resultsList(_ hits: [SearchHit]) -> some View {
+    private func resultsList(_ hits: [SearchHit], vm: SearchViewModel) -> some View {
         if hits.isEmpty {
             ContentUnavailableView.search
         } else {
@@ -232,6 +238,7 @@ struct SearchView: View {
                 }
             }
             .listStyle(.plain)
+            .refreshable { await vm.refresh() }
         }
     }
 
