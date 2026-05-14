@@ -116,11 +116,6 @@ final class AppState {
         return Locale.current.language.languageCode?.identifier(.alpha3)
     }
 
-    /// CoL identifiers have been stable since COL21 (2021), so GBIF's COL
-    /// checklist can resolve every taxon in every release we expose. Kept as
-    /// a property to keep call sites flexible if that ever changes.
-    var gbifAvailable: Bool { true }
-
     init(client: APIClient, defaults: UserDefaults = .standard) {
         self.client = client
         self.defaults = defaults

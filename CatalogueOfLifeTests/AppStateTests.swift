@@ -39,30 +39,9 @@ struct AppStateTests {
         let state = AppState(client: stub, defaults: defaults)
         await state.loadReleases()
         #expect(state.selectedDatasetKey == 100)
-        #expect(state.gbifAvailable == true)
         // Resolved order: 3LXR (100), 3LR (200), COL2024 (300); others absent.
         #expect(state.availableReleases.map(\.dataset.key) == [100, 200, 300])
         #expect(state.availableReleases.map(\.displayName) == ["Latest Extended", "Latest Base", "COL 2024"])
-    }
-
-    @Test("Selecting the latest base release also enables gbifAvailable")
-    func baseReleaseEnablesGBIF() async {
-        let defaults = freshDefaults()
-        let stub = sampleStub()
-        let state = AppState(client: stub, defaults: defaults)
-        await state.loadReleases()
-        state.selectedDatasetKey = 200
-        #expect(state.gbifAvailable == true)
-    }
-
-    @Test("Selecting an annual release disables gbifAvailable")
-    func annualDisablesGBIF() async {
-        let defaults = freshDefaults()
-        let stub = sampleStub()
-        let state = AppState(client: stub, defaults: defaults)
-        await state.loadReleases()
-        state.selectedDatasetKey = 300
-        #expect(state.gbifAvailable == false)
     }
 
     @Test("Honors stored selection if still available")
@@ -73,7 +52,6 @@ struct AppStateTests {
         let state = AppState(client: stub, defaults: defaults)
         await state.loadReleases()
         #expect(state.selectedDatasetKey == 300)
-        #expect(state.gbifAvailable == false)
     }
 
     @Test("effectiveVernacularLanguage falls back to system locale when unset")

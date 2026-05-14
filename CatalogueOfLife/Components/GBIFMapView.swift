@@ -2,7 +2,8 @@ import SwiftUI
 import MapKit
 
 /// SwiftUI wrapper for an MKMapView that displays GBIF density tiles
-/// for one COL taxon (gated upstream by `AppState.gbifAvailable`).
+/// for one COL taxon. (CoL identifiers have been stable since COL21,
+/// so every release we expose resolves through GBIF's COL checklist.)
 struct GBIFMapView: UIViewRepresentable {
     let taxonId: String
     let style: String
