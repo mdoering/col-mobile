@@ -67,7 +67,9 @@ final class AppState {
     }
 
     /// Apple base-map opacity, 0.0…1.0. Used to dim the base map so faint
-    /// GBIF density tiles read more clearly. 1.0 = no dimming (default).
+    /// GBIF density tiles read more clearly. Default 0.35 — strong dim
+    /// that lets sparse occurrence dots stand out on hybrid/imagery
+    /// styles without losing all sense of geography.
     var baseMapOpacity: Double {
         didSet { defaults.set(baseMapOpacity, forKey: Keys.baseMapOpacity) }
     }
@@ -132,7 +134,7 @@ final class AppState {
         // Use object(forKey:) — UserDefaults.double returns 0.0 for missing keys,
         // which we want to distinguish from a deliberately-saved 0% opacity.
         let storedOpacity = defaults.object(forKey: Keys.baseMapOpacity) as? Double
-        self.baseMapOpacity = storedOpacity.map { min(max($0, 0.0), 1.0) } ?? 1.0
+        self.baseMapOpacity = storedOpacity.map { min(max($0, 0.0), 1.0) } ?? 0.35
         self.searchContent = defaults.string(forKey: Keys.searchContent)
             .flatMap(SearchContent.init(rawValue:)) ?? .scientific
     }
