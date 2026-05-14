@@ -70,8 +70,12 @@ struct GBIFMapView: UIViewRepresentable {
         private var isProgrammaticUpdate = false
 
         func applyProgrammatically(_ region: MKCoordinateRegion, to map: MKMapView) {
+            // Setting an out-of-range region crashes MapKit. The init?(capabilities:)
+            // path already redirects bad GBIF bboxes to worldExcludingPoles, but
+            // also guard here in case a bound binding update slips one through.
+            let safe = region.isValidForMap ? region : .worldExcludingPoles
             isProgrammaticUpdate = true
-            map.setRegion(region, animated: false)
+            map.setRegion(safe, animated: false)
             isProgrammaticUpdate = false
         }
 
@@ -131,6 +135,16 @@ extension MKCoordinateRegion {
             self = .worldExcludingPoles
             return
         }
+        // GBIF occasionally reports a bbox that wraps across the antimeridian
+        // by extending beyond ±180 (e.g. minLng=94, maxLng=291 for a Pacific
+        // species). MKCoordinateRegion validates the centre to [-180, 180]
+        // and crashes hard with NSInvalidArgumentException otherwise — so
+        // bail to the world view rather than feed it an out-of-range value.
+        guard capabilities.minLng >= -180, capabilities.maxLng <= 180,
+              capabilities.minLat >= -90, capabilities.maxLat <= 90 else {
+            self = .worldExcludingPoles
+            return
+        }
         let minLat = max(capabilities.minLat, -85)
         let maxLat = min(capabilities.maxLat, 85)
         let centerLat = (minLat + maxLat) / 2
@@ -144,6 +158,21 @@ extension MKCoordinateRegion {
                 longitudeDelta: min(lonDelta, 340)
             )
         )
+    }
+
+    /// Lightweight defensive check used before calling `setRegion(_:)` —
+    /// returns false for a region whose centre or span lies outside MapKit's
+    /// accepted bounds, which would otherwise throw NSInvalidArgumentException.
+    var isValidForMap: Bool {
+        let lat = center.latitude
+        let lng = center.longitude
+        let dLat = span.latitudeDelta
+        let dLng = span.longitudeDelta
+        return lat.isFinite && lng.isFinite && dLat.isFinite && dLng.isFinite
+            && lat >= -90 && lat <= 90
+            && lng >= -180 && lng <= 180
+            && dLat >= 0 && dLat <= 180
+            && dLng >= 0 && dLng <= 360
     }
 }
 
