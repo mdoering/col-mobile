@@ -51,7 +51,7 @@ extension TaxonInfo {
             ClassificationItem(id: $0.id, name: $0.name, rank: Rank(apiValue: $0.rank))
         }
         let synonymyGroups = dto.synonyms.map { SynonymyGroup.group(synonymsDTO: $0, parentId: u.id) } ?? []
-        let vernaculars = (dto.vernacularNames ?? []).map { v in
+        let rawVernaculars = (dto.vernacularNames ?? []).map { v in
             VernacularName(
                 id: String(v.id),
                 name: v.name,
@@ -59,6 +59,14 @@ extension TaxonInfo {
                 country: v.country,
                 area: v.area
             )
+        }
+        // Dedupe by (name, language) — sources sometimes contribute the same
+        // common name in the same language multiple times. Case-insensitive on
+        // both so "Grey squirrel" + "grey squirrel" collapse.
+        var seenVernKeys = Set<String>()
+        let vernaculars = rawVernaculars.filter { v in
+            let key = "\(v.name.lowercased())|\(v.language?.lowercased() ?? "")"
+            return seenVernKeys.insert(key).inserted
         }
         let nameRelations = (dto.nameRelations ?? []).enumerated().map { idx, r in
             NameRelation(

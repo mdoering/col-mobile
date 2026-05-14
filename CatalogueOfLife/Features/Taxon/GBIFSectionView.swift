@@ -102,7 +102,7 @@ struct GBIFSectionView: View {
         }
         if !m.topCountries.isEmpty {
             Text("Top countries: " + m.topCountries
-                .map { "\($0.code) (\($0.count.formatted(.number)))" }
+                .map { "\($0.code) (\(Self.compactCount($0.count)))" }
                 .joined(separator: " · "))
                 .font(.caption).foregroundStyle(.secondary)
         }
@@ -110,10 +110,23 @@ struct GBIFSectionView: View {
 
     private func metric(_ label: String, _ value: Int) -> some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text(value, format: .number)
+            Text(Self.compactCount(value))
                 .font(.title3.monospacedDigit().bold())
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
             Text(label).font(.caption2).foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    /// "1,234" → "1.2k", "4,500,000" → "4.5m", anything below 1000 stays as-is.
+    /// Lower-cased so 1.2k/4.5m/1b read more compactly than the locale's
+    /// default `K/M/B` suffix and stay on a single line under the metric label.
+    static func compactCount(_ value: Int) -> String {
+        if abs(value) < 1000 {
+            return value.formatted(.number.grouping(.never))
+        }
+        let formatted = value.formatted(.number.notation(.compactName).precision(.fractionLength(0...1)))
+        return formatted.lowercased()
     }
 }

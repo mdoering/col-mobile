@@ -12,7 +12,8 @@ struct GBIFSectionViewModelTests {
         stub.metrics["T1"] = GBIFMetrics(occurrenceCount: 100, distinctCountries: 5, distinctDatasets: 3, topCountries: [("AU", 50)])
         stub.images["T1"] = [
             GBIFMediaItem(id: "u1", imageURL: URL(string: "https://example.org/1.jpg")!,
-                          sourceURL: nil, creator: "A", publisher: nil, license: nil, rightsHolder: nil)
+                          sourceURL: nil, creator: "A", publisher: nil, license: nil, rightsHolder: nil,
+                          occurrenceName: nil, occurrenceCountry: nil, occurrenceDate: nil, gbifID: nil)
         ]
         let vm = GBIFSectionViewModel(client: stub)
         await vm.load(taxonId: "T1")
@@ -40,7 +41,8 @@ struct GBIFSectionViewModelTests {
         // No metrics entry → throws .notFound; images present.
         stub.images["T1"] = [
             GBIFMediaItem(id: "u1", imageURL: URL(string: "https://example.org/1.jpg")!,
-                          sourceURL: nil, creator: nil, publisher: nil, license: nil, rightsHolder: nil)
+                          sourceURL: nil, creator: nil, publisher: nil, license: nil, rightsHolder: nil,
+                          occurrenceName: nil, occurrenceCountry: nil, occurrenceDate: nil, gbifID: nil)
         ]
         let vm = GBIFSectionViewModel(client: stub)
         await vm.load(taxonId: "T1")

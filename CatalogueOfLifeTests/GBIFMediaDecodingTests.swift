@@ -19,17 +19,17 @@ struct GBIFMediaDecodingTests {
             .init(gbifID: "1", media: [
                 .init(type: "StillImage", format: nil, identifier: "https://example.org/a.jpg",
                       references: nil, creator: nil, publisher: nil, license: nil, rightsHolder: nil)
-            ]),
+            ], scientificName: nil, country: nil, eventDate: nil),
             .init(gbifID: "2", media: [
                 .init(type: "StillImage", format: nil, identifier: "https://example.org/a.jpg",
                       references: nil, creator: nil, publisher: nil, license: nil, rightsHolder: nil),
                 .init(type: "StillImage", format: nil, identifier: "https://example.org/b.jpg",
                       references: nil, creator: nil, publisher: nil, license: nil, rightsHolder: nil)
-            ])
+            ], scientificName: nil, country: nil, eventDate: nil)
         ])
         let items = GBIFMediaItem.from(dto: dto)
         #expect(items.count == 2)
-        #expect(items.map(\.id).sorted() == ["https://example.org/a.jpg", "https://example.org/b.jpg"])
+        #expect(items.map { $0.id }.sorted() == ["https://example.org/a.jpg", "https://example.org/b.jpg"])
     }
 
     @Test("Skips non-StillImage and items without identifier")
@@ -42,7 +42,7 @@ struct GBIFMediaDecodingTests {
                       references: nil, creator: nil, publisher: nil, license: nil, rightsHolder: nil),
                 .init(type: "StillImage", format: nil, identifier: "https://example.org/ok.jpg",
                       references: nil, creator: nil, publisher: nil, license: nil, rightsHolder: nil)
-            ])
+            ], scientificName: nil, country: nil, eventDate: nil)
         ])
         let items = GBIFMediaItem.from(dto: dto)
         #expect(items.count == 1)

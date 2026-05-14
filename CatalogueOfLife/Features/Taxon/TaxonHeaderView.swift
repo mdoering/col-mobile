@@ -8,18 +8,7 @@ struct TaxonHeaderView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .firstTextBaseline, spacing: 4) {
-                if info.extinct {
-                    Text("†")
-                        .font(.title2).bold()
-                        .foregroundStyle(.orange)
-                        .accessibilityLabel("Extinct")
-                }
-                Text(info.scientificName).italic().font(.title2).bold()
-                    .textSelection(.enabled)
-                if let auth = info.authorship {
-                    Text(auth).font(.subheadline).foregroundStyle(.secondary)
-                        .textSelection(.enabled)
-                }
+                nameText
                 if info.merged {
                     Text("XR")
                         .font(.caption2.bold())
@@ -52,5 +41,28 @@ struct TaxonHeaderView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    /// Concatenate the dagger (when extinct), scientific name, and authorship
+    /// into a single Text so the wrap chooses the line break naturally —
+    /// authorship folds onto a second line before the scientific name does,
+    /// because Text wraps at word boundaries from the end. Each run keeps its
+    /// own font/style via Text's `+` operator.
+    @ViewBuilder
+    private var nameText: some View {
+        let dagger: Text = info.extinct
+            ? Text("† ").font(.title2).bold()
+            : Text("")
+        let name = Text(info.scientificName).italic().font(.title2).bold()
+        let combined: Text = {
+            if let auth = info.authorship {
+                return dagger + name + Text(" ") + Text(auth).font(.subheadline).foregroundStyle(.secondary)
+            } else {
+                return dagger + name
+            }
+        }()
+        combined
+            .textSelection(.enabled)
+            .accessibilityLabel(info.extinct ? "Extinct, \(info.scientificName)" : info.scientificName)
     }
 }
