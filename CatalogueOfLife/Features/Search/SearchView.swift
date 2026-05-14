@@ -258,10 +258,13 @@ struct SearchView: View {
 private struct FilterMenu: View {
     let title: String
     let value: String?              // current selection label, nil = "Any"
-    let options: [String]           // available values, lowercase
+    /// Fallback list of values to show before any facet response is available
+    /// (e.g. on the empty Search tab). Once a result loads, the menu switches
+    /// to the facet-derived list and this is ignored.
+    let options: [String]
     let selected: String?           // current raw value (lowercase) or nil
     /// Per-value match count from the latest faceted search response. nil
-    /// means no result is loaded yet — show plain labels with no counts.
+    /// means no result is loaded yet — fall back to the hardcoded `options`.
     let counts: [String: Int]?
     /// Total matches for the current search (excluding this facet's own
     /// filter, since we use facetIncludeSelf=false). Shown next to "Any".
@@ -277,12 +280,12 @@ private struct FilterMenu: View {
                 if selected == nil { Label(label, systemImage: "checkmark") } else { Text(label) }
             }
             Divider()
-            ForEach(options, id: \.self) { opt in
+            ForEach(displayed, id: \.value) { entry in
                 Button {
-                    onSelect(opt)
+                    onSelect(entry.value)
                 } label: {
-                    let label = optionLabel(opt)
-                    if selected == opt {
+                    let label = optionLabel(entry)
+                    if selected == entry.value {
                         Label(label, systemImage: "checkmark")
                     } else {
                         Text(label)
@@ -300,14 +303,41 @@ private struct FilterMenu: View {
         }
     }
 
+    /// One row in the menu. `count == nil` means we're in the no-facets-yet
+    /// fallback path (label without parens).
+    private struct Entry {
+        let value: String
+        let count: Int?
+    }
+
+    /// Build the menu's option list from the facet response when present:
+    /// every value with a non-zero count, ordered by count desc. The
+    /// currently-selected value is always included so the menu has a
+    /// checkmark and the user can change it even when its count drops to
+    /// zero under the other filters. Falls back to the hardcoded `options`
+    /// when no facet data is loaded yet.
+    private var displayed: [Entry] {
+        guard let counts else {
+            return options.map { Entry(value: $0, count: nil) }
+        }
+        var entries = counts
+            .filter { $0.value > 0 }
+            .sorted { $0.value > $1.value }
+            .map { Entry(value: $0.key, count: $0.value) }
+        if let selected, !entries.contains(where: { $0.value == selected }) {
+            entries.insert(Entry(value: selected, count: counts[selected] ?? 0), at: 0)
+        }
+        return entries
+    }
+
     private var anyLabel: String {
         if let total { return "Any (\(total))" }
         return "Any"
     }
 
-    private func optionLabel(_ opt: String) -> String {
-        let base = opt.capitalized
-        if let count = counts?[opt] { return "\(base) (\(count))" }
+    private func optionLabel(_ entry: Entry) -> String {
+        let base = entry.value.capitalized
+        if let count = entry.count { return "\(base) (\(count))" }
         return base
     }
 }
