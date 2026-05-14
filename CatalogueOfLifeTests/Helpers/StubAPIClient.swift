@@ -20,10 +20,12 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
         if let error { throw error }
         return releases
     }
-    func searchNames(datasetKey: Int, q: String, rank: Rank?, status: TaxonStatus?, group: String?, taxonId: String?, content: SearchContent) async throws -> [SearchHit] {
+    func searchNames(datasetKey: Int, q: String, rank: Rank?, status: TaxonStatus?, group: String?, taxonId: String?, content: SearchContent, facets: [String]) async throws -> SearchResult {
         if let error { throw error }
-        return searchResults[q] ?? []   // filters ignored in tests
+        let hits = searchResults[q] ?? []   // filters ignored in tests
+        return SearchResult(total: hits.count, hits: hits, facets: searchFacets[q] ?? [:])
     }
+    var searchFacets: [String: [String: [String: Int]]] = [:]
 
     func getNameLabel(datasetKey: Int, nameId: String) async throws -> String? {
         if let error { throw error }

@@ -7,9 +7,12 @@ final class SearchViewModel {
     enum LoadState: Equatable {
         case idle
         case loading
-        case loaded([SearchHit])
+        case loaded(SearchResult)
         case failed(APIError)
     }
+
+    /// Facet dimensions to request alongside every search.
+    static let requestedFacets: [String] = ["rank", "status", "group"]
 
     var query: String = ""             // no didSet — search fires on submit only
     var rank: Rank? = nil              // nil = Any
@@ -22,6 +25,9 @@ final class SearchViewModel {
     var taxonScopeLabel: String? = nil
 
     private(set) var state: LoadState = .idle
+    /// Last successful result, retained across .loading transitions so the
+    /// filter chips can keep showing facet counts without flickering.
+    private(set) var lastLoadedResult: SearchResult?
 
     private let client: APIClient
     private let getDatasetKey: @MainActor () -> Int?
@@ -61,6 +67,7 @@ final class SearchViewModel {
         let hasScope = (taxonId?.isEmpty == false) || (group?.isEmpty == false)
         guard !trimmed.isEmpty || hasScope else {
             state = .idle
+            lastLoadedResult = nil
             inFlight?.cancel()
             return
         }
@@ -72,17 +79,19 @@ final class SearchViewModel {
         state = .loading
         inFlight = Task {
             do {
-                let hits = try await client.searchNames(
+                let result = try await client.searchNames(
                     datasetKey: key,
                     q: trimmed,
                     rank: rank,
                     status: status,
                     group: group,
                     taxonId: taxonId,
-                    content: getContent()
+                    content: getContent(),
+                    facets: Self.requestedFacets
                 )
                 guard !Task.isCancelled else { return }
-                state = .loaded(hits)
+                state = .loaded(result)
+                lastLoadedResult = result
             } catch let err as APIError {
                 guard !Task.isCancelled else { return }
                 state = .failed(err)

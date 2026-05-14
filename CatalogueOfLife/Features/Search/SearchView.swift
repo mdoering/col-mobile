@@ -114,6 +114,10 @@ struct SearchView: View {
     @ViewBuilder
     private func filterBar(vm: SearchViewModel) -> some View {
         @Bindable var vm = vm
+        // Use the most recent loaded result's facets so they keep showing
+        // through a re-search (avoids the chips losing their counts during
+        // the brief .loading state).
+        let result = vm.lastLoadedResult
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
                 if let scope = vm.taxonScopeLabel {
@@ -138,6 +142,8 @@ struct SearchView: View {
                     value: vm.rank?.rawValue.capitalized,
                     options: Self.rankOptions,
                     selected: vm.rank?.rawValue,
+                    counts: result?.facets["rank"],
+                    total: result?.total,
                     onSelect: { raw in
                         vm.rank = raw.flatMap { Rank(rawValue: $0) }
                         vm.reSearchIfQueryPresent()
@@ -148,6 +154,8 @@ struct SearchView: View {
                     value: vm.status?.rawValue.capitalized,
                     options: Self.statusOptions,
                     selected: vm.status?.rawValue,
+                    counts: result?.facets["status"],
+                    total: result?.total,
                     onSelect: { raw in
                         vm.status = raw.flatMap { TaxonStatus(rawValue: $0) }
                         vm.reSearchIfQueryPresent()
@@ -158,6 +166,8 @@ struct SearchView: View {
                     value: vm.group?.capitalized,
                     options: Self.groupOptions,
                     selected: vm.group,
+                    counts: result?.facets["group"],
+                    total: result?.total,
                     onSelect: { raw in
                         vm.group = raw
                         vm.reSearchIfQueryPresent()
@@ -197,8 +207,8 @@ struct SearchView: View {
             }
         case .loading:
             ProgressView()
-        case let .loaded(hits):
-            resultsList(hits)
+        case let .loaded(result):
+            resultsList(result.hits)
         case let .failed(err):
             errorView(err) { vm.submit() }
         }
@@ -247,9 +257,15 @@ struct SearchView: View {
 
 private struct FilterMenu: View {
     let title: String
-    let value: String?       // current selection label, nil = "Any"
-    let options: [String]    // available values, lowercase
-    let selected: String?    // current raw value (lowercase) or nil
+    let value: String?              // current selection label, nil = "Any"
+    let options: [String]           // available values, lowercase
+    let selected: String?           // current raw value (lowercase) or nil
+    /// Per-value match count from the latest faceted search response. nil
+    /// means no result is loaded yet — show plain labels with no counts.
+    let counts: [String: Int]?
+    /// Total matches for the current search (excluding this facet's own
+    /// filter, since we use facetIncludeSelf=false). Shown next to "Any".
+    let total: Int?
     let onSelect: (String?) -> Void
 
     var body: some View {
@@ -257,17 +273,19 @@ private struct FilterMenu: View {
             Button {
                 onSelect(nil)
             } label: {
-                if selected == nil { Label("Any", systemImage: "checkmark") } else { Text("Any") }
+                let label = anyLabel
+                if selected == nil { Label(label, systemImage: "checkmark") } else { Text(label) }
             }
             Divider()
             ForEach(options, id: \.self) { opt in
                 Button {
                     onSelect(opt)
                 } label: {
+                    let label = optionLabel(opt)
                     if selected == opt {
-                        Label(opt.capitalized, systemImage: "checkmark")
+                        Label(label, systemImage: "checkmark")
                     } else {
-                        Text(opt.capitalized)
+                        Text(label)
                     }
                 }
             }
@@ -280,6 +298,17 @@ private struct FilterMenu: View {
             .padding(.horizontal, 8).padding(.vertical, 4)
             .background(.thinMaterial, in: Capsule())
         }
+    }
+
+    private var anyLabel: String {
+        if let total { return "Any (\(total))" }
+        return "Any"
+    }
+
+    private func optionLabel(_ opt: String) -> String {
+        let base = opt.capitalized
+        if let count = counts?[opt] { return "\(base) (\(count))" }
+        return base
     }
 }
 

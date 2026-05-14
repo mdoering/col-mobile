@@ -66,4 +66,41 @@ struct NameSearchDecodingTests {
         #expect(synonymWithAccepted != nil, "Fixture should contain at least one synonym with an accepted name")
         #expect(synonymWithAccepted?.acceptedName?.isEmpty == false)
     }
+
+    @Test("NameSearchResponseDTO decodes hits + facets into a SearchResult")
+    func searchResponseWithFacets() throws {
+        let json = """
+        {
+          "total": 481,
+          "result": [{
+              "usage": {
+                "id": "T1",
+                "status": "accepted",
+                "name": {"scientificName": "Felis catus", "rank": "species"}
+              },
+              "group": "chordates"
+          }],
+          "facets": {
+            "rank": [
+              {"value": "species", "count": 312},
+              {"value": "subspecies", "count": 146}
+            ],
+            "status": [
+              {"value": "synonym", "count": 206},
+              {"value": "accepted", "count": 77}
+            ]
+          }
+        }
+        """
+        let dto = try JSONDecoder().decode(NameSearchResponseDTO.self, from: Data(json.utf8))
+        let result = SearchResult(dto: dto)
+        #expect(result.total == 481)
+        #expect(result.hits.count == 1)
+        #expect(result.hits[0].scientificName == "Felis catus")
+        #expect(result.facets["rank"]?["species"] == 312)
+        #expect(result.facets["rank"]?["subspecies"] == 146)
+        #expect(result.facets["status"]?["synonym"] == 206)
+        // Group facet wasn't requested in this stub response — should be absent.
+        #expect(result.facets["group"] == nil)
+    }
 }

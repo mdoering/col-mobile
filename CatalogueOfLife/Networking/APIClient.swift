@@ -3,7 +3,7 @@ import Foundation
 protocol APIClient: Sendable {
     func getDataset(_ keyOrAlias: String) async throws -> DatasetRef
     func listReleases() async throws -> [DatasetRef]
-    func searchNames(datasetKey: Int, q: String, rank: Rank?, status: TaxonStatus?, group: String?, taxonId: String?, content: SearchContent) async throws -> [SearchHit]
+    func searchNames(datasetKey: Int, q: String, rank: Rank?, status: TaxonStatus?, group: String?, taxonId: String?, content: SearchContent, facets: [String]) async throws -> SearchResult
 
     /// Returns the classification path of a taxon — root at index 0, the taxon
     /// itself at the end. Wraps `GET /dataset/{key}/tree/{id}`.

@@ -18,7 +18,7 @@ enum Endpoints {
         return c.url!
     }
 
-    static func nameSearch(datasetKey: Int, q: String, rank: Rank? = nil, status: TaxonStatus? = nil, group: String? = nil, taxonId: String? = nil, content: SearchContent = .scientific, limit: Int = 25) -> URL {
+    static func nameSearch(datasetKey: Int, q: String, rank: Rank? = nil, status: TaxonStatus? = nil, group: String? = nil, taxonId: String? = nil, content: SearchContent = .scientific, facets: [String] = [], limit: Int = 25) -> URL {
         var c = URLComponents(
             url: baseURL.appending(path: "dataset/\(datasetKey)/nameusage/search"),
             resolvingAgainstBaseURL: false
@@ -35,6 +35,14 @@ enum Endpoints {
         }
         if let group, !group.isEmpty { items.append(URLQueryItem(name: "group", value: group)) }
         if let taxonId, !taxonId.isEmpty { items.append(URLQueryItem(name: "taxonId", value: taxonId)) }
+        // facetIncludeSelf defaults to false on the server, which gives us
+        // exclusive faceting (the rank facet ignores the rank constraint, etc.).
+        for facet in facets {
+            items.append(URLQueryItem(name: "facet", value: facet))
+        }
+        if !facets.isEmpty {
+            items.append(URLQueryItem(name: "facetLimit", value: "50"))
+        }
         c.queryItems = items
         return c.url!
     }

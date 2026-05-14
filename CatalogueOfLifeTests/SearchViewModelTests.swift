@@ -31,8 +31,8 @@ struct SearchViewModelTests {
         vm.query = "felis"
         vm.submit()
         try? await Task.sleep(nanoseconds: 50_000_000)
-        if case let .loaded(hits) = vm.state {
-            #expect(hits.first?.id == "1")
+        if case let .loaded(result) = vm.state {
+            #expect(result.hits.first?.id == "1")
         } else {
             Issue.record("Expected .loaded but got \(vm.state)")
         }
@@ -51,8 +51,8 @@ struct SearchViewModelTests {
         vm.submit()
         vm.submit()
         try? await Task.sleep(nanoseconds: 50_000_000)
-        if case let .loaded(hits) = vm.state {
-            #expect(hits.first?.scientificName == "Felis")
+        if case let .loaded(result) = vm.state {
+            #expect(result.hits.first?.scientificName == "Felis")
         } else {
             Issue.record("Expected .loaded but got \(vm.state)")
         }
