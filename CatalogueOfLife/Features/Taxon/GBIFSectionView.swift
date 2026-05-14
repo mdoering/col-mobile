@@ -119,14 +119,32 @@ struct GBIFSectionView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
-    /// "1,234" → "1.2k", "4,500,000" → "4.5m", anything below 1000 stays as-is.
-    /// Lower-cased so 1.2k/4.5m/1b read more compactly than the locale's
-    /// default `K/M/B` suffix and stay on a single line under the metric label.
+    /// "1,234" → "1.2k", "4,500,000" → "4.5M", "1,000,000,000" → "1B".
+    /// Anything below 1000 stays as a plain integer with no grouping.
+    ///
+    /// Built by hand rather than via `.notation(.compactName)` because the
+    /// locale-aware compact notation translates the unit (German "Mio.",
+    /// French "Md", etc.) — too wide to keep the metric on a single line
+    /// under its label. The leading number still follows the user's locale
+    /// separator so 1.2k vs 1,2k matches the rest of the UI.
     static func compactCount(_ value: Int) -> String {
-        if abs(value) < 1000 {
-            return value.formatted(.number.grouping(.never))
+        let absVal = abs(value)
+        let sign = value < 0 ? "-" : ""
+        if absVal < 1000 {
+            return "\(sign)\(absVal)"
         }
-        let formatted = value.formatted(.number.notation(.compactName).precision(.fractionLength(0...1)))
-        return formatted.lowercased()
+        let (scaled, suffix): (Double, String)
+        if absVal < 1_000_000 {
+            scaled = Double(absVal) / 1_000
+            suffix = "k"
+        } else if absVal < 1_000_000_000 {
+            scaled = Double(absVal) / 1_000_000
+            suffix = "M"
+        } else {
+            scaled = Double(absVal) / 1_000_000_000
+            suffix = "B"
+        }
+        let formatted = scaled.formatted(.number.precision(.fractionLength(0...1)).grouping(.never))
+        return "\(sign)\(formatted)\(suffix)"
     }
 }

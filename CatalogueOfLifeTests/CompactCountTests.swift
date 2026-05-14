@@ -22,14 +22,14 @@ struct CompactCountTests {
         #expect(GBIFSectionView.compactCount(45_000) == "45k")
     }
 
-    @Test("Millions abbreviate with lowercase m")
+    @Test("Millions abbreviate with uppercase M")
     func millions() {
-        #expect(GBIFSectionView.compactCount(1_000_000) == "1m")
-        #expect(GBIFSectionView.compactCount(4_500_000) == "4\(Self.dec)5m")
+        #expect(GBIFSectionView.compactCount(1_000_000) == "1M")
+        #expect(GBIFSectionView.compactCount(4_500_000) == "4\(Self.dec)5M")
     }
 
-    @Test("Billions abbreviate with lowercase b")
+    @Test("Billions abbreviate with uppercase B")
     func billions() {
-        #expect(GBIFSectionView.compactCount(1_000_000_000) == "1b")
+        #expect(GBIFSectionView.compactCount(1_000_000_000) == "1B")
     }
 }

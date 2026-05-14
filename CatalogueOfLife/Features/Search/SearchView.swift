@@ -101,7 +101,7 @@ struct SearchView: View {
         @Bindable var appState = appState
         Picker("Search in", selection: $appState.searchContent) {
             Text("Scientific").tag(SearchContent.scientific)
-            Text("Vernacular").tag(SearchContent.vernacular)
+            Text("Common").tag(SearchContent.vernacular)
         }
         .pickerStyle(.segmented)
         .padding(.horizontal)
