@@ -8,6 +8,10 @@ struct GBIFMapView: UIViewRepresentable {
     let style: String
     /// Apple base-map style: "standard", "standardMuted", "hybrid", "imagery".
     var baseStyle: String = "hybrid"
+    /// 0.0…1.0 — Apple base map opacity. 1.0 = no dimming. Lower values
+    /// fade Apple's base map (and its labels) toward the system background
+    /// without touching the GBIF density tiles, which sit on top.
+    var baseMapOpacity: Double = 1.0
     /// Two-way region binding. The owning view drives the initial framing and
     /// receives the user's pan/zoom changes, so the inline map and the
     /// fullscreen presentation share the same view-state.
@@ -28,8 +32,11 @@ struct GBIFMapView: UIViewRepresentable {
         map.showsCompass = false
         map.pointOfInterestFilter = .excludingAll
         map.preferredConfiguration = mapConfiguration()
-        let overlay = GBIFTileOverlay(taxonId: taxonId, style: style, resolution: resolution)
-        map.addOverlay(overlay, level: .aboveLabels)
+        // Order matters within a level: the dim sheet is added first, so the
+        // GBIF tiles end up rendered on top of it (and on top of Apple's
+        // base map + labels, which the dim sheet sits over).
+        map.addOverlay(BaseMapDimOverlay(), level: .aboveLabels)
+        map.addOverlay(GBIFTileOverlay(taxonId: taxonId, style: style, resolution: resolution), level: .aboveLabels)
         context.coordinator.applyProgrammatically(region, to: map)
         context.coordinator.lastAppliedTaxonId = taxonId
         return map
@@ -43,8 +50,20 @@ struct GBIFMapView: UIViewRepresentable {
             || existing.first?.style != style
             || existing.first?.resolution != resolution
         {
+            // Drop everything and re-add both layers in the right order so
+            // the dim sheet stays under the GBIF tiles.
             uiView.removeOverlays(uiView.overlays)
+            uiView.addOverlay(BaseMapDimOverlay(), level: .aboveLabels)
             uiView.addOverlay(GBIFTileOverlay(taxonId: taxonId, style: style, resolution: resolution), level: .aboveLabels)
+        }
+        // Update the dim renderer in place — no need to swap the overlay.
+        if let dim = uiView.overlays.first(where: { $0 is BaseMapDimOverlay }),
+           let renderer = uiView.renderer(for: dim) as? BaseMapDimRenderer {
+            let newOpacity = CGFloat(baseMapOpacity)
+            if renderer.baseMapOpacity != newOpacity {
+                renderer.baseMapOpacity = newOpacity
+                renderer.setNeedsDisplay()
+            }
         }
         uiView.preferredConfiguration = mapConfiguration()
         // Apply the binding's region whenever it diverges noticeably from the
@@ -80,6 +99,11 @@ struct GBIFMapView: UIViewRepresentable {
         }
 
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            if let dim = overlay as? BaseMapDimOverlay {
+                let renderer = BaseMapDimRenderer(overlay: dim)
+                renderer.baseMapOpacity = CGFloat(parent?.baseMapOpacity ?? 1.0)
+                return renderer
+            }
             guard let tile = overlay as? MKTileOverlay else { return MKOverlayRenderer(overlay: overlay) }
             return MKTileOverlayRenderer(tileOverlay: tile)
         }
@@ -185,6 +209,35 @@ private func regionsApproximatelyEqual(_ a: MKCoordinateRegion, _ b: MKCoordinat
         && abs(a.center.longitude - b.center.longitude) < eps
         && abs(a.span.latitudeDelta - b.span.latitudeDelta) < eps
         && abs(a.span.longitudeDelta - b.span.longitudeDelta) < eps
+}
+
+/// World-spanning marker overlay rendered as a single semi-transparent
+/// system-background fill above Apple's base map and labels but below the
+/// GBIF density tiles — fades the base map without dimming the dots.
+final class BaseMapDimOverlay: NSObject, MKOverlay {
+    let coordinate: CLLocationCoordinate2D
+    let boundingMapRect: MKMapRect
+
+    override init() {
+        self.boundingMapRect = .world
+        let mid = MKMapPoint(x: MKMapRect.world.midX, y: MKMapRect.world.midY)
+        self.coordinate = mid.coordinate
+        super.init()
+    }
+}
+
+/// Fills its bounds with `systemBackground.withAlphaComponent(1 - opacity)`.
+/// `systemBackground` (white in light mode, near-black in dark mode) keeps
+/// the dim from looking like a glaring white wash on dark themes.
+final class BaseMapDimRenderer: MKOverlayRenderer {
+    var baseMapOpacity: CGFloat = 1.0
+
+    override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
+        let alpha = max(0, min(1, 1 - baseMapOpacity))
+        guard alpha > 0 else { return }
+        context.setFillColor(UIColor.systemBackground.withAlphaComponent(alpha).cgColor)
+        context.fill(rect(for: mapRect))
+    }
 }
 
 /// MKTileOverlay subclass that requests GBIF density tiles for the COL checklist + given taxon + chosen style.

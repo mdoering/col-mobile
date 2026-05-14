@@ -17,6 +17,7 @@ struct GBIFMapFullScreenView: View {
                 taxonId: taxonId,
                 style: appState.gbifMapStyle,
                 baseStyle: appState.mapBaseStyle,
+                baseMapOpacity: appState.baseMapOpacity,
                 region: $region
             )
             .ignoresSafeArea()

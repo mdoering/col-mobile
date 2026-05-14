@@ -144,6 +144,16 @@ struct AboutView: View {
                 }
                 .pickerStyle(.menu).labelsHidden()
             }
+            HStack {
+                Text("Base map opacity").font(.callout)
+                Spacer()
+                Slider(value: $appState.baseMapOpacity, in: 0...1, step: 0.05)
+                    .frame(width: 140)
+                Text("\(Int(appState.baseMapOpacity * 100))%")
+                    .font(.caption).foregroundStyle(.secondary)
+                    .monospacedDigit()
+                    .frame(width: 38, alignment: .trailing)
+            }
         }
     }
 
