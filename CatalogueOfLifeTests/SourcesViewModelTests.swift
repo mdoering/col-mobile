@@ -8,10 +8,10 @@ struct SourcesViewModelTests {
         [
             Source(key: 1, title: "World Plants", alias: "WP", citation: nil, logoURL: nil,
                    license: nil, version: nil, issued: nil, taxonomicScope: "Plants", geographicScope: nil,
-                   description: nil, websiteURL: nil, doi: nil, publisher: nil),
+                   description: nil, websiteURL: nil, doi: nil, publisher: nil, merged: false),
             Source(key: 2, title: "World Birds", alias: "WB", citation: nil, logoURL: nil,
                    license: nil, version: nil, issued: nil, taxonomicScope: "Birds", geographicScope: nil,
-                   description: nil, websiteURL: nil, doi: nil, publisher: nil),
+                   description: nil, websiteURL: nil, doi: nil, publisher: nil, merged: false),
         ]
     }
 

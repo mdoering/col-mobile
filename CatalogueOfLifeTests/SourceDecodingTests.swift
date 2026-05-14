@@ -21,4 +21,15 @@ struct SourceDecodingTests {
         #expect(!source.title.isEmpty)
         #expect(source.key > 0)
     }
+
+    @Test("merged decodes to true when present, defaults to false otherwise")
+    func decodesMergedFlag() throws {
+        let mergedJSON = #"{"key": 1, "title": "Merged Source", "merged": true}"#
+        let mergedSource = Source(dto: try JSONDecoder().decode(SourceDTO.self, from: Data(mergedJSON.utf8)))
+        #expect(mergedSource.merged == true)
+
+        let plainJSON = #"{"key": 2, "title": "Plain Source"}"#
+        let plainSource = Source(dto: try JSONDecoder().decode(SourceDTO.self, from: Data(plainJSON.utf8)))
+        #expect(plainSource.merged == false)
+    }
 }

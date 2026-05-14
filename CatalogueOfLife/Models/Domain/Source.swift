@@ -15,6 +15,9 @@ struct Source: Equatable, Hashable, Identifiable, Sendable {
     let websiteURL: URL?
     let doi: String?
     let publisher: String?
+    /// True when the source was merged into an extended release. Always false
+    /// for sources of a plain release dataset.
+    let merged: Bool
 
     var id: Int { key }
 }
@@ -35,7 +38,8 @@ extension Source {
             description: dto.description,
             websiteURL: dto.url.flatMap(URL.init(string:)),
             doi: dto.doi,
-            publisher: Self.formatPublisher(dto.contact)
+            publisher: Self.formatPublisher(dto.contact),
+            merged: dto.merged ?? false
         )
     }
 

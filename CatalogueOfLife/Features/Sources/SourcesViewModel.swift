@@ -11,8 +11,18 @@ final class SourcesViewModel {
         case failed(APIError)
     }
 
+    /// Which subset of sources to show on extended releases. Plain releases
+    /// don't have any merged sources, so the filter is hidden in that case
+    /// and `.all` (the default) is the effective behavior.
+    enum MergedFilter: String, CaseIterable, Sendable {
+        case all
+        case base
+        case extended
+    }
+
     private(set) var state: LoadState = .idle
     var query: String = ""
+    var mergedFilter: MergedFilter = .all
 
     private let client: APIClient
     private let getDatasetKey: @MainActor () -> Int?
@@ -43,7 +53,19 @@ final class SourcesViewModel {
     func filtered() -> [Source] {
         guard case let .loaded(sources) = state else { return [] }
         let q = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        if q.isEmpty { return sources }
-        return sources.filter { $0.title.lowercased().contains(q) || ($0.alias?.lowercased().contains(q) ?? false) }
+        return sources.filter { source in
+            guard mergedFilterMatches(source) else { return false }
+            guard !q.isEmpty else { return true }
+            return source.title.lowercased().contains(q)
+                || (source.alias?.lowercased().contains(q) ?? false)
+        }
+    }
+
+    private func mergedFilterMatches(_ source: Source) -> Bool {
+        switch mergedFilter {
+        case .all: true
+        case .base: !source.merged
+        case .extended: source.merged
+        }
     }
 }

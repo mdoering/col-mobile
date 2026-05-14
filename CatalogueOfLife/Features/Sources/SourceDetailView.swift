@@ -97,7 +97,17 @@ struct SourceDetailView: View {
 
     private func titleBlock(_ source: Source) -> some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text(source.title).font(.title3).bold()
+            HStack(alignment: .firstTextBaseline, spacing: 6) {
+                Text(source.title).font(.title3).bold()
+                if source.merged {
+                    Text("XR")
+                        .font(.caption2.bold())
+                        .padding(.horizontal, 5).padding(.vertical, 1)
+                        .background(.purple.opacity(0.18), in: Capsule())
+                        .foregroundStyle(.purple)
+                        .accessibilityLabel("Merged into extended release")
+                }
+            }
             if let alias = source.alias {
                 Text(alias).font(.caption).foregroundStyle(.secondary)
             }

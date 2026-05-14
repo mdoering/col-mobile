@@ -29,13 +29,18 @@ struct SourcesView: View {
             @Bindable var vm = vm
             switch vm.state {
             case .loaded:
-                List(vm.filtered()) { source in
-                    Button { selectedSourceKey = source.key } label: {
-                        SourceRowView(source: source)
+                VStack(spacing: 0) {
+                    if isExtendedRelease {
+                        mergedFilterPicker(vm: vm)
                     }
-                    .buttonStyle(.plain)
+                    List(vm.filtered()) { source in
+                        Button { selectedSourceKey = source.key } label: {
+                            SourceRowView(source: source)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    .listStyle(.plain)
                 }
-                .listStyle(.plain)
                 .searchable(text: $vm.query, prompt: "Filter sources")
             case .failed(let err):
                 ContentUnavailableView("Couldn't load sources",
@@ -47,5 +52,22 @@ struct SourcesView: View {
         } else {
             ProgressView()
         }
+    }
+
+    private var isExtendedRelease: Bool {
+        appState.selectedDataset?.origin == "xrelease"
+    }
+
+    @ViewBuilder
+    private func mergedFilterPicker(vm: SourcesViewModel) -> some View {
+        @Bindable var vm = vm
+        Picker("Show", selection: $vm.mergedFilter) {
+            Text("All").tag(SourcesViewModel.MergedFilter.all)
+            Text("Base").tag(SourcesViewModel.MergedFilter.base)
+            Text("Extended").tag(SourcesViewModel.MergedFilter.extended)
+        }
+        .pickerStyle(.segmented)
+        .padding(.horizontal)
+        .padding(.vertical, 6)
     }
 }
