@@ -226,14 +226,19 @@ struct SearchView: View {
             ContentUnavailableView.search
         } else {
             List(hits) { hit in
+                let isVernacularSearch = appState.searchContent == .vernacular
                 if let target = hit.navigationTaxonId {
                     Button { selectedTaxonId = target } label: {
-                        SearchRow(hit: hit, preferredLanguage: appState.effectiveVernacularLanguage)
+                        SearchRow(hit: hit,
+                                  preferredLanguage: appState.effectiveVernacularLanguage,
+                                  vernacularLayout: isVernacularSearch)
                     }
                     .buttonStyle(.plain)
                 } else {
                     // Orphan synonym (no accepted) — show but don't navigate
-                    SearchRow(hit: hit, preferredLanguage: appState.effectiveVernacularLanguage)
+                    SearchRow(hit: hit,
+                              preferredLanguage: appState.effectiveVernacularLanguage,
+                              vernacularLayout: isVernacularSearch)
                         .opacity(0.6)
                 }
             }
@@ -352,6 +357,12 @@ private struct FilterMenu: View {
 private struct SearchRow: View {
     let hit: SearchHit
     let preferredLanguage: String?
+    /// True when the row is being rendered for a `content=VERNACULAR_NAME`
+    /// search — leads with the common name and demotes the scientific name
+    /// to a secondary line. The API returns `vernacularNames` even for
+    /// scientific searches (most hits carry localized names), so we can't
+    /// use that field's presence as the signal.
+    let vernacularLayout: Bool
 
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
@@ -391,10 +402,10 @@ private struct SearchRow: View {
         }
     }
 
-    /// Whether this hit came back from a VERNACULAR_NAME search — vernacular
-    /// rows lead with the common name and demote the scientific name.
+    /// Whether to render this row in vernacular layout — true only when the
+    /// search mode is .vernacular AND the hit actually has a name to surface.
     private var isVernacularHit: Bool {
-        !hit.vernacularNames.isEmpty
+        vernacularLayout && !hit.vernacularNames.isEmpty
     }
 
     @ViewBuilder
