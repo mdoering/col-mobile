@@ -30,6 +30,12 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
         return nameLabels[nameId]
     }
     var nameLabels: [String: String] = [:]
+
+    func getTreeClassification(datasetKey: Int, taxonId: String) async throws -> [TreeNode] {
+        if let error { throw error }
+        return treeClassifications[taxonId] ?? []
+    }
+    var treeClassifications: [String: [TreeNode]] = [:]
     func getTaxonInfo(datasetKey: Int, taxonId: String) async throws -> TaxonInfo {
         if let error { throw error }
         guard let info = taxonInfo[taxonId] else { throw APIError.notFound }

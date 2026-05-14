@@ -58,6 +58,16 @@ enum Endpoints {
             .appending(path: nameId)
     }
 
+    /// `GET /dataset/{key}/tree/{taxonId}` — returns the classification path
+    /// for a taxon as an ordered array (root first, the taxon itself last).
+    static func tree(datasetKey: Int, taxonId: String) -> URL {
+        baseURL
+            .appending(path: "dataset")
+            .appending(path: "\(datasetKey)")
+            .appending(path: "tree")
+            .appending(path: taxonId)
+    }
+
     static func treeChildren(datasetKey: Int, parentId: String?, limit: Int = 100) -> URL {
         var path = "dataset/\(datasetKey)/tree"
         if let parentId { path += "/\(parentId)/children" }

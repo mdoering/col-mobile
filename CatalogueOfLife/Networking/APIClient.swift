@@ -4,6 +4,10 @@ protocol APIClient: Sendable {
     func getDataset(_ keyOrAlias: String) async throws -> DatasetRef
     func listReleases() async throws -> [DatasetRef]
     func searchNames(datasetKey: Int, q: String, rank: Rank?, status: TaxonStatus?, group: String?, taxonId: String?, content: SearchContent) async throws -> [SearchHit]
+
+    /// Returns the classification path of a taxon — root at index 0, the taxon
+    /// itself at the end. Wraps `GET /dataset/{key}/tree/{id}`.
+    func getTreeClassification(datasetKey: Int, taxonId: String) async throws -> [TreeNode]
     func getTaxonInfo(datasetKey: Int, taxonId: String) async throws -> TaxonInfo
 
     /// Resolve a name by id and return its human-readable label

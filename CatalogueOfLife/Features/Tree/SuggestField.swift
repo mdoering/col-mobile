@@ -64,13 +64,13 @@ struct SuggestField: View {
 
     var body: some View {
         @Bindable var vm = vm
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 8) {
             TextField("Jump to taxon", text: $vm.query)
                 .textFieldStyle(.roundedBorder)
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.never)
                 .padding(.horizontal)
-                .padding(.vertical, 6)
+                .padding(.top, 6)
             if case let .loaded(suggestions) = vm.state, !suggestions.isEmpty {
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 0) {
@@ -92,12 +92,17 @@ struct SuggestField: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             }
                             .buttonStyle(.plain)
-                            Divider()
+                            if s.id != suggestions.prefix(10).last?.id {
+                                Divider()
+                            }
                         }
                     }
                 }
                 .frame(maxHeight: 280)
-                .background(.thinMaterial)
+                .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
+                .padding(.horizontal, 12)
+                .padding(.bottom, 8)
+                .shadow(color: .black.opacity(0.12), radius: 6, y: 2)
             }
         }
     }

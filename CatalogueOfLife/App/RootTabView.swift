@@ -3,14 +3,18 @@ import SwiftUI
 struct RootTabView: View {
     @Environment(AppState.self) private var appState
     @State private var showingFavorites = false
+    /// Owned at the tab level so the suggest-pick handler can append a whole
+    /// classification path in one go, and so the path survives if a TreeView
+    /// instance lower down re-mounts.
+    @State private var treePath: [TreeRoute] = []
 
     var body: some View {
         TabView(selection: Binding(
             get: { appState.selectedTabIndex },
             set: { appState.selectedTabIndex = $0 }
         )) {
-            NavigationStack {
-                TreeView()
+            NavigationStack(path: $treePath) {
+                TreeView(path: $treePath)
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Image("CoLLogo")
@@ -27,6 +31,14 @@ struct RootTabView: View {
                                 Image(systemName: "star.circle")
                             }
                             .accessibilityLabel("Open bookmarks")
+                        }
+                    }
+                    .navigationDestination(for: TreeRoute.self) { route in
+                        switch route {
+                        case let .child(id, name):
+                            TreeView(rootParentId: id, rootParentName: name, path: $treePath)
+                        case let .taxon(id):
+                            TaxonDetailView(taxonId: id)
                         }
                     }
             }

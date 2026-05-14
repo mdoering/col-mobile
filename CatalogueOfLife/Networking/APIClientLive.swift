@@ -64,6 +64,12 @@ actor APIClientLive: APIClient {
         let paged = try await getJSON(url, as: PagedDTO<NameUsageSearchHitDTO>.self)
         return paged.result.map(SearchHit.init(dto:))
     }
+
+    func getTreeClassification(datasetKey: Int, taxonId: String) async throws -> [TreeNode] {
+        let url = Endpoints.tree(datasetKey: datasetKey, taxonId: taxonId)
+        let dtos = try await getJSON(url, as: [TreeNodeDTO].self)
+        return dtos.map(TreeNode.init(dto:))
+    }
     func getTaxonInfo(datasetKey: Int, taxonId: String) async throws -> TaxonInfo {
         let url = Endpoints.taxonInfo(datasetKey: datasetKey, taxonId: taxonId)
         let dto = try await getJSON(url, as: TaxonInfoDTO.self)
