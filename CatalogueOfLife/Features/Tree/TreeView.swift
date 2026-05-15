@@ -23,6 +23,7 @@ struct TreeView: View {
     /// can render the chips above the children list. Excludes the current
     /// taxon and "--incertae-sedis--" placeholder ancestors.
     @State private var pathChips: [ClassificationItem] = []
+    @State private var showingFavorites = false
 
     init(rootParentId: String? = nil, rootParentName: String? = nil, path: Binding<[TreeRoute]>) {
         self.rootParentId = rootParentId
@@ -44,14 +45,14 @@ struct TreeView: View {
                             .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.horizontal, 20)
                             .padding(.bottom, 8)
-                        SuggestField(client: APIClientLive(),
-                                     getDatasetKey: { [appState] in appState.selectedDataset?.key }) { suggestion in
-                            handlePick(suggestion)
-                        }
-                        .overlay(alignment: .trailing) {
-                            if divingIn {
-                                ProgressView().padding(.trailing, 24)
-                            }
+                    }
+                    SuggestField(client: APIClientLive(),
+                                 getDatasetKey: { [appState] in appState.selectedDataset?.key }) { suggestion in
+                        handlePick(suggestion)
+                    }
+                    .overlay(alignment: .trailing) {
+                        if divingIn {
+                            ProgressView().padding(.trailing, 24)
                         }
                     }
                     if rootParentId != nil, !pathChips.isEmpty {
@@ -62,6 +63,33 @@ struct TreeView: View {
                         .padding(.vertical, 6)
                     }
                 }
+            }
+            .toolbar {
+                if let rootParentId, let rootParentName {
+                    ToolbarItem(placement: .principal) {
+                        Button {
+                            path.append(.taxon(id: rootParentId))
+                        } label: {
+                            Text(rootParentName)
+                                .font(.headline)
+                                .italic()
+                                .lineLimit(1)
+                                .foregroundStyle(.primary)
+                        }
+                        .accessibilityLabel("Open \(rootParentName) details")
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showingFavorites = true
+                    } label: {
+                        Image(systemName: "star.circle")
+                    }
+                    .accessibilityLabel("Open bookmarks")
+                }
+            }
+            .sheet(isPresented: $showingFavorites) {
+                FavoritesSheet()
             }
             // Re-fire when the resolved dataset key arrives (cold-launch race) or changes.
             .task(id: appState.selectedDataset?.key) {
@@ -126,15 +154,19 @@ struct TreeView: View {
             defer { divingIn = false }
             do {
                 let classification = try await APIClientLive().getTreeClassification(datasetKey: key, taxonId: suggestion.id)
-                // The endpoint returns ancestors plus the picked taxon. Push every
-                // step as a `.child(...)` route so the user can back through the
-                // whole lineage (root → kingdom → … → picked).
+                // The endpoint returns ancestors plus the picked taxon. Replace
+                // the current navigation path with the full lineage so the user
+                // can back through every level (root → kingdom → … → picked).
                 let routes = classification.map { TreeRoute.child(id: $0.id, name: $0.name) }
-                path.append(contentsOf: routes)
+                // Defer the path mutation one runloop tick — assigning a fresh
+                // NavigationStack path from inside a destination view that's
+                // about to be torn down can otherwise drop the update entirely
+                // (matches the popTo workaround below).
+                Task { @MainActor in path = routes }
             } catch {
                 // Fall back to opening the taxon detail directly so the user
                 // still gets *somewhere* useful when /tree/{id} is unreachable.
-                path.append(.taxon(id: suggestion.id))
+                Task { @MainActor in path = [.taxon(id: suggestion.id)] }
             }
         }
     }

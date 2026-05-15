@@ -2,8 +2,7 @@ import SwiftUI
 
 struct RootTabView: View {
     @Environment(AppState.self) private var appState
-    @State private var showingFavorites = false
-    /// Owned at the tab level so the suggest-pick handler can append a whole
+    /// Owned at the tab level so the suggest-pick handler can swap the whole
     /// classification path in one go, and so the path survives if a TreeView
     /// instance lower down re-mounts.
     @State private var treePath: [TreeRoute] = []
@@ -15,24 +14,6 @@ struct RootTabView: View {
         )) {
             NavigationStack(path: $treePath) {
                 TreeView(path: $treePath)
-                    .toolbar {
-                        ToolbarItem(placement: .topBarLeading) {
-                            Image("CoLLogo")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 28, height: 28)
-                                .clipShape(RoundedRectangle(cornerRadius: 6))
-                                .accessibilityLabel("Catalogue of Life")
-                        }
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button {
-                                showingFavorites = true
-                            } label: {
-                                Image(systemName: "star.circle")
-                            }
-                            .accessibilityLabel("Open bookmarks")
-                        }
-                    }
                     .navigationDestination(for: TreeRoute.self) { route in
                         switch route {
                         case let .child(id, name):
@@ -57,9 +38,6 @@ struct RootTabView: View {
             AboutView()
                 .tabItem { Label("About", systemImage: "info.circle") }
                 .tag(4)
-        }
-        .sheet(isPresented: $showingFavorites) {
-            FavoritesSheet()
         }
     }
 }

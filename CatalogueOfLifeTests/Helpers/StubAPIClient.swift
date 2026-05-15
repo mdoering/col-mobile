@@ -114,4 +114,11 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
         guard let url = feedbackResult else { throw APIError.notFound }
         return url
     }
+
+    var nomRelTypeVocab: [NomRelTypeVocabEntry] = []
+
+    func getNomRelTypeVocab() async throws -> [NomRelTypeVocabEntry] {
+        if let error { throw error }
+        return nomRelTypeVocab
+    }
 }

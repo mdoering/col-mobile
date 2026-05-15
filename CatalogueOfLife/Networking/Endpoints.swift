@@ -151,6 +151,11 @@ enum Endpoints {
         baseURL.appending(path: "dataset/\(datasetKey)/import")
     }
 
+    /// `GET /vocab/nomRelType` — controlled-vocabulary list for name-relation
+    /// types. Used to map wire values (e.g. `basionym`, `spelling_correction`)
+    /// onto canonical human-readable labels.
+    static let nomRelTypeVocab = baseURL.appending(path: "vocab/nomRelType")
+
     static func feedback(datasetKey: Int, taxonId: String) -> URL {
         baseURL
             .appending(path: "dataset")

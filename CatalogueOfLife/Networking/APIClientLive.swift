@@ -76,6 +76,10 @@ actor APIClientLive: APIClient {
         return TaxonInfo(dto: dto)
     }
 
+    func getNomRelTypeVocab() async throws -> [NomRelTypeVocabEntry] {
+        try await getJSON(Endpoints.nomRelTypeVocab, as: [NomRelTypeVocabEntry].self)
+    }
+
     func getNameLabel(datasetKey: Int, nameId: String) async throws -> String? {
         let dto = try await getJSON(Endpoints.name(datasetKey: datasetKey, nameId: nameId), as: NameDTO.self)
         if let label = dto.label, !label.isEmpty { return label }

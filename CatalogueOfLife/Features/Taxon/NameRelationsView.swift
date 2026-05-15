@@ -7,13 +7,15 @@ struct NameRelationsView: View {
     /// Resolved labels keyed by relatedNameId. Loaded lazily on appear so
     /// rows render immediately even before the labels arrive.
     @State private var labels: [String: String] = [:]
+    /// Wire-value → canonical label resolved from the `nomRelType` vocab.
+    @State private var typeLabels: [String: String] = [:]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text("Name relations").font(.headline)
             ForEach(relations) { rel in
                 HStack(alignment: .firstTextBaseline) {
-                    Text(rel.type.capitalized).font(.callout)
+                    Text(typeLabel(for: rel.type)).font(.callout)
                     Spacer()
                     // Rows are deliberately non-tappable: name relations almost
                     // always point at synonyms, and we don't open synonym
@@ -30,7 +32,29 @@ struct NameRelationsView: View {
         }
         .task(id: relations.map(\.id).joined()) {
             await resolveLabels()
+            await loadTypeLabels()
         }
+    }
+
+    /// Looks up the canonical label from the cached `nomRelType` vocab. The
+    /// vocab's `label` field is already properly cased ("Has basionym"), so
+    /// no further transformation is needed. Falls back to the wire value
+    /// (capitalised, underscores → spaces) when the vocab isn't loaded yet
+    /// or the value is unknown.
+    private func typeLabel(for wire: String) -> String {
+        if let label = typeLabels[wire] { return label }
+        return wire.replacingOccurrences(of: "_", with: " ").capitalized
+    }
+
+    private func loadTypeLabels() async {
+        let client = APIClientLive()
+        var newLabels: [String: String] = [:]
+        for type in Set(relations.map(\.type)) {
+            if let label = await VocabStore.shared.nomRelTypeLabel(for: type, client: client) {
+                newLabels[type] = label
+            }
+        }
+        typeLabels = newLabels
     }
 
     private func displayLabel(for rel: NameRelation) -> String {

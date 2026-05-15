@@ -30,5 +30,15 @@ protocol APIClient: Sendable {
 
     /// Submits user feedback for a taxon. Returns the URL of the created GitHub issue.
     func submitFeedback(datasetKey: Int, taxonId: String, message: String, email: String) async throws -> URL
+
+    /// Fetches the global `nomRelType` controlled vocabulary so wire values
+    /// can be rendered as canonical human-readable labels.
+    func getNomRelTypeVocab() async throws -> [NomRelTypeVocabEntry]
+}
+
+struct NomRelTypeVocabEntry: Decodable, Sendable {
+    let name: String
+    let label: String?
+    let description: String?
 }
 
