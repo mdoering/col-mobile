@@ -64,7 +64,7 @@ struct AboutView: View {
     }
 
     private var logoHeader: some View {
-        Image("CoLLogoWhite")
+        Image("CoLLogotype")
             .resizable()
             .scaledToFit()
             .frame(maxWidth: 260)

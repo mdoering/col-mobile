@@ -37,6 +37,13 @@ struct TreeView: View {
             .safeAreaInset(edge: .top) {
                 VStack(alignment: .leading, spacing: 0) {
                     if rootParentId == nil {
+                        Image("CoLLogotype")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: 260)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 8)
                         SuggestField(client: APIClientLive(),
                                      getDatasetKey: { [appState] in appState.selectedDataset?.key }) { suggestion in
                             handlePick(suggestion)
