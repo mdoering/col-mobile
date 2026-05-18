@@ -440,5 +440,18 @@
     "families": 21836,
     "genera": 302022,
     "species": 2485747
+  },
+  {
+    "alias": "COL26.5",
+    "displayName": "COL26.5",
+    "datasetKey": 315149,
+    "issued": "2026-05-11",
+    "origin": "release",
+    "taxonCount": 2688253,
+    "nameCount": 5390753,
+    "synonymCount": 2702500,
+    "families": 14962,
+    "genera": 217953,
+    "species": 2247590
   }
 ]
