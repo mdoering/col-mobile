@@ -44,9 +44,24 @@ final class StubAPIClient: APIClient, @unchecked Sendable {
         return info
     }
 
-    func getTreeChildren(datasetKey: Int, parentId: String?) async throws -> [TreeNode] {
+    /// If set, the stub appends this placeholder to every non-empty page for
+    /// the given parentId — mirrors the server's `insertPlaceholder=true`
+    /// behavior which adds a synthesised "Not assigned" node to each page.
+    var treeChildrenPlaceholder: [String: TreeNode] = [:]
+
+    func getTreeChildren(datasetKey: Int, parentId: String?, offset: Int) async throws -> TreeChildrenPage {
         if let error { throw error }
-        return treeChildren[parentId ?? "root"] ?? []
+        let key = parentId ?? "root"
+        let all = treeChildren[key] ?? []
+        // Mirror the live client's 100-per-page slicing so paging tests can
+        // exercise the offset path with realistic fixtures.
+        let pageSize = 100
+        var slice = Array(all.dropFirst(offset).prefix(pageSize))
+        let hasMore = (offset + slice.count) < all.count
+        if !slice.isEmpty, let placeholder = treeChildrenPlaceholder[key] {
+            slice.append(placeholder)
+        }
+        return TreeChildrenPage(nodes: slice, hasMore: hasMore, offset: offset)
     }
     func suggest(datasetKey: Int, q: String) async throws -> [TaxonSuggestion] {
         if let error { throw error }

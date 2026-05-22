@@ -124,17 +124,6 @@ struct AboutView: View {
                 emailField
             }
             HStack {
-                Text("Apple base map").font(.callout)
-                Spacer()
-                Picker("Apple base map", selection: $appState.mapBaseStyle) {
-                    Text("Standard").tag("standard")
-                    Text("Standard Muted").tag("standardMuted")
-                    Text("Hybrid").tag("hybrid")
-                    Text("Imagery").tag("imagery")
-                }
-                .pickerStyle(.menu).labelsHidden()
-            }
-            HStack {
                 Text("GBIF map color").font(.callout)
                 Spacer()
                 Picker("GBIF map color", selection: $appState.gbifMapStyle) {
@@ -143,16 +132,6 @@ struct AboutView: View {
                     }
                 }
                 .pickerStyle(.menu).labelsHidden()
-            }
-            HStack {
-                Text("Base map opacity").font(.callout)
-                Spacer()
-                Slider(value: $appState.baseMapOpacity, in: 0...1, step: 0.05)
-                    .frame(width: 140)
-                Text("\(Int(appState.baseMapOpacity * 100))%")
-                    .font(.caption).foregroundStyle(.secondary)
-                    .monospacedDigit()
-                    .frame(width: 38, alignment: .trailing)
             }
         }
     }

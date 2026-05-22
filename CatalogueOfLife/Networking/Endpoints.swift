@@ -76,7 +76,7 @@ enum Endpoints {
             .appending(path: taxonId)
     }
 
-    static func treeChildren(datasetKey: Int, parentId: String?, limit: Int = 100) -> URL {
+    static func treeChildren(datasetKey: Int, parentId: String?, offset: Int = 0, limit: Int = 100) -> URL {
         var path = "dataset/\(datasetKey)/tree"
         if let parentId { path += "/\(parentId)/children" }
         var c = URLComponents(url: baseURL.appending(path: path), resolvingAgainstBaseURL: false)!
@@ -85,6 +85,7 @@ enum Endpoints {
         // shows children of a single rank under each parent. The placeholders
         // are navigable like real taxa but must not open as taxon details.
         c.queryItems = [
+            URLQueryItem(name: "offset", value: String(offset)),
             URLQueryItem(name: "limit", value: String(limit)),
             URLQueryItem(name: "insertPlaceholder", value: "true"),
         ]

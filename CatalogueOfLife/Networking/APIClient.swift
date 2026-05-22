@@ -15,7 +15,11 @@ protocol APIClient: Sendable {
     /// scientific name). Used to label name-relation rows.
     func getNameLabel(datasetKey: Int, nameId: String) async throws -> String?
 
-    func getTreeChildren(datasetKey: Int, parentId: String?) async throws -> [TreeNode]
+    /// One page of immediate children of a taxon (or root if `parentId == nil`).
+    /// `offset` is the zero-based start index; the page size is fixed in the
+    /// live client. `TreeChildrenPage.total` is the server's grand total, used
+    /// to decide whether another page exists.
+    func getTreeChildren(datasetKey: Int, parentId: String?, offset: Int) async throws -> TreeChildrenPage
     func suggest(datasetKey: Int, q: String) async throws -> [TaxonSuggestion]
     func getClassification(datasetKey: Int, taxonId: String) async throws -> [ClassificationItem]
     func listSources(datasetKey: Int) async throws -> [Source]
@@ -40,5 +44,15 @@ struct NomRelTypeVocabEntry: Decodable, Sendable {
     let name: String
     let label: String?
     let description: String?
+}
+
+/// One page of tree children. `hasMore` is true iff at least one more page
+/// exists past this one — the ChecklistBank `total` is a running counter,
+/// not a true total, so the live client reads the response's `last` flag
+/// and exposes it as `hasMore` for callers.
+struct TreeChildrenPage: Sendable {
+    let nodes: [TreeNode]
+    let hasMore: Bool
+    let offset: Int
 }
 

@@ -227,8 +227,8 @@ struct TaxonDetailView: View {
                         breakdownChildren = nodes
                     }
                 } else {
-                    if let children = try? await APIClientLive().getTreeChildren(datasetKey: key, parentId: info.taxonId) {
-                        childNodes = children
+                    if let page = try? await APIClientLive().getTreeChildren(datasetKey: key, parentId: info.taxonId, offset: 0) {
+                        childNodes = page.nodes
                     }
                 }
             }

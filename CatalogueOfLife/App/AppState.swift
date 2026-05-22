@@ -55,23 +55,10 @@ final class AppState {
     }
 
     /// GBIF map tile style — the raw `style` query value sent to the density tile
-    /// endpoint (e.g. `purpleHeat.point`). One of the `value`s in
+    /// endpoint (e.g. `iNaturalist.poly`). One of the `value`s in
     /// `GBIFEndpoints.availableMapTileStyles`.
     var gbifMapStyle: String {
         didSet { defaults.set(gbifMapStyle, forKey: Keys.gbifMapStyle) }
-    }
-
-    /// Apple base-map style for MKMapView: "standard", "standardMuted", "hybrid", "imagery".
-    var mapBaseStyle: String {
-        didSet { defaults.set(mapBaseStyle, forKey: Keys.mapBaseStyle) }
-    }
-
-    /// Apple base-map opacity, 0.0…1.0. Used to dim the base map so faint
-    /// GBIF density tiles read more clearly. Default 0.25 — strong dim
-    /// that lets sparse occurrence dots stand out on hybrid/imagery
-    /// styles without losing all sense of geography.
-    var baseMapOpacity: Double {
-        didSet { defaults.set(baseMapOpacity, forKey: Keys.baseMapOpacity) }
     }
 
     /// Which name field the search tab is matching against. Persisted globally
@@ -128,13 +115,6 @@ final class AppState {
         let storedStyle = defaults.string(forKey: Keys.gbifMapStyle)
         self.gbifMapStyle = (storedStyle.map { validStyleValues.contains($0) ? $0 : nil } ?? nil)
             ?? GBIFEndpoints.defaultMapTileStyle
-        self.mapBaseStyle = defaults.string(forKey: Keys.mapBaseStyle).map {
-            ["standard", "standardMuted", "hybrid", "imagery"].contains($0) ? $0 : "hybrid"
-        } ?? "hybrid"
-        // Use object(forKey:) — UserDefaults.double returns 0.0 for missing keys,
-        // which we want to distinguish from a deliberately-saved 0% opacity.
-        let storedOpacity = defaults.object(forKey: Keys.baseMapOpacity) as? Double
-        self.baseMapOpacity = storedOpacity.map { min(max($0, 0.0), 1.0) } ?? 0.25
         self.searchContent = defaults.string(forKey: Keys.searchContent)
             .flatMap(SearchContent.init(rawValue:)) ?? .scientific
     }
@@ -187,8 +167,6 @@ final class AppState {
         static let preferredVernacularLang = "preferredVernacularLang"
         static let userEmail = "userEmail"
         static let gbifMapStyle = "gbifMapStyle"
-        static let mapBaseStyle = "mapBaseStyle"
-        static let baseMapOpacity = "baseMapOpacity"
         static let searchContent = "searchContent"
     }
 }

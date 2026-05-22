@@ -3,6 +3,7 @@ import MapKit
 
 struct GBIFSectionView: View {
     @Environment(AppState.self) private var appState
+    @Environment(\.colorScheme) private var colorScheme
     let taxonId: String
     @State private var vm: GBIFSectionViewModel?
     @State private var mapFullScreen = false
@@ -54,12 +55,15 @@ struct GBIFSectionView: View {
             GBIFMapView(
                 taxonId: taxonId,
                 style: appState.gbifMapStyle,
-                baseStyle: appState.mapBaseStyle,
-                baseMapOpacity: appState.baseMapOpacity,
+                colorScheme: colorScheme,
                 region: $mapRegion
             )
             .frame(height: 240)
             .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay(alignment: .bottomLeading) {
+                CartoAttributionLabel()
+                    .padding(6)
+            }
 
             Button {
                 mapFullScreen = true

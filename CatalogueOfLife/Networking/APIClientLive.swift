@@ -88,10 +88,22 @@ actor APIClientLive: APIClient {
         return sci
     }
 
-    func getTreeChildren(datasetKey: Int, parentId: String?) async throws -> [TreeNode] {
-        let url = Endpoints.treeChildren(datasetKey: datasetKey, parentId: parentId)
+    func getTreeChildren(datasetKey: Int, parentId: String?, offset: Int) async throws -> TreeChildrenPage {
+        let url = Endpoints.treeChildren(datasetKey: datasetKey, parentId: parentId, offset: offset)
         let paged = try await getJSON(url, as: PagedDTO<TreeNodeDTO>.self)
-        return paged.result.map(TreeNode.init(dto:))
+        // `last` is the only reliable end-of-pages signal here — see PagedDTO.
+        // If the server omits it for some reason, fall back to "empty page = end".
+        let hasMore: Bool
+        if let last = paged.last {
+            hasMore = !last
+        } else {
+            hasMore = !paged.result.isEmpty
+        }
+        return TreeChildrenPage(
+            nodes: paged.result.map(TreeNode.init(dto:)),
+            hasMore: hasMore,
+            offset: paged.offset ?? offset
+        )
     }
 
     func suggest(datasetKey: Int, q: String) async throws -> [TaxonSuggestion] {

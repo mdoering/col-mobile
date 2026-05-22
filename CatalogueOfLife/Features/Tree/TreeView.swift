@@ -154,10 +154,20 @@ struct TreeView: View {
             defer { divingIn = false }
             do {
                 let classification = try await APIClientLive().getTreeClassification(datasetKey: key, taxonId: suggestion.id)
-                // The endpoint returns ancestors plus the picked taxon. Replace
-                // the current navigation path with the full lineage so the user
-                // can back through every level (root → kingdom → … → picked).
-                let routes = classification.map { TreeRoute.child(id: $0.id, name: $0.name) }
+                // The endpoint returns the chain leaf-first with the picked
+                // taxon as the first entry. Reverse to root-first so pushing
+                // the routes onto the NavigationStack walks the user from
+                // root → … → picked. The picked taxon itself is mapped to
+                // `.taxon` so the final pushed view is its detail page rather
+                // than an empty children list (species have no children to
+                // browse, and even for higher ranks users following a suggest
+                // want to land on the taxon itself).
+                let rootFirst = Array(classification.reversed())
+                let ancestors = rootFirst.dropLast()
+                var routes: [TreeRoute] = ancestors.map {
+                    .child(id: $0.id, name: $0.name)
+                }
+                routes.append(.taxon(id: suggestion.id))
                 // Defer the path mutation one runloop tick — assigning a fresh
                 // NavigationStack path from inside a destination view that's
                 // about to be torn down can otherwise drop the update entirely
@@ -178,46 +188,64 @@ struct TreeView: View {
             if nodes.isEmpty {
                 ContentUnavailableView("No children", systemImage: "tree", description: Text("This taxon has no listed descendants in the current release."))
             } else {
-                List(nodes) { node in
-                    HStack(spacing: 8) {
-                        Button {
-                            // Tapping the name drills into children. For leaf
-                            // taxa there are no children, so fall through to
-                            // opening the taxon detail. Placeholders always
-                            // drill (they have no detail view).
-                            if node.isPlaceholder || !node.isLeaf {
-                                path.append(.child(id: node.id, name: node.name))
-                            } else {
-                                path.append(.taxon(id: node.id))
-                            }
-                        } label: {
-                            TreeRowView(node: node)
-                                .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-
-                        if !node.isLeaf {
+                List {
+                    ForEach(nodes) { node in
+                        HStack(spacing: 8) {
                             Button {
-                                // Chevron now opens taxon details. Placeholders
-                                // are the exception — they have no detail page,
-                                // so the chevron still drills into children.
-                                if node.isPlaceholder {
+                                // Tapping the name drills into children. For leaf
+                                // taxa there are no children, so fall through to
+                                // opening the taxon detail. Placeholders always
+                                // drill (they have no detail view).
+                                if node.isPlaceholder || !node.isLeaf {
                                     path.append(.child(id: node.id, name: node.name))
                                 } else {
                                     path.append(.taxon(id: node.id))
                                 }
                             } label: {
-                                Image(systemName: node.isPlaceholder ? "chevron.forward.2" : "chevron.forward")
-                                    .font(.callout)
-                                    .foregroundStyle(.secondary)
-                                    .frame(width: 32, height: 44)
+                                TreeRowView(node: node)
                                     .contentShape(Rectangle())
                             }
-                            .buttonStyle(.borderless)
-                            .accessibilityLabel(node.isPlaceholder ? "Browse children of \(node.name)" : "Open \(node.name) details")
+                            .buttonStyle(.plain)
+
+                            if !node.isLeaf {
+                                Button {
+                                    // Chevron now opens taxon details. Placeholders
+                                    // are the exception — they have no detail page,
+                                    // so the chevron still drills into children.
+                                    if node.isPlaceholder {
+                                        path.append(.child(id: node.id, name: node.name))
+                                    } else {
+                                        path.append(.taxon(id: node.id))
+                                    }
+                                } label: {
+                                    Image(systemName: node.isPlaceholder ? "chevron.forward.2" : "chevron.forward")
+                                        .font(.callout)
+                                        .foregroundStyle(.secondary)
+                                        .frame(width: 32, height: 44)
+                                        .contentShape(Rectangle())
+                                }
+                                .buttonStyle(.borderless)
+                                .accessibilityLabel(node.isPlaceholder ? "Browse children of \(node.name)" : "Open \(node.name) details")
+                            }
+                        }
+                        .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 8))
+                        .onAppear {
+                            // Trigger the next page when the last row becomes
+                            // visible. The VM guards against duplicate fires.
+                            if node.id == nodes.last?.id {
+                                Task { await vm?.loadMore() }
+                            }
                         }
                     }
-                    .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 8))
+                    if vm?.isLoadingMore == true {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 12, trailing: 16))
+                    }
                 }
                 .listStyle(.plain)
             }

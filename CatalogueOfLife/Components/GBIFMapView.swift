@@ -2,17 +2,15 @@ import SwiftUI
 import MapKit
 
 /// SwiftUI wrapper for an MKMapView that displays GBIF density tiles
-/// for one COL taxon. (CoL identifiers have been stable since COL21,
-/// so every release we expose resolves through GBIF's COL checklist.)
+/// for one COL taxon over a Carto Positron base map (light variant in
+/// light mode, Dark Matter in dark mode). (CoL identifiers have been
+/// stable since COL21, so every release we expose resolves through
+/// GBIF's COL checklist.)
 struct GBIFMapView: UIViewRepresentable {
     let taxonId: String
     let style: String
-    /// Apple base-map style: "standard", "standardMuted", "hybrid", "imagery".
-    var baseStyle: String = "hybrid"
-    /// 0.0…1.0 — Apple base map opacity. 1.0 = no dimming. Lower values
-    /// fade Apple's base map (and its labels) toward the system background
-    /// without touching the GBIF density tiles, which sit on top.
-    var baseMapOpacity: Double = 1.0
+    /// `light` → Carto Positron, `dark` → Carto Dark Matter.
+    var colorScheme: ColorScheme = .light
     /// Two-way region binding. The owning view drives the initial framing and
     /// receives the user's pan/zoom changes, so the inline map and the
     /// fullscreen presentation share the same view-state.
@@ -32,11 +30,11 @@ struct GBIFMapView: UIViewRepresentable {
         map.isPitchEnabled = false
         map.showsCompass = false
         map.pointOfInterestFilter = .excludingAll
-        map.preferredConfiguration = mapConfiguration()
-        // Order matters within a level: the dim sheet is added first, so the
-        // GBIF tiles end up rendered on top of it (and on top of Apple's
-        // base map + labels, which the dim sheet sits over).
-        map.addOverlay(BaseMapDimOverlay(), level: .aboveLabels)
+        map.preferredConfiguration = MKStandardMapConfiguration(elevationStyle: .flat, emphasisStyle: .muted)
+        // Order matters within a level: Carto goes on first as the base layer
+        // (canReplaceMapContent = true tells MapKit to skip Apple's base map
+        // underneath), then the GBIF density tiles render on top.
+        map.addOverlay(CartoBasemapOverlay(variant: cartoVariant(for: colorScheme)), level: .aboveRoads)
         map.addOverlay(GBIFTileOverlay(taxonId: taxonId, style: style, resolution: resolution), level: .aboveLabels)
         context.coordinator.applyProgrammatically(region, to: map)
         context.coordinator.lastAppliedTaxonId = taxonId
@@ -45,28 +43,18 @@ struct GBIFMapView: UIViewRepresentable {
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
         context.coordinator.parent = self
-        let existing = uiView.overlays.compactMap { $0 as? GBIFTileOverlay }
-        let taxonChanged = existing.first?.taxonId != taxonId
-        if taxonChanged
-            || existing.first?.style != style
-            || existing.first?.resolution != resolution
-        {
+        let existingGBIF = uiView.overlays.compactMap { $0 as? GBIFTileOverlay }.first
+        let existingCarto = uiView.overlays.compactMap { $0 as? CartoBasemapOverlay }.first
+        let taxonChanged = existingGBIF?.taxonId != taxonId
+        let styleChanged = existingGBIF?.style != style || existingGBIF?.resolution != resolution
+        let cartoChanged = existingCarto?.variant != cartoVariant(for: colorScheme)
+        if taxonChanged || styleChanged || cartoChanged {
             // Drop everything and re-add both layers in the right order so
-            // the dim sheet stays under the GBIF tiles.
+            // Carto stays beneath the GBIF tiles.
             uiView.removeOverlays(uiView.overlays)
-            uiView.addOverlay(BaseMapDimOverlay(), level: .aboveLabels)
+            uiView.addOverlay(CartoBasemapOverlay(variant: cartoVariant(for: colorScheme)), level: .aboveRoads)
             uiView.addOverlay(GBIFTileOverlay(taxonId: taxonId, style: style, resolution: resolution), level: .aboveLabels)
         }
-        // Update the dim renderer in place — no need to swap the overlay.
-        if let dim = uiView.overlays.first(where: { $0 is BaseMapDimOverlay }),
-           let renderer = uiView.renderer(for: dim) as? BaseMapDimRenderer {
-            let newOpacity = CGFloat(baseMapOpacity)
-            if renderer.baseMapOpacity != newOpacity {
-                renderer.baseMapOpacity = newOpacity
-                renderer.setNeedsDisplay()
-            }
-        }
-        uiView.preferredConfiguration = mapConfiguration()
         // Apply the binding's region whenever it diverges noticeably from the
         // map's current view (e.g. fullscreen was just dismissed) or when the
         // taxon itself changed. We never override during a user gesture: the
@@ -100,11 +88,6 @@ struct GBIFMapView: UIViewRepresentable {
         }
 
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-            if let dim = overlay as? BaseMapDimOverlay {
-                let renderer = BaseMapDimRenderer(overlay: dim)
-                renderer.baseMapOpacity = CGFloat(parent?.baseMapOpacity ?? 1.0)
-                return renderer
-            }
             guard let tile = overlay as? MKTileOverlay else { return MKOverlayRenderer(overlay: overlay) }
             return MKTileOverlayRenderer(tileOverlay: tile)
         }
@@ -115,20 +98,8 @@ struct GBIFMapView: UIViewRepresentable {
         }
     }
 
-    private func mapConfiguration() -> MKMapConfiguration {
-        // Elevation is always flat — realistic 3-D adds a lot of CPU/GPU work
-        // without buying clarity for occurrence-density overlays.
-        let elev: MKMapConfiguration.ElevationStyle = .flat
-        switch baseStyle {
-        case "hybrid":
-            return MKHybridMapConfiguration(elevationStyle: elev)
-        case "imagery":
-            return MKImageryMapConfiguration(elevationStyle: elev)
-        case "standardMuted":
-            return MKStandardMapConfiguration(elevationStyle: elev, emphasisStyle: .muted)
-        default:
-            return MKStandardMapConfiguration(elevationStyle: elev, emphasisStyle: .default)
-        }
+    private func cartoVariant(for scheme: ColorScheme) -> String {
+        scheme == .dark ? "dark_all" : "light_all"
     }
 }
 
@@ -212,32 +183,21 @@ private func regionsApproximatelyEqual(_ a: MKCoordinateRegion, _ b: MKCoordinat
         && abs(a.span.longitudeDelta - b.span.longitudeDelta) < eps
 }
 
-/// World-spanning marker overlay rendered as a single semi-transparent
-/// system-background fill above Apple's base map and labels but below the
-/// GBIF density tiles — fades the base map without dimming the dots.
-final class BaseMapDimOverlay: NSObject, MKOverlay {
-    let coordinate: CLLocationCoordinate2D
-    let boundingMapRect: MKMapRect
+/// MKTileOverlay subclass that serves Carto Positron (light) or Dark Matter
+/// (dark) tiles as the map base layer. `canReplaceMapContent = true` tells
+/// MapKit it doesn't need to render Apple's base map underneath.
+///
+/// Free Carto basemaps require attribution: see the small "© OpenStreetMap
+/// contributors, © CARTO" credit in `GBIFSectionView` / `GBIFMapFullScreenView`.
+final class CartoBasemapOverlay: MKTileOverlay, @unchecked Sendable {
+    let variant: String
 
-    override init() {
-        self.boundingMapRect = .world
-        let mid = MKMapPoint(x: MKMapRect.world.midX, y: MKMapRect.world.midY)
-        self.coordinate = mid.coordinate
-        super.init()
-    }
-}
-
-/// Fills its bounds with `systemBackground.withAlphaComponent(1 - opacity)`.
-/// `systemBackground` (white in light mode, near-black in dark mode) keeps
-/// the dim from looking like a glaring white wash on dark themes.
-final class BaseMapDimRenderer: MKOverlayRenderer {
-    var baseMapOpacity: CGFloat = 1.0
-
-    override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
-        let alpha = max(0, min(1, 1 - baseMapOpacity))
-        guard alpha > 0 else { return }
-        context.setFillColor(UIColor.systemBackground.withAlphaComponent(alpha).cgColor)
-        context.fill(rect(for: mapRect))
+    init(variant: String) {
+        self.variant = variant
+        super.init(urlTemplate: "https://a.basemaps.cartocdn.com/\(variant)/{z}/{x}/{y}@2x.png")
+        self.canReplaceMapContent = true
+        self.minimumZ = 0
+        self.maximumZ = 20
     }
 }
 
