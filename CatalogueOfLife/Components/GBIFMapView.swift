@@ -1,105 +1,275 @@
 import SwiftUI
 import MapKit
+import MapLibre
 
-/// SwiftUI wrapper for an MKMapView that displays GBIF density tiles
-/// for one COL taxon over a Carto Positron base map (light variant in
-/// light mode, Dark Matter in dark mode). (CoL identifiers have been
-/// stable since COL21, so every release we expose resolves through
-/// GBIF's COL checklist.)
+/// SwiftUI wrapper for an MLNMapView that renders Carto's Positron (light)
+/// or Dark Matter (dark) vector basemap with GBIF occurrence-density raster
+/// tiles for one COL taxon overlaid on top. (CoL identifiers have been
+/// stable since COL21, so every release we expose resolves through GBIF's
+/// COL checklist.)
+///
+/// The `MKCoordinateRegion` binding is kept at the public interface so
+/// `GBIFSectionView` / `GBIFMapFullScreenView` continue to use familiar
+/// MapKit types. Internally we translate to/from `MLNCoordinateBounds`.
 struct GBIFMapView: UIViewRepresentable {
     let taxonId: String
     let style: String
-    /// `light` → Carto Positron, `dark` → Carto Dark Matter.
+    /// Number of hexagonal bins per tile in the GBIF density request (the
+    /// `hexPerTile` query parameter). Pinned to AppState.gbifHexPerTile.
+    var hexPerTile: Int = 64
     var colorScheme: ColorScheme = .light
-    /// Two-way region binding. The owning view drives the initial framing and
-    /// receives the user's pan/zoom changes, so the inline map and the
-    /// fullscreen presentation share the same view-state.
     @Binding var region: MKCoordinateRegion
+    /// Owned by the parent SwiftUI view. We push the basemap's URL-bearing
+    /// attribution items into it whenever the style finishes loading; the
+    /// parent overlays a Menu-backed (i) button reading from it. Optional so
+    /// the few tests / previews that don't care can skip wiring it.
+    var attribution: MapAttributionState? = nil
 
-    /// GBIF tile resolution is fixed to "1x" (512×512). "2x" doubled bandwidth
-    /// for a marginal visual difference at typical zoom levels.
+    /// GBIF tile resolution. "1x" → 512px source PNG, which renders crisply
+    /// at the 512-pt tile size we request from the MapLibre raster source.
     private let resolution = "1x"
+    private static let gbifSourceID = "gbif-density"
+    private static let gbifLayerID = "gbif-density-layer"
 
-    func makeUIView(context: Context) -> MKMapView {
-        context.coordinator.parent = self
-        let map = MKMapView()
+    func makeUIView(context: Context) -> MLNMapView {
+        let map = MLNMapView(frame: .zero, styleURL: Self.styleURL(for: colorScheme))
         map.delegate = context.coordinator
-        map.isZoomEnabled = true
-        map.isScrollEnabled = true
-        map.isRotateEnabled = false
-        map.isPitchEnabled = false
-        map.showsCompass = false
-        map.pointOfInterestFilter = .excludingAll
-        map.preferredConfiguration = MKStandardMapConfiguration(elevationStyle: .flat, emphasisStyle: .muted)
-        // Order matters within a level: Carto goes on first as the base layer
-        // (canReplaceMapContent = true tells MapKit to skip Apple's base map
-        // underneath), then the GBIF density tiles render on top.
-        map.addOverlay(CartoBasemapOverlay(variant: cartoVariant(for: colorScheme)), level: .aboveRoads)
-        map.addOverlay(GBIFTileOverlay(taxonId: taxonId, style: style, resolution: resolution), level: .aboveLabels)
-        context.coordinator.applyProgrammatically(region, to: map)
+        // Hide MapLibre's built-in chrome:
+        // - logoView: small MapLibre wordmark, confusing alongside Carto's brand.
+        // - compassView: rotation is disabled, so the compass never appears anyway.
+        // - attributionButton: Carto publishes "©" and "contributors" outside
+        //   their <a> tags, which MapLibre then renders as dead tap targets.
+        //   The Coordinator instead pushes the source's URL-bearing infos to
+        //   `attribution`, which `GBIFSectionView` / `GBIFMapFullScreenView`
+        //   present via a Menu-backed SwiftUI (i) button.
+        map.logoView.isHidden = true
+        map.compassView.isHidden = true
+        map.attributionButton.isHidden = true
+        map.allowsRotating = false
+        map.allowsTilting = false
+        // Hide the floating "Track user location" button — we don't request
+        // location and the empty button would otherwise sit on the map corner.
+        map.showsUserLocation = false
+        context.coordinator.parent = self
+        context.coordinator.apply(region: region, to: map, animated: false)
         context.coordinator.lastAppliedTaxonId = taxonId
         return map
     }
 
-    func updateUIView(_ uiView: MKMapView, context: Context) {
+    func updateUIView(_ map: MLNMapView, context: Context) {
         context.coordinator.parent = self
-        let existingGBIF = uiView.overlays.compactMap { $0 as? GBIFTileOverlay }.first
-        let existingCarto = uiView.overlays.compactMap { $0 as? CartoBasemapOverlay }.first
-        let taxonChanged = existingGBIF?.taxonId != taxonId
-        let styleChanged = existingGBIF?.style != style || existingGBIF?.resolution != resolution
-        let cartoChanged = existingCarto?.variant != cartoVariant(for: colorScheme)
-        if taxonChanged || styleChanged || cartoChanged {
-            // Drop everything and re-add both layers in the right order so
-            // Carto stays beneath the GBIF tiles.
-            uiView.removeOverlays(uiView.overlays)
-            uiView.addOverlay(CartoBasemapOverlay(variant: cartoVariant(for: colorScheme)), level: .aboveRoads)
-            uiView.addOverlay(GBIFTileOverlay(taxonId: taxonId, style: style, resolution: resolution), level: .aboveLabels)
+        let wantedStyleURL = Self.styleURL(for: colorScheme)
+        let styleChanged = map.styleURL != wantedStyleURL
+        let taxonChanged = context.coordinator.lastAppliedTaxonId != taxonId
+        let gbifStyleChanged = context.coordinator.lastAppliedGBIFStyle != style
+        let hexPerTileChanged = context.coordinator.lastAppliedHexPerTile != hexPerTile
+
+        if styleChanged {
+            // Swapping styleURL triggers a full reload; the delegate's
+            // didFinishLoading callback re-attaches the GBIF source/layer.
+            map.styleURL = wantedStyleURL
+        } else if taxonChanged || gbifStyleChanged || hexPerTileChanged {
+            context.coordinator.refreshGBIFLayer(on: map)
         }
-        // Apply the binding's region whenever it diverges noticeably from the
-        // map's current view (e.g. fullscreen was just dismissed) or when the
-        // taxon itself changed. We never override during a user gesture: the
-        // delegate's region-change callback skips itself while we're inside
-        // applyProgrammatically, so this branch can't trigger a feedback loop.
-        if taxonChanged || !regionsApproximatelyEqual(uiView.region, region) {
-            context.coordinator.applyProgrammatically(region, to: uiView)
+
+        if taxonChanged || !context.coordinator.regionsApproximatelyEqual(map.regionAsMKRegion, region) {
+            context.coordinator.apply(region: region, to: map, animated: false)
             context.coordinator.lastAppliedTaxonId = taxonId
         }
     }
 
     func makeCoordinator() -> Coordinator { Coordinator() }
 
-    final class Coordinator: NSObject, MKMapViewDelegate {
+    @MainActor
+    final class Coordinator: NSObject, MLNMapViewDelegate {
         var parent: GBIFMapView?
-        /// Tracks which taxon's region we last applied so AppState-driven
-        /// updateUIView calls don't clobber the user's pan/zoom.
-        var lastAppliedTaxonId: String?
-        /// True while we're setting the region ourselves — used to suppress
-        /// the delegate's write-back so the parent binding doesn't oscillate.
+        /// Tracks which taxon's region we last applied so updateUIView calls
+        /// from upstream state changes don't clobber the user's pan/zoom.
+        fileprivate(set) var lastAppliedTaxonId: String?
+        fileprivate(set) var lastAppliedGBIFStyle: String?
+        fileprivate(set) var lastAppliedHexPerTile: Int?
         private var isProgrammaticUpdate = false
 
-        func applyProgrammatically(_ region: MKCoordinateRegion, to map: MKMapView) {
-            // Setting an out-of-range region crashes MapKit. The init?(capabilities:)
-            // path already redirects bad GBIF bboxes to worldExcludingPoles, but
-            // also guard here in case a bound binding update slips one through.
+        /// Called every time the basemap style finishes loading — including
+        /// after a light↔dark swap, which wipes any custom sources/layers.
+        /// (Re)adds the GBIF raster source on top of the labels layer and
+        /// republishes the basemap's URL-bearing attribution items.
+        ///
+        /// MapLibre's Obj-C delegate is nonisolated, but UIKit guarantees these
+        /// callbacks arrive on the main thread; `MainActor.assumeIsolated`
+        /// lets us hop back into the actor without an unnecessary `Task`.
+        nonisolated func mapView(_ map: MLNMapView, didFinishLoading style: MLNStyle) {
+            MainActor.assumeIsolated {
+                refreshGBIFLayer(on: map)
+                // Read the style off `map` inside the main-actor block — the
+                // delegate's `style` parameter is non-Sendable and the
+                // compiler can't prove it's safe to ferry across the hop.
+                if let mapStyle = map.style {
+                    refreshAttribution(from: mapStyle)
+                }
+            }
+        }
+
+        /// Collect attribution items from every tile source in the style,
+        /// keep only those with a non-nil URL (Carto's "©" and "contributors"
+        /// rows have no URL — they're outside the `<a>` tags upstream), dedupe
+        /// by destination URL, and hand them to the parent's state object.
+        func refreshAttribution(from style: MLNStyle) {
+            guard let target = parent?.attribution else { return }
+            var seen = Set<URL>()
+            var links: [MapAttributionLink] = []
+            for source in style.sources {
+                guard let tileSource = source as? MLNTileSource else { continue }
+                for info in tileSource.attributionInfos {
+                    guard let url = info.url, seen.insert(url).inserted else { continue }
+                    links.append(MapAttributionLink(title: info.title.string, url: url))
+                }
+            }
+            target.links = links
+        }
+
+        /// Tear down any previous GBIF layer/source and add a fresh one
+        /// pointing at the current taxon + style.
+        func refreshGBIFLayer(on map: MLNMapView) {
+            guard let parent, let style = map.style else { return }
+            if let existing = style.layer(withIdentifier: GBIFMapView.gbifLayerID) {
+                style.removeLayer(existing)
+            }
+            if let existing = style.source(withIdentifier: GBIFMapView.gbifSourceID) {
+                style.removeSource(existing)
+            }
+
+            let template = GBIFEndpoints.mapTileURLTemplate(
+                taxonId: parent.taxonId,
+                style: parent.style,
+                resolution: parent.resolution,
+                hexPerTile: parent.hexPerTile
+            )
+            // 512-pt tile size matches the GBIF "1x" tile pixel size and
+            // gives crisp rendering on retina iPhones; raster max-zoom is
+            // capped at the GBIF endpoint's max (12).
+            let source = MLNRasterTileSource(
+                identifier: GBIFMapView.gbifSourceID,
+                tileURLTemplates: [template],
+                options: [
+                    .minimumZoomLevel: 0,
+                    .maximumZoomLevel: 12,
+                    .tileSize: 512,
+                ]
+            )
+            let layer = MLNRasterStyleLayer(identifier: GBIFMapView.gbifLayerID, source: source)
+            style.addSource(source)
+            style.addLayer(layer)
+            lastAppliedGBIFStyle = parent.style
+            lastAppliedHexPerTile = parent.hexPerTile
+        }
+
+        func apply(region: MKCoordinateRegion, to map: MLNMapView, animated: Bool) {
             let safe = region.isValidForMap ? region : .worldExcludingPoles
+            let halfLat = safe.span.latitudeDelta / 2
+            let halfLng = safe.span.longitudeDelta / 2
+            let bounds = MLNCoordinateBounds(
+                sw: CLLocationCoordinate2D(latitude: safe.center.latitude - halfLat,
+                                           longitude: safe.center.longitude - halfLng),
+                ne: CLLocationCoordinate2D(latitude: safe.center.latitude + halfLat,
+                                           longitude: safe.center.longitude + halfLng)
+            )
             isProgrammaticUpdate = true
-            map.setRegion(safe, animated: false)
+            map.setVisibleCoordinateBounds(bounds, animated: animated)
             isProgrammaticUpdate = false
         }
 
-        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-            guard let tile = overlay as? MKTileOverlay else { return MKOverlayRenderer(overlay: overlay) }
-            return MKTileOverlayRenderer(tileOverlay: tile)
+        nonisolated func mapView(_ mapView: MLNMapView, regionDidChangeAnimated animated: Bool) {
+            MainActor.assumeIsolated {
+                guard !isProgrammaticUpdate, let parent else { return }
+                parent.region = mapView.regionAsMKRegion
+            }
         }
 
-        func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            guard !isProgrammaticUpdate, let parent else { return }
-            parent.region = mapView.region
+        fileprivate func regionsApproximatelyEqual(_ a: MKCoordinateRegion, _ b: MKCoordinateRegion) -> Bool {
+            let eps = 0.0005
+            return abs(a.center.latitude - b.center.latitude) < eps
+                && abs(a.center.longitude - b.center.longitude) < eps
+                && abs(a.span.latitudeDelta - b.span.latitudeDelta) < eps
+                && abs(a.span.longitudeDelta - b.span.longitudeDelta) < eps
         }
     }
 
-    private func cartoVariant(for scheme: ColorScheme) -> String {
-        scheme == .dark ? "dark_all" : "light_all"
+    /// Public Carto GL JSON styles. Switched live by the SwiftUI color scheme.
+    /// (Tile access via basemaps.cartocdn.com is technically restricted to
+    /// Carto enterprise customers and grant recipients — see project memory.)
+    private static func styleURL(for scheme: ColorScheme) -> URL {
+        URL(string: scheme == .dark
+            ? "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+            : "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json")!
+    }
+}
+
+/// A single attribution row: the link text Carto/OSM publish for their tiles,
+/// paired with the URL it should open. Title and URL are taken verbatim from
+/// `MLNAttributionInfo`, so anything Carto adds upstream flows through.
+struct MapAttributionLink: Identifiable, Hashable, Sendable {
+    let title: String
+    let url: URL
+    var id: URL { url }
+}
+
+/// Bridge between MapLibre's source list (which is populated asynchronously
+/// once the style loads) and SwiftUI. The map's Coordinator writes into
+/// `links`; the SwiftUI parent reads it back to render the (i) menu.
+@MainActor
+@Observable
+final class MapAttributionState {
+    var links: [MapAttributionLink] = []
+}
+
+/// (i) button that drops down a Menu of working attribution links. Styled to
+/// match the inline map's "expand" affordance. Renders nothing until at least
+/// one URL-bearing attribution arrives — avoids a button with an empty menu
+/// while the basemap style is still loading.
+///
+/// `extras` are static, caller-supplied entries shown above the basemap items
+/// — used by `GBIFSectionView` to point at the taxon-scoped GBIF occurrence
+/// search, since the density tiles drawn on top of the basemap come from GBIF.
+struct MapAttributionButton: View {
+    var extras: [MapAttributionLink] = []
+    let links: [MapAttributionLink]
+
+    var body: some View {
+        let all = extras + links
+        if all.isEmpty {
+            EmptyView()
+        } else {
+            Menu {
+                ForEach(all) { link in
+                    Link(link.title, destination: link.url)
+                }
+            } label: {
+                Image(systemName: "info.circle")
+                    .font(.callout.weight(.semibold))
+                    .padding(7)
+                    .background(.regularMaterial, in: Circle())
+            }
+            .accessibilityLabel("Map attribution")
+        }
+    }
+}
+
+extension MLNMapView {
+    /// MapLibre's `visibleCoordinateBounds` is a sw/ne rectangle. Convert it
+    /// into the MapKit center+span form that the rest of the app uses for
+    /// region bindings.
+    var regionAsMKRegion: MKCoordinateRegion {
+        let b = visibleCoordinateBounds
+        let center = CLLocationCoordinate2D(
+            latitude: (b.sw.latitude + b.ne.latitude) / 2,
+            longitude: (b.sw.longitude + b.ne.longitude) / 2
+        )
+        let span = MKCoordinateSpan(
+            latitudeDelta: max(b.ne.latitude - b.sw.latitude, 0),
+            longitudeDelta: max(b.ne.longitude - b.sw.longitude, 0)
+        )
+        return MKCoordinateRegion(center: center, span: span)
     }
 }
 
@@ -156,9 +326,8 @@ extension MKCoordinateRegion {
         )
     }
 
-    /// Lightweight defensive check used before calling `setRegion(_:)` —
-    /// returns false for a region whose centre or span lies outside MapKit's
-    /// accepted bounds, which would otherwise throw NSInvalidArgumentException.
+    /// Lightweight defensive check used before applying the region — returns
+    /// false for centres or spans outside the valid lat/lng ranges.
     var isValidForMap: Bool {
         let lat = center.latitude
         let lng = center.longitude
@@ -169,54 +338,5 @@ extension MKCoordinateRegion {
             && lng >= -180 && lng <= 180
             && dLat >= 0 && dLat <= 180
             && dLng >= 0 && dLng <= 360
-    }
-}
-
-/// Centre + span equality with a small epsilon — used to decide whether the
-/// SwiftUI binding's region has drifted from the live MKMapView region enough
-/// to need a re-apply (e.g. after the fullscreen presenter dismissed).
-private func regionsApproximatelyEqual(_ a: MKCoordinateRegion, _ b: MKCoordinateRegion) -> Bool {
-    let eps = 0.0005
-    return abs(a.center.latitude - b.center.latitude) < eps
-        && abs(a.center.longitude - b.center.longitude) < eps
-        && abs(a.span.latitudeDelta - b.span.latitudeDelta) < eps
-        && abs(a.span.longitudeDelta - b.span.longitudeDelta) < eps
-}
-
-/// MKTileOverlay subclass that serves Carto Positron (light) or Dark Matter
-/// (dark) tiles as the map base layer. `canReplaceMapContent = true` tells
-/// MapKit it doesn't need to render Apple's base map underneath.
-///
-/// Free Carto basemaps require attribution: see the small "© OpenStreetMap
-/// contributors, © CARTO" credit in `GBIFSectionView` / `GBIFMapFullScreenView`.
-final class CartoBasemapOverlay: MKTileOverlay, @unchecked Sendable {
-    let variant: String
-
-    init(variant: String) {
-        self.variant = variant
-        super.init(urlTemplate: "https://a.basemaps.cartocdn.com/\(variant)/{z}/{x}/{y}@2x.png")
-        self.canReplaceMapContent = true
-        self.minimumZ = 0
-        self.maximumZ = 20
-    }
-}
-
-/// MKTileOverlay subclass that requests GBIF density tiles for the COL checklist + given taxon + chosen style.
-final class GBIFTileOverlay: MKTileOverlay, @unchecked Sendable {
-    let taxonId: String
-    let style: String
-    let resolution: String
-
-    init(taxonId: String, style: String, resolution: String = "1x") {
-        self.taxonId = taxonId
-        self.style = style
-        self.resolution = resolution
-        super.init(urlTemplate: GBIFEndpoints.mapTileURLTemplate(taxonId: taxonId, style: style, resolution: resolution))
-        self.canReplaceMapContent = false
-        self.minimumZ = 0
-        self.maximumZ = 12
-        // Match the GBIF tile pixel size to MKTileOverlay's tileSize. "1x" = 512px source,
-        // which renders crisply on 2x retina screens at the default 256pt tile. "2x" = 1024px,
-        // crisper on 3x screens but ~4× the bytes.
     }
 }

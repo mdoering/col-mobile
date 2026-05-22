@@ -15,6 +15,10 @@ struct GBIFSectionView: View {
     /// Set once per taxon — guards against the bbox region overwriting a user
     /// pan if `vm.capabilities` re-publishes for any reason.
     @State private var regionSeeded = false
+    /// Receives the basemap's (filtered) attribution items from the map view.
+    /// Shared with `GBIFMapFullScreenView` so the (i) menu is consistent
+    /// across the inline and edge-to-edge presentations.
+    @State private var attribution = MapAttributionState()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -44,10 +48,18 @@ struct GBIFSectionView: View {
             seedRegionFromCapabilities()
         }
         .fullScreenCover(isPresented: $mapFullScreen) {
-            GBIFMapFullScreenView(taxonId: taxonId, region: $mapRegion) {
+            GBIFMapFullScreenView(taxonId: taxonId, region: $mapRegion, attribution: attribution) {
                 mapFullScreen = false
             }
         }
+    }
+
+    /// Static attribution entry for the GBIF density overlay drawn on top of
+    /// the Carto basemap. Points at the same per-taxon occurrence search the
+    /// "Open in GBIF" link in TaxonDetailView uses.
+    private var gbifAttributionExtras: [MapAttributionLink] {
+        guard let url = GBIFEndpoints.occurrenceSearchWebURL(taxonId: taxonId) else { return [] }
+        return [MapAttributionLink(title: "GBIF", url: url)]
     }
 
     private var mapInline: some View {
@@ -55,14 +67,16 @@ struct GBIFSectionView: View {
             GBIFMapView(
                 taxonId: taxonId,
                 style: appState.gbifMapStyle,
+                hexPerTile: appState.gbifHexPerTile,
                 colorScheme: colorScheme,
-                region: $mapRegion
+                region: $mapRegion,
+                attribution: attribution
             )
             .frame(height: 240)
             .clipShape(RoundedRectangle(cornerRadius: 10))
-            .overlay(alignment: .bottomLeading) {
-                CartoAttributionLabel()
-                    .padding(6)
+            .overlay(alignment: .bottomTrailing) {
+                MapAttributionButton(extras: gbifAttributionExtras, links: attribution.links)
+                    .padding(8)
             }
 
             Button {

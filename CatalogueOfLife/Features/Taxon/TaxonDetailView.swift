@@ -126,7 +126,7 @@ struct TaxonDetailView: View {
                         }
                         .padding(.top, 4)
                     }
-                    if let gbifURL = URL(string: "https://demo.gbif.org/occurrence/search?checklistKey=7ddf754f-d193-4cc9-b351-99906754a03b&taxonKey=\(info.taxonId)") {
+                    if let gbifURL = GBIFEndpoints.occurrenceSearchWebURL(taxonId: info.taxonId) {
                         Link(destination: gbifURL) {
                             HStack {
                                 Text("Open in GBIF").font(.callout)

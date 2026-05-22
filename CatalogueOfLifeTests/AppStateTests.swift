@@ -83,6 +83,22 @@ struct AppStateTests {
         #expect(defaults.string(forKey: "preferredVernacularLang") == nil)
     }
 
+    @Test("gbifHexPerTile defaults to 64, clamps to 32…256, and persists")
+    func gbifHexPerTilePersistsAndClamps() {
+        let defaults = freshDefaults()
+        let state = AppState(client: StubAPIClient(), defaults: defaults)
+        #expect(state.gbifHexPerTile == 64)
+        state.gbifHexPerTile = 128
+        #expect(defaults.object(forKey: "gbifHexPerTile") as? Int == 128)
+        // Out-of-range values stored in defaults are clamped on next launch.
+        defaults.set(500, forKey: "gbifHexPerTile")
+        let reloadedHigh = AppState(client: StubAPIClient(), defaults: defaults)
+        #expect(reloadedHigh.gbifHexPerTile == 256)
+        defaults.set(4, forKey: "gbifHexPerTile")
+        let reloadedLow = AppState(client: StubAPIClient(), defaults: defaults)
+        #expect(reloadedLow.gbifHexPerTile == 32)
+    }
+
     @Test("searchContent defaults to scientific and round-trips through UserDefaults")
     func searchContentPersists() {
         let defaults = freshDefaults()

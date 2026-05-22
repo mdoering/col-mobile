@@ -10,6 +10,9 @@ struct GBIFMapFullScreenView: View {
     @Environment(\.colorScheme) private var colorScheme
     let taxonId: String
     @Binding var region: MKCoordinateRegion
+    /// Shared with the inline `GBIFSectionView` so the attribution items
+    /// stay in sync as the map style reloads in either presentation.
+    let attribution: MapAttributionState
     let onDismiss: () -> Void
 
     var body: some View {
@@ -17,14 +20,16 @@ struct GBIFMapFullScreenView: View {
             GBIFMapView(
                 taxonId: taxonId,
                 style: appState.gbifMapStyle,
+                hexPerTile: appState.gbifHexPerTile,
                 colorScheme: colorScheme,
-                region: $region
+                region: $region,
+                attribution: attribution
             )
             .ignoresSafeArea()
-            .overlay(alignment: .bottomLeading) {
-                CartoAttributionLabel()
-                    .padding(.leading, 12)
-                    .padding(.bottom, 12)
+            .overlay(alignment: .bottomTrailing) {
+                MapAttributionButton(extras: gbifExtras, links: attribution.links)
+                    .padding(.trailing, 16)
+                    .padding(.bottom, 16)
             }
 
             Button {
@@ -38,19 +43,12 @@ struct GBIFMapFullScreenView: View {
             .padding()
         }
     }
-}
 
-/// Required attribution for the free Carto Positron / Dark Matter basemap tiles
-/// (and the OSM data they're built from). Small, low-contrast, on a frosted chip
-/// so it's legible over both light and dark Carto variants without being loud.
-struct CartoAttributionLabel: View {
-    var body: some View {
-        Text("© OpenStreetMap, © CARTO")
-            .font(.caption2)
-            .foregroundStyle(.secondary)
-            .padding(.horizontal, 6)
-            .padding(.vertical, 2)
-            .background(.regularMaterial, in: Capsule())
-            .accessibilityLabel("Map tiles by Carto, data by OpenStreetMap")
+    /// Same per-taxon GBIF occurrence search link the inline section uses
+    /// — duplicated here because the fullscreen presenter is its own root
+    /// view and doesn't see GBIFSectionView's helper directly.
+    private var gbifExtras: [MapAttributionLink] {
+        guard let url = GBIFEndpoints.occurrenceSearchWebURL(taxonId: taxonId) else { return [] }
+        return [MapAttributionLink(title: "GBIF", url: url)]
     }
 }

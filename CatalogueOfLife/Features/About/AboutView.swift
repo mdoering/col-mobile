@@ -133,6 +133,23 @@ struct AboutView: View {
                 }
                 .pickerStyle(.menu).labelsHidden()
             }
+            HStack {
+                Text("GBIF map density").font(.callout)
+                Spacer()
+                Slider(
+                    value: Binding(
+                        get: { Double(appState.gbifHexPerTile) },
+                        set: { appState.gbifHexPerTile = Int($0.rounded()) }
+                    ),
+                    in: 32...256,
+                    step: 1
+                )
+                .frame(width: 140)
+                Text("\(appState.gbifHexPerTile)")
+                    .font(.caption).foregroundStyle(.secondary)
+                    .monospacedDigit()
+                    .frame(width: 38, alignment: .trailing)
+            }
         }
     }
 

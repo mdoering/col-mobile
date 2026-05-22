@@ -61,6 +61,13 @@ final class AppState {
         didSet { defaults.set(gbifMapStyle, forKey: Keys.gbifMapStyle) }
     }
 
+    /// Number of hexagonal density bins per GBIF map tile (the `hexPerTile`
+    /// query parameter). Higher values = finer-grained dots but more server
+    /// work per tile; clamped to 32…256.
+    var gbifHexPerTile: Int {
+        didSet { defaults.set(gbifHexPerTile, forKey: Keys.gbifHexPerTile) }
+    }
+
     /// Which name field the search tab is matching against. Persisted globally
     /// so the user's last-used mode is restored on relaunch.
     var searchContent: SearchContent {
@@ -115,6 +122,10 @@ final class AppState {
         let storedStyle = defaults.string(forKey: Keys.gbifMapStyle)
         self.gbifMapStyle = (storedStyle.map { validStyleValues.contains($0) ? $0 : nil } ?? nil)
             ?? GBIFEndpoints.defaultMapTileStyle
+        // Use object(forKey:) — UserDefaults.integer returns 0 for missing keys,
+        // which we can't distinguish from a deliberately-saved 0 without it.
+        let storedHexPerTile = defaults.object(forKey: Keys.gbifHexPerTile) as? Int
+        self.gbifHexPerTile = storedHexPerTile.map { min(max($0, 32), 256) } ?? 64
         self.searchContent = defaults.string(forKey: Keys.searchContent)
             .flatMap(SearchContent.init(rawValue:)) ?? .scientific
     }
@@ -167,6 +178,7 @@ final class AppState {
         static let preferredVernacularLang = "preferredVernacularLang"
         static let userEmail = "userEmail"
         static let gbifMapStyle = "gbifMapStyle"
+        static let gbifHexPerTile = "gbifHexPerTile"
         static let searchContent = "searchContent"
     }
 }
