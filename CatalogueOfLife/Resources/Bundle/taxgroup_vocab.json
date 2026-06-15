@@ -53,8 +53,8 @@
   },
   {
     "codes": [
-      "botanical",
-      "zoological"
+      "zoological",
+      "botanical"
     ],
     "description": "Eukaryotes are divided into 4 groups only similar to Haeckels 4 kingdoms",
     "icon": "https://images.phylopic.org/images/d878c432-0b0b-44f5-b1a1-12557b439c3f/thumbnail/64x64.png",
@@ -65,8 +65,8 @@
   },
   {
     "codes": [
-      "botanical",
-      "zoological"
+      "zoological",
+      "botanical"
     ],
     "description": "Any eukaryote that is not animal, plant (incl algae s.l.) nor fungus. Includes all Protozoa (ciliates, flagellates, and amoebas), Foraminifera, Radiolaria",
     "icon": "https://images.phylopic.org/images/5fccc7f9-60b8-4aea-96cf-ce93f85c9e90/thumbnail/64x64.png",
