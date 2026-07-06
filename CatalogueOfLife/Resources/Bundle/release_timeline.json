@@ -52,84 +52,6 @@
     "species": 2172471
   },
   {
-    "alias": "COL24.10",
-    "displayName": "COL24.10",
-    "datasetKey": 304708,
-    "issued": "2024-10-22",
-    "origin": "release",
-    "taxonCount": 2614520,
-    "nameCount": 5214484,
-    "synonymCount": 2599964,
-    "families": 14224,
-    "genera": 212327,
-    "species": 2181896
-  },
-  {
-    "alias": "COL24.11",
-    "displayName": "COL24.11",
-    "datasetKey": 305232,
-    "issued": "2024-11-18",
-    "origin": "release",
-    "taxonCount": 2619198,
-    "nameCount": 5241731,
-    "synonymCount": 2622533,
-    "families": 14246,
-    "genera": 212734,
-    "species": 2188786
-  },
-  {
-    "alias": "COL24.12",
-    "displayName": "COL24.12",
-    "datasetKey": 306706,
-    "issued": "2024-12-19",
-    "origin": "release",
-    "taxonCount": 2627255,
-    "nameCount": 5256795,
-    "synonymCount": 2629540,
-    "families": 14309,
-    "genera": 213402,
-    "species": 2194933
-  },
-  {
-    "alias": "COL25.1",
-    "displayName": "COL25.1",
-    "datasetKey": 307664,
-    "issued": "2025-01-17",
-    "origin": "release",
-    "taxonCount": 2631362,
-    "nameCount": 5266391,
-    "synonymCount": 2635029,
-    "families": 14323,
-    "genera": 213790,
-    "species": 2198585
-  },
-  {
-    "alias": "COL25.2",
-    "displayName": "COL25.2",
-    "datasetKey": 308133,
-    "issued": "2025-02-13",
-    "origin": "release",
-    "taxonCount": 2641083,
-    "nameCount": 5290120,
-    "synonymCount": 2649037,
-    "families": 14594,
-    "genera": 215419,
-    "species": 2206842
-  },
-  {
-    "alias": "COL25.3",
-    "displayName": "COL25.3",
-    "datasetKey": 308619,
-    "issued": "2025-03-14",
-    "origin": "release",
-    "taxonCount": 2644472,
-    "nameCount": 5292319,
-    "synonymCount": 2647847,
-    "families": 14610,
-    "genera": 215756,
-    "species": 2209600
-  },
-  {
     "alias": "COL25.3 XR",
     "displayName": "COL25.3 XR",
     "datasetKey": 308651,
@@ -141,19 +63,6 @@
     "families": 23008,
     "genera": 354811,
     "species": 2634807
-  },
-  {
-    "alias": "COL25.4",
-    "displayName": "COL25.4",
-    "datasetKey": 309120,
-    "issued": "2025-04-10",
-    "origin": "release",
-    "taxonCount": 2657009,
-    "nameCount": 5309752,
-    "synonymCount": 2652743,
-    "families": 14741,
-    "genera": 217151,
-    "species": 2219474
   },
   {
     "alias": "COL25.5",
@@ -479,5 +388,18 @@
     "families": 15010,
     "genera": 218407,
     "species": 2250638
+  },
+  {
+    "alias": "COL26.6 XR",
+    "displayName": "COL26.6 XR",
+    "datasetKey": 315557,
+    "issued": "2026-06-19",
+    "origin": "xrelease",
+    "taxonCount": 4703279,
+    "nameCount": 7991756,
+    "synonymCount": 3288477,
+    "families": 24210,
+    "genera": 327514,
+    "species": 2529340
   }
 ]
