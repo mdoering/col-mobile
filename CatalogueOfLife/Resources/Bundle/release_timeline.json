@@ -52,45 +52,6 @@
     "species": 2172471
   },
   {
-    "alias": "COL25.3 XR",
-    "displayName": "COL25.3 XR",
-    "datasetKey": 308651,
-    "issued": "2025-03-17",
-    "origin": "xrelease",
-    "taxonCount": 5552168,
-    "nameCount": 9507554,
-    "synonymCount": 3955386,
-    "families": 23008,
-    "genera": 354811,
-    "species": 2634807
-  },
-  {
-    "alias": "COL25.5",
-    "displayName": "COL25.5",
-    "datasetKey": 309796,
-    "issued": "2025-05-13",
-    "origin": "release",
-    "taxonCount": 2664872,
-    "nameCount": 5320607,
-    "synonymCount": 2655735,
-    "families": 14869,
-    "genera": 217756,
-    "species": 2224064
-  },
-  {
-    "alias": "COL25.5 XR",
-    "displayName": "COL25.5 XR",
-    "datasetKey": 309864,
-    "issued": "2025-05-17",
-    "origin": "xrelease",
-    "taxonCount": 5566544,
-    "nameCount": 9520133,
-    "synonymCount": 3953589,
-    "families": 23071,
-    "genera": 356496,
-    "species": 2644913
-  },
-  {
     "alias": "COL25",
     "displayName": "COL25",
     "datasetKey": 310463,
@@ -427,5 +388,18 @@
     "families": 21847,
     "genera": 302718,
     "species": 2496219
+  },
+  {
+    "alias": "COL26.8",
+    "displayName": "COL26.8",
+    "datasetKey": 316115,
+    "issued": "2026-08-20",
+    "origin": "release",
+    "taxonCount": 2705320,
+    "nameCount": 5425409,
+    "synonymCount": 2720089,
+    "families": 14868,
+    "genera": 217142,
+    "species": 2265616
   }
 ]
