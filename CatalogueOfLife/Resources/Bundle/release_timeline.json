@@ -65,71 +65,6 @@
     "species": 2221237
   },
   {
-    "alias": "COL25.7",
-    "displayName": "COL25.7",
-    "datasetKey": 310958,
-    "issued": "2025-07-10",
-    "origin": "release",
-    "taxonCount": 2670702,
-    "nameCount": 5330013,
-    "synonymCount": 2659311,
-    "families": 14939,
-    "genera": 218331,
-    "species": 2228973
-  },
-  {
-    "alias": "COL25.7 XR",
-    "displayName": "COL25.7 XR",
-    "datasetKey": 311239,
-    "issued": "2025-07-22",
-    "origin": "xrelease",
-    "taxonCount": 5412790,
-    "nameCount": 9399725,
-    "synonymCount": 3986935,
-    "families": 21701,
-    "genera": 356764,
-    "species": 2512031
-  },
-  {
-    "alias": "COL25.8",
-    "displayName": "COL25.8",
-    "datasetKey": 311872,
-    "issued": "2025-08-20",
-    "origin": "release",
-    "taxonCount": 2672073,
-    "nameCount": 5333582,
-    "synonymCount": 2661509,
-    "families": 14954,
-    "genera": 218475,
-    "species": 2230054
-  },
-  {
-    "alias": "COL25.9",
-    "displayName": "COL25.9",
-    "datasetKey": 312220,
-    "issued": "2025-09-11",
-    "origin": "release",
-    "taxonCount": 2674631,
-    "nameCount": 5339769,
-    "synonymCount": 2665138,
-    "families": 14988,
-    "genera": 218822,
-    "species": 2232257
-  },
-  {
-    "alias": "COL25.9 XR",
-    "displayName": "COL25.9 XR",
-    "datasetKey": 312361,
-    "issued": "2025-09-19",
-    "origin": "xrelease",
-    "taxonCount": 5415993,
-    "nameCount": 9394668,
-    "synonymCount": 3978675,
-    "families": 21740,
-    "genera": 355389,
-    "species": 2516577
-  },
-  {
     "alias": "COL25.10",
     "displayName": "COL25.10",
     "datasetKey": 312563,
@@ -414,5 +349,18 @@
     "families": 21714,
     "genera": 295865,
     "species": 2487367
+  },
+  {
+    "alias": "COL26.9",
+    "displayName": "COL26.9",
+    "datasetKey": 316321,
+    "issued": "2026-09-11",
+    "origin": "release",
+    "taxonCount": 2709610,
+    "nameCount": 5432444,
+    "synonymCount": 2722834,
+    "families": 14896,
+    "genera": 217542,
+    "species": 2269433
   }
 ]
