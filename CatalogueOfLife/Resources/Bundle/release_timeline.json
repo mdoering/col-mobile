@@ -362,5 +362,18 @@
     "families": 14896,
     "genera": 217542,
     "species": 2269433
+  },
+  {
+    "alias": "COL26.9 XR",
+    "displayName": "COL26.9 XR",
+    "datasetKey": 316441,
+    "issued": "2026-09-25",
+    "origin": "xrelease",
+    "taxonCount": 5237501,
+    "nameCount": 8479599,
+    "synonymCount": 3242098,
+    "families": 21961,
+    "genera": 299694,
+    "species": 2504374
   }
 ]
